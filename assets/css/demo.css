@@ -1,0 +1,7 @@
+/* "DEMO VERSION" corner tag. Shown only when PAYANA_CONFIG.mode is 'demo'.
+   pointer-events:none so it never blocks a button underneath it. */
+.demo-tag{position:fixed; right:max(12px, env(safe-area-inset-right,0px)); bottom:calc(12px + env(safe-area-inset-bottom,0px)); z-index:95; pointer-events:none;
+  font:500 10.5px/1 var(--f-mono); letter-spacing:.14em; text-transform:uppercase; color:#FBF3E6;
+  background:rgba(42,26,18,.78); border:1px solid rgba(251,243,230,.25); padding:7px 10px; border-radius:999px;
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px)}
+@media (max-width:860px){body.in-app .demo-tag{bottom:calc(76px + env(safe-area-inset-bottom,0px))}}

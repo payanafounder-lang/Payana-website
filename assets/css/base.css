@@ -1,0 +1,45 @@
+/* Design tokens (colours, fonts, radius), light/dark themes, buttons and icons. */
+/* Layout: photo-led landing bands, then a member app (sidebar on desktop, tab bar on phones); the logo's dashed road line is the recurring motif. */
+:root{
+  --terra:#C4552D; --terra-deep:#A3401C; --sun:#F2C14E; --forest:#1F4D3A; --leaf:#3F7A4F;
+  --bg:#FBF3E6; --surface:#FFF9F0; --surface-2:#F6EADB; --fg:#2A1A12; --muted:#6E5A4C; --line:rgba(42,26,18,.13);
+  --chip:#F3E3CF; --accent:#C4552D; --ok-bg:#D7EBDF; --ok-fg:#1F4D3A; --warn-bg:#FBE3B8; --warn-fg:#7A4E00; --bad-bg:#F8D6C8; --bad-fg:#8A2E0E;
+  --glass:rgba(255,248,238,.16); --glass-line:rgba(255,248,238,.32); --glass-solid:rgba(255,249,240,.86);
+  --photo-fg:#FFF8EE; --shade:rgba(20,12,7,.55);
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"DM Sans","Helvetica Neue",Arial,system-ui,sans-serif;
+  --f-mono:"DM Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --radius:22px; --max:1180px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#17110D; --surface:#21180F; --surface-2:#2A1F16; --fg:#F6EADB; --muted:#BCA894; --line:rgba(251,243,230,.13);
+  --chip:#2E2218; --accent:#E36F3F; --ok-bg:#1E3A2B; --ok-fg:#9FDDB2; --warn-bg:#3D2F12; --warn-fg:#F2C14E; --bad-bg:#43200F; --bad-fg:#F6A27F;
+  --glass-solid:rgba(33,24,15,.88); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17110D; --surface:#21180F; --surface-2:#2A1F16; --fg:#F6EADB; --muted:#BCA894; --line:rgba(251,243,230,.13);
+  --chip:#2E2218; --accent:#E36F3F; --ok-bg:#1E3A2B; --ok-fg:#9FDDB2; --warn-bg:#3D2F12; --warn-fg:#F2C14E; --bad-bg:#43200F; --bad-fg:#F6A27F;
+  --glass-solid:rgba(33,24,15,.88); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--bg); color:var(--fg); font:400 16px/1.6 var(--f-body); -webkit-font-smoothing:antialiased; overflow-x:hidden}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:60; background:#1b120c}
+h1,h2,h3,h4{font-family:var(--f-display); font-weight:800; letter-spacing:-.02em; line-height:1.05; text-wrap:balance; margin:0}
+p{margin:0}
+a{color:inherit}
+img{max-width:100%; display:block}
+button,input,select,textarea{font:inherit; color:inherit}
+:focus-visible{outline:3px solid var(--sun); outline-offset:3px; border-radius:8px}
+.wrap{max-width:var(--max); margin:0 auto; padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px))}
+.eyebrow{font:500 12px/1 var(--f-mono); letter-spacing:.14em; text-transform:uppercase; color:var(--accent)}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; cursor:pointer; text-decoration:none; font-weight:700; border-radius:999px; padding:13px 22px; transition:transform .2s, background .2s; white-space:nowrap}
+.btn-primary{background:var(--terra); color:#FBF3E6; box-shadow:0 10px 30px -12px rgba(196,85,45,.7)}
+.btn-primary:hover{background:var(--terra-deep); transform:translateY(-1px)}
+.btn-glass{background:var(--glass); color:var(--photo-fg); border:1px solid var(--glass-line); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px)}
+.btn-soft{background:var(--chip); color:var(--fg)}
+.btn-soft:hover{background:var(--surface-2)}
+.btn-line{background:transparent; border:1px solid var(--line); color:var(--fg)}
+.btn-sm{padding:8px 14px; font-size:14px}
+svg.i{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; flex:none}
+
