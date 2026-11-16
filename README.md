@@ -42,6 +42,8 @@ docs/                      Architecture, data model, demo-vs-real list, producti
 
 Scripts are plain `<script>` files loaded in a fixed order (see the bottom of `index.html`), so no server or bundler is needed.
 
+Every CSS and JS link in `index.html` ends in `?v=YYYYMMDD`. When you change any file in `assets/`, update that date everywhere in `index.html` (one find-and-replace) so visitors' browsers download the new files instead of showing old cached ones.
+
 ## Docs
 
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): how the pieces fit and how to add a screen
