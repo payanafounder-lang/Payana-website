@@ -25,7 +25,13 @@ const DEMO_SOCIAL={
   budget:[['Homestay (1 night)',1800],['Fuel and tolls',900],['Food',1100],['Entry tickets',400]],
   handling:[['Ananya','Homestay booking'],['Rohit','Car and fuel'],['Meera','Snacks and first aid'],['You','Abbey Falls entry']],
   albumExtra:[6084,6054,6064,6066],
-  dms:[['Ananya K.','See you Saturday at 6!',[['Ananya K.','See you Saturday at 6!']]],['Nikhil P.','Rafting slots are filling up',[['Nikhil P.','Rafting slots are filling up, let me know by Wed.']]],['Neha P.','Hey! Saw you\'re going to Coorg too',[['Neha P.','Hey! Saw you\'re going to Coorg too. Mind if I send a friend request?']]]],
+  dms:[
+   {name:'Coorg weekend group',kind:'trip',trip:'coorg',sub:'Ananya, Rohit, Meera and you',unread:2,msgs:null},
+   {name:'Ananya K.',v:true,trip:'coorg',sub:'Friend · Indiranagar · Coorg host',unread:1,msgs:[['me','Is the 6 am pickup still on for Saturday?','20:14','Yesterday'],['Ananya K.','Yes! Mysuru Road metro, gate 2.','20:20','Yesterday'],['Ananya K.','Bring a light jacket, it gets cold at the estate.','20:21','Yesterday'],['Ananya K.','See you Saturday at 6!','08:02','Today']]},
+   {name:'Nikhil P.',v:true,trip:'dandeli',sub:'Host · Dandeli rafting',unread:1,msgs:[['Nikhil P.','Hey, saw your request for the Dandeli trip 👋','18:30','Yesterday'],['me','Yes! I\'ve never rafted before, is that okay?','18:41','Yesterday'],['Nikhil P.','Totally fine. The guides do a safety briefing first and everyone wears a life jacket.','18:45','Yesterday'],['Nikhil P.','Rafting slots are filling up, let me know by Wed.','09:15','Today']]},
+   {name:'Neha P.',v:true,req:true,sub:'Not friends yet · 4 mutual friends',unread:0,msgs:[['Neha P.','Hey! Saw you\'re going to Coorg too. Mind if I send a friend request?','11:30','Today']]},
+   {name:'Meera R.',v:true,sub:'Friend · HSR Layout',unread:0,msgs:[['me','Loved your Coorg story, the photos are gorgeous','19:02','Mon'],['Meera R.','Thank you! Come with us next time 😊','19:30','Mon']]}
+  ],
   myPosts:[6046,6047,6074,6058,6064,6071,6056,6045,6073],
   pastTrips:[6068,6058,6071],
   // Sample profile shown for whoever signs in to the demo
