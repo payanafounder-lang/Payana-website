@@ -157,15 +157,15 @@
     </div>
   </div></section>
 </main>
-<footer><div class="wrap foot"><a class="brand" href="#top"><svg width="30" height="30"><use href="#mark"/></svg>Payana</a><nav aria-label="Footer"><a href="#how">How it works</a><a href="#about">About</a><a href="#legal-rules">Community rules</a><a href="#legal-privacy">Privacy</a><a href="#legal-terms">Terms</a><a href="#about-contact" data-contact>Contact</a></nav><span>withpayana.com · © 2026 Payana</span></div></footer>
+<footer><div class="wrap foot"><a class="brand" href="#top"><svg width="30" height="30"><use href="#mark"/></svg>Payana</a><nav aria-label="Footer"><a href="#how">How it works</a><a href="#about">About</a><a href="#legal-rules">Community rules</a><a href="#legal-privacy">Privacy</a><a href="#legal-terms">Terms</a><a href="#help">Help</a><a href="#about-contact" data-contact>Contact</a></nav><span>withpayana.com · © 2026 Payana</span></div></footer>
 </div>
 
 <!-- ================= PUBLIC PAGES (rules, about, password reset; no sign-in needed) ================= -->
 <div id="public" hidden>
   <header class="pub-h"><div class="wrap pub-in"><a class="brand" href="#top" aria-label="Payana home"><svg><use href="#mark"/></svg>Payana</a>
-    <nav aria-label="Main"><a href="#top">Home</a><a href="#about">About</a><a href="#legal-rules">Safety &amp; rules</a></nav><div id="pubcta"></div></div></header>
+    <nav aria-label="Main"><a href="#top">Home</a><a href="#about">About</a><a href="#help">Help</a><a href="#legal-rules">Safety &amp; rules</a></nav><div id="pubcta"></div></div></header>
   <main class="wrap pub-main" id="pview"></main>
-  <footer><div class="wrap foot"><a class="brand" href="#top"><svg width="30" height="30"><use href="#mark"/></svg>Payana</a><nav aria-label="Footer"><a href="#how">How it works</a><a href="#about">About</a><a href="#legal-rules">Community rules</a><a href="#legal-privacy">Privacy</a><a href="#legal-terms">Terms</a><a href="#about-contact" data-contact>Contact</a></nav><span>withpayana.com · © 2026 Payana</span></div></footer>
+  <footer><div class="wrap foot"><a class="brand" href="#top"><svg width="30" height="30"><use href="#mark"/></svg>Payana</a><nav aria-label="Footer"><a href="#how">How it works</a><a href="#about">About</a><a href="#legal-rules">Community rules</a><a href="#legal-privacy">Privacy</a><a href="#legal-terms">Terms</a><a href="#help">Help</a><a href="#about-contact" data-contact>Contact</a></nav><span>withpayana.com · © 2026 Payana</span></div></footer>
 </div>
 
 <!-- ================= APP ================= -->
@@ -181,6 +181,7 @@
     <a href="#communities" data-nav="communities"><svg class="i"><use href="#i-grid"/></svg>Communities</a>
     <a href="#profile" data-nav="profile"><svg class="i"><use href="#i-user"/></svg>Profile</a>
     <a href="#settings" data-nav="settings"><svg class="i"><use href="#i-gear"/></svg>Settings</a>
+    <a href="#help" data-nav="help"><svg class="i"><use href="#i-help"/></svg>Help</a>
     <a href="#create" class="btn btn-primary create"><svg class="i"><use href="#i-plus"/></svg>Create post</a>
     <button class="nl" data-logout><svg class="i"><use href="#i-out"/></svg>Log out</button>
     <div class="me"><span class="av" id="meav" style="width:38px;height:38px;background:var(--sun)">Y</span><div><b id="mename">You</b><small>Bengaluru</small></div></div>
@@ -226,7 +227,7 @@
 <!-- Plain scripts (no build step) so index.html opens directly from the folder.
      ORDER MATTERS: config → core → demo data → services → state → components → views → app. -->
 <script src="assets/js/config.js?v=20261116"></script>
-<script src="assets/js/core/utils.js?v=20261116"></script>
+<script src="assets/js/core/utils.js?v=20261117"></script>
 <script src="assets/js/core/store.js?v=20261116"></script>
 <script src="assets/js/data/demo/trips.js?v=20261116"></script>
 <script src="assets/js/data/demo/social.js?v=20261117"></script>
@@ -241,15 +242,15 @@
 <script src="assets/js/views/landing.js?v=20261116"></script>
 <script src="assets/js/views/auth-modal.js?v=20261117"></script>
 <script src="assets/js/core/router.js?v=20261117"></script>
-<script src="assets/js/views/feed.js?v=20261116"></script>
-<script src="assets/js/views/explore.js?v=20261116"></script>
+<script src="assets/js/views/feed.js?v=20261117"></script>
+<script src="assets/js/views/explore.js?v=20261117"></script>
 <script src="assets/js/views/trip-details.js?v=20261117"></script>
 <script src="assets/js/views/my-trips.js?v=20261117"></script>
 <script src="assets/js/views/create-trip.js?v=20261116"></script>
 <script src="assets/js/views/plan.js?v=20261116"></script>
-<script src="assets/js/views/friends.js?v=20261116"></script>
+<script src="assets/js/views/friends.js?v=20261117"></script>
 <script src="assets/js/views/messages.js?v=20261117"></script>
-<script src="assets/js/views/communities.js?v=20261116"></script>
+<script src="assets/js/views/communities.js?v=20261117"></script>
 <script src="assets/js/views/profile.js?v=20261117"></script>
 <script src="assets/js/views/create-post.js?v=20261116"></script>
 <!-- Version 1.2 screens -->
@@ -266,6 +267,13 @@
 <script src="assets/js/views/verify.js?v=20261117"></script>
 <script src="assets/js/views/review.js?v=20261117"></script>
 <script src="assets/js/views/manage.js?v=20261117"></script>
+<!-- Version 1.4 screens -->
+<script src="assets/js/views/states.js?v=20261117"></script>
+<script src="assets/js/views/community.js?v=20261117"></script>
+<script src="assets/js/views/post.js?v=20261117"></script>
+<script src="assets/js/views/person.js?v=20261117"></script>
+<script src="assets/js/views/shared.js?v=20261117"></script>
+<script src="assets/js/views/help.js?v=20261117"></script>
 <script src="assets/js/app.js?v=20261116"></script>
 </body>
 </html>

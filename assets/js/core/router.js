@@ -4,22 +4,24 @@
 /* ---------- ROUTER ---------- */
 // App screens: need a (demo) session, otherwise the log-in sheet opens.
 const APP=['newtrip','feed','explore','mytrips','friends','messages','communities','profile','create','plan','settings','notifications','admin',
-  'consent','welcome','verify','review','manage'];
+  'consent','welcome','verify','review','manage','community','post','person','notfound'];
 // Screens that take an argument after the first "-", e.g. #trip-coorg, #legal-privacy.
-const PREFIXED=['trip','legal','about','review','manage'];
+const PREFIXED=['trip','legal','about','review','manage','community','post','u','t','help'];
+// Short address names → screen names (#u-rohit-s → person, #t-coorg → sharedTrip).
+const ALIAS={u:'person',t:'sharedTrip'};
 // Public pages: anyone can open them, signed in or not (rules, about, password reset).
-const PUBLIC=['legal','about','reset'];
+const PUBLIC=['legal','about','reset','sharedTrip','help','paused'];
 // App screens shown full width without the member menu (admin has its own menu).
 const FOCUS=['admin','consent','welcome'];
 function splitHash(h){const i=h.indexOf('-'); return i>0&&PREFIXED.includes(h.slice(0,i))?[h.slice(0,i),h.slice(i+1)]:[h,'']}
 function screens(){return {newtrip,feed,explore,mytrips,friends,messages,communities,profile,create,plan,settings,notifications,admin,trip,legal,about,reset,
-  consent,welcome,verify,review,manage}}
+  consent,welcome,verify,review,manage,community,post,person,sharedTrip,help,paused,notfound}}
 function route(){
-  const h=location.hash.slice(1)||'top', [base,arg]=splitHash(h);
+  const h=location.hash.slice(1)||'top', [raw,arg]=splitHash(h); let base=ALIAS[raw]||raw;
   if(PUBLIC.includes(base)){showPublic(base,arg); return}
   const inApp=APP.includes(base)||base==='trip';
   if(inApp&&!authed()){pending=h; showLanding(); openM('login'); return}
-  if(!inApp){showLanding(); return}
+  if(!inApp){const el=document.getElementById(h); if(authed()&&h!=='top'&&!(el&&el.closest('#landing'))) base='notfound'; else {showLanding(); return}}
   $('#landing').hidden=true; $('#public').hidden=true; $('#app').hidden=false; document.body.classList.add('in-app');
   $('#app').classList.toggle('focus',FOCUS.includes(base));
   const u=me(); $('#mename').textContent=u.name; $('#meav').textContent=u.name.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();

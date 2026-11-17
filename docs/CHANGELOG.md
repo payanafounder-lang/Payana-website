@@ -19,3 +19,11 @@ Everything is still a **demo**: actions that would send, save or charge somethin
 - **Report & block** sheet (`components/report.js`): one form for people, trips, posts, chats and reviews; reason required; "also block" for people. Wired into trip pages and chats.
 - **After-trip review** (`#review-<trip>`): team change: every travel mate gets stars, "travel again?" and a written review. Reviews are public; the "uncomfortable?" box is private to the safety team. Linked from My trips.
 - **Manage a trip** (`#manage-<trip>`): edit details, approve/remove people, invite. Team change: **Cancel trip** first offers to hand the trip to a new host (they must accept), then needs a reason and a message to the group. Members get **Leave trip** with a reason.
+
+## 1.4 — Social and sharing, help, error screens
+- **Inside a community** (`#community-<n>`): cover, join/leave, Posts / Trips / Members / About & rules. Community names on the Communities page open it.
+- **Post with comments** (`#post-<id>`): comments, replies, like, report. The comment button in the feed opens it.
+- **Someone else's profile** (`#u-<name>`): Add friend, Message, ⋯ Report / Block. Team change: **reviews from travel mates are always visible**, even on private accounts. Team follow-up: each review has **Report review**, and the person reviewed can post **one reply**. Names in the feed, friends, trips and comments link here.
+- **Shared trip link** (`#t-<trip>`): public preview for people without an account, with "Sign up to request a spot" that returns them to the trip after consent and welcome steps. Includes a WhatsApp link preview. "Share trip link" copies this address.
+- **Help & support** (`#help`): search, topics, popular questions, safety banner, contact options. In the menu and footer.
+- **Error & empty screens**: page not found for unknown app addresses, account paused (`#paused`), offline banner, and empty states for friends and Explore.

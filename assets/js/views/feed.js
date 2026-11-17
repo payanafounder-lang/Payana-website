@@ -2,13 +2,13 @@
 function postHTML(p){
   const t=p.trip&&T(p.trip), lf=p.lfc&&T(p.lfc), liked=S.liked.has(p.id), saved=S.saved.has(p.id);
   return `<article class="card post" data-post="${p.id}">
-   <div class="post-h">${av(p.who,p.id)}<div><b>${esc(p.who)}${p.v?'<span class="vf" title="Verified">✓</span>':''}</b><small>${esc(p.where)} · ${esc(p.time)}</small></div><span class="pill p-mut ptype">${esc(p.type)}</span></div>
+   <div class="post-h">${av(p.who,p.id)}<div><b><a href="#u-${slug(p.who)}">${esc(p.who)}</a>${p.v?'<span class="vf" title="Verified">✓</span>':''}</b><small>${esc(p.where)} · ${esc(p.time)}</small></div><span class="pill p-mut ptype">${esc(p.type)}</span></div>
    ${p.img?`<img class="post-img" src="${src(p.img)}" alt="" loading="lazy">`:''}
    <div class="post-b"><p>${esc(p.text)}</p>
     ${lf?`<div class="lfc"><span class="eyebrow">Looking for companions</span><h4>${lf.name} · ${lf.dates}</h4><div class="meta" style="color:var(--muted)"><span>${rupee(lf.budget)} / person</span><span>${lf.pace} pace</span><span>${lf.seats} seats</span></div><a class="btn btn-primary btn-sm" style="justify-self:start" href="#trip-${lf.id}">View trip and request to join</a></div>`:''}
     ${t?`<div class="linked"><span>${I('pin','style="width:16px;height:16px;vertical-align:-3px"')} Going again · ${t.name}, ${t.dates.split('–')[0].trim()}</span><a class="linkbtn" href="#trip-${t.id}">View trip →</a></div>`:''}
    </div>
-   <div class="acts"><button data-like class="${liked?'on':''}" aria-pressed="${liked}">${I('heart')}<span>${p.likes+(liked?1:0)}</span></button><button data-cmt>${I('comment')}${p.com}</button><button data-share>${I('share')}Share</button><button data-save class="save ${saved?'on':''}" aria-pressed="${saved}">${I('save')}${saved?'Saved':'Save'}</button></div>
+   <div class="acts"><button data-like class="${liked?'on':''}" aria-pressed="${liked}">${I('heart')}<span>${p.likes+(liked?1:0)}</span></button><a href="#post-${p.id}" class="actlink">${I('comment')}${p.com}</a><button data-share>${I('share')}Share</button><button data-save class="save ${saved?'on':''}" aria-pressed="${saved}">${I('save')}${saved?'Saved':'Save'}</button></div>
   </article>`;
 }
 function feed(){
@@ -20,7 +20,7 @@ function feed(){
    <div class="posts" id="posts">${S.posts.map(postHTML).join('')}</div></div>
    <aside class="rail">
     <div class="card box"><h3>Friend requests <a href="#friends">See all</a></h3><div id="reqs">${reqHTML()}</div></div>
-    <div class="card box"><h3>People you may know</h3>${S.suggest.map((p,i)=>`<div class="person">${av(p[0],i+2)}<div><b>${p[0]}</b><small>${p[1]}</small></div><button class="btn btn-soft btn-sm" data-add="${i}">Add friend</button></div>`).join('')}</div>
+    <div class="card box"><h3>People you may know</h3>${S.suggest.map((p,i)=>`<div class="person">${av(p[0],i+2)}<div><b><a href="#u-${slug(p[0])}">${p[0]}</a></b><small>${p[1]}</small></div><button class="btn btn-soft btn-sm" data-add="${i}">Add friend</button></div>`).join('')}</div>
     <div class="card box"><h3>Your communities <a href="#communities">Browse</a></h3>${S.comms.slice(0,3).map((c,i)=>`<div class="comm"><img src="${src(c[1])}" alt=""><div><b>${c[0]}</b><small>${c[2]}</small></div></div>`).join('')}</div>
    </aside></div>`;
 }

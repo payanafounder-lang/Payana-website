@@ -1,5 +1,5 @@
 /* ---------- REPORT & BLOCK SHEET (v1.3, shared) ----------
-   openReport({what:'person'|'trip'|'post'|'review'|'chat', name:'Vikram P.', block:true})
+   openReport({what:'person'|'trip'|'post'|'review'|'chat', name:'Vikram P.', block:true, onSent:fn})
    Demo: nothing is sent; blocking is remembered on this page only.
    Live: POST /reports (goes to the admin Safety reports queue) and POST /blocks. */
 const REPORT_REASONS={
@@ -31,6 +31,6 @@ function openReport(o){
   m.addEventListener('submit',e=>{e.preventDefault(); const r=m.querySelector('input[name=rp]:checked');
     if(!r){const er=m.querySelector('#rperr'); er.textContent='Pick what\'s wrong so the right team sees it.'; er.hidden=false; return}
     const blocked=canBlock&&m.querySelector('#rp-block').checked; if(blocked){S.blocked=S.blocked||[]; if(!S.blocked.some(b=>b[0]===o.name)) S.blocked.unshift([o.name,'Blocked just now · also reported'])}
-    m.innerHTML=done(blocked)});
+    m.innerHTML=done(blocked); o.onSent&&o.onSent(blocked)});
   m.querySelector('input[name=rp]').focus();
 }
