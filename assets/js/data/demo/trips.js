@@ -27,5 +27,10 @@ const DEMO_TRIPS=[
  {id:'wayanad',name:'Wayanad',img:6075,km:280,dates:'Sat 21 – Mon 23 Nov',len:'long',budget:7200,pace:'Relaxed',seats:'2 of 5',group:5,fit:'partial',host:'Rhea M.',hv:false,interests:['Rainforest','Wildlife'],
   why:['Relaxed pace','Nature'],miss:['Over budget by ₹1,200','Host not verified'],
   plan:[['Sat','Into the forest',['Drive via Mysuru','Treehouse stay']],['Sun','Edakkal caves',['Morning caves walk','Banasura lake']],['Mon','Back home',['Leave after breakfast']]],
-  people:[['Rhea M.','Host · 2 trips',false],['Sam T.','1 trip',true]]}
+  people:[['Rhea M.','Host · 2 trips',false],['Sam T.','1 trip',true]]},
+ // v1.6: a women-only trip. who: 'all' (default) | 'women' | 'fof'. Only women who passed the selfie check can request.
+ {id:'gokarna',name:'Gokarna',img:'cta-beach',km:485,dates:'Fri 20 – Sun 22 Nov',len:'long',budget:5200,pace:'Relaxed',seats:'3 of 6',group:6,fit:'good',host:'Meera R.',hv:true,who:'women',selfieOnly:true,interests:['Beaches','Trekking','Food'],
+  why:['Your dates','In budget','Beaches, trekking'],miss:[],
+  plan:[['Fri','Night bus',['Leave Bengaluru 9 pm','Arrive Gokarna 7 am']],['Sat','Beach trek',['Kudle to Om beach walk','Lunch at a beach shack','Sunset at Half Moon']],['Sun','Slow morning',['Mahabaleshwar temple','Bus back after lunch']]],
+  people:[['Meera R.','Host · 6 trips',true],['Divya V.','3 trips',true],['Aisha R.','4 trips',true]]}
 ];

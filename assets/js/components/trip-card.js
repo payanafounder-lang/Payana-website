@@ -4,7 +4,7 @@ function tripCard(t,linkable){
   const p=t.people;
   return `<${linkable?`a href="#trip-${t.id}"`:'article'} class="trip">
     <img src="${src(t.img)}" alt="${esc(t.name)}" loading="lazy">
-    <span class="fit ${t.fit}"><b></b>${FITL[t.fit]}</span>${t.km?`<span class="km">${t.km} km</span>`:'<span class="km">New</span>'}
+    <span class="fit ${t.fit}"><b></b>${FITL[t.fit]}</span>${t.who==='women'?'<span class="wo-badge">Women-only</span>':''}${t.km?`<span class="km">${t.km} km</span>`:'<span class="km">New</span>'}
     <div class="trip-card"><h3>${t.name}</h3>
       <div class="meta"><span>${t.dates}</span><span>${rupee(t.budget)} / person</span><span>${t.seats} seats</span></div>
       <ul class="why">${t.why.map(w=>`<li>✓ ${w}</li>`).join('')}${t.miss.map(w=>`<li class="miss">! ${w}</li>`).join('')}</ul>

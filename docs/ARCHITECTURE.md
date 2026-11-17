@@ -17,14 +17,27 @@ The screens never read `DEMO_TRIPS` or `DEMO_SOCIAL` directly. They use `TRIPS`,
 
 ## Routing
 
-Addresses use the `#hash`: `#top` (landing), `#feed`, `#explore`, `#trip-<id>`, `#mytrips`, `#newtrip`, `#plan`, `#friends`, `#messages`, `#communities`, `#profile`, `#create`. App screens require a (demo) session, otherwise the log-in sheet opens.
+Addresses use the `#hash`. Screens that take an argument use `#<screen>-<argument>` (see `PREFIXED` in `core/router.js`).
+
+| Kind | Addresses | Sign-in |
+|---|---|---|
+| Landing | `#top` and its sections (`#how`, `#safety`…) | No |
+| Public pages | `#legal-<rules\|safety\|terms\|privacy\|grievance>`, `#about`, `#about-contact`, `#reset`, `#help`, `#help-<id>`, `#t-<trip>` (shared trip preview), `#paused` | No |
+| Member app | `#feed`, `#explore`, `#trip-<id>`, `#mytrips`, `#newtrip`, `#plan`, `#tripday-<id>`, `#manage-<id>`, `#review-<id>`, `#friends`, `#messages`, `#communities`, `#community-<n>`, `#post-<id>`, `#u-<name>`, `#profile`, `#create`, `#notifications`, `#search`, `#saved`, `#settings`, `#verify`, `#support`, `#appeal` | Yes |
+| Full-width (no member menu) | `#consent`, `#welcome`, `#admin` | Yes |
+
+Unknown addresses show the landing page when signed out, and "page not found" when signed in.
+New members go `sign up → #consent → #welcome → where they were heading`.
+
+Shared pieces in `components/`: `trip-card.js`, `report.js` (`openReport()`), `invite.js` (`openInvite()`), `feedback.js` (pilot Feedback tab).
+Styles for screens added from version 1.2 live in `assets/css/pages.css`; their sample data in `assets/js/data/demo/more.js`.
 
 ## Adding a screen
 
 1. Create `assets/js/views/<name>.js` with `function <name>(){ return '...html...' }` and optionally `bind.<name>=()=>{...}`.
-2. Add `<name>` to `APP` and to the `R` map in `core/router.js`.
+2. Add `<name>` to `APP` (or `PUBLIC`) and to `screens()` in `core/router.js`; add it to `PREFIXED` if it takes an argument.
 3. Add a `<script>` tag in `index.html` before `app.js`.
-4. Add styles to `assets/css/app.css`.
+4. Add styles to `assets/css/pages.css`.
 
 ## Demo safety rules
 

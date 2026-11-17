@@ -12,3 +12,5 @@ const av=(n,i=0,size)=>`<span class="av" style="background:${COL[i%COL.length]}$
 function toast(t){const e=$('#toast'); e.textContent=t; e.hidden=false; clearTimeout(toast.t); toast.t=setTimeout(()=>e.hidden=true,2800)}
 // Use for any action that is only simulated in the demo (nothing is sent, saved to a server, or charged).
 function demoToast(t){toast(IS_DEMO?'Demo: '+t:t)}
+// Name → address-friendly id, e.g. "Rohit S." → "rohit-s" (used for #u-<slug> profile links).
+const slug=n=>String(n).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');

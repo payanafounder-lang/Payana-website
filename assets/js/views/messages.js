@@ -69,7 +69,7 @@ bind.messages=()=>{
     const a=e.target.closest('[data-mact]'); if(a){const k=a.dataset.mact, dt=a.closest('details'); dt&&(dt.open=false);
       if(k==='plan'){S.planTrip=d.trip; store.set('planTrip',d.trip); location.hash='plan'; return}
       if(k==='mute') demoToast(`Muted ${d.kind==='trip'?'the group':first(d.name)}`);
-      if(k==='report') demoToast('Reported. Our safety team will review this chat.');
+      if(k==='report') openReport({what:'chat',name:d.kind==='trip'?'a message in '+d.name:d.name,block:d.kind!=='trip'});
       if(k==='block'||k==='leave'){demoToast(k==='block'?`${first(d.name)} is blocked and can't message you`:'You left the group chat'); S.dms.splice(S.msgSel,1); S.msgSel=0; S.msgOpen=false; draw()}
       return}
     if(!e.target.closest('details')) $$('.mmore[open]').forEach(x=>x.open=false);
