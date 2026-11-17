@@ -37,3 +37,10 @@ Everything is still a **demo**: actions that would send, save or charge somethin
 - **Invite friends** sheet (`components/invite.js`): WhatsApp / Instagram / SMS / copy link, and invite Payana friends. Used on Manage trip.
 - **Settings**: Account & login, Notification settings (in-app / email / SMS per type, quiet hours), Blocked people (unblock), Delete account (type DELETE, 30 days to change your mind).
 - **Admin**: Users lookup, selfie Verification queue, Support tickets, and **Reported reviews** (team follow-up): remove / hide personal details only / keep; remove only reviews that break the rules.
+
+## 1.6 — Phone, trip day, women-only trips, pilot feedback, messages
+- **Phone check**: every screen tested at phone width (390 px) with no sideways scrolling. Two-column form rows stack on small phones. Search and Notifications added to the phone top bar.
+- **Trip day** (`#tripday-<trip>`): meeting point, directions, call host, who has reached, "I've reached", share with family, a large **call 112** button, and today's timeline. No location tracking. Opened from the trip planner.
+- **Women-only trips**: "Who can join?" when creating a trip (Everyone / Women-only / Friends of friends) plus selfie-verified-only and alcohol-free options; women-only badge on cards and trip pages; Explore filter. Only people whose profile says woman and who passed the selfie check can request. Optional gender field in Edit profile, used only for this. Sample trip: Gokarna. **Lawyer to review the wording.**
+- **Pilot feedback**: Feedback tab on every member screen (ease 1–5, topic, note, screenshot, contact permission). Safety problems point to Report. "Pilot" label next to the logo.
+- **Emails & text messages**: templates in `docs/MESSAGES.md` (welcome, approved, reminder, handover, cancelled, review; SMS for code, approved, trip morning, trusted contact, handover, cancelled).

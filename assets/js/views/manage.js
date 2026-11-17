@@ -5,7 +5,7 @@
    Member (not host): leave the trip, also with a reason.
    Demo: changes stay on this page only. */
 const CANCEL_REASONS=['Personal or family emergency','Weather or road conditions','Not enough people','Booking fell through','Safety concern','Other'];
-const WHO_JOIN=[['all','Everyone (I approve each request)'],['verified','Verified people only'],['fof','Friends and friends of friends']];
+const WHO_JOIN=[['all','Everyone (I approve each request)'],['women','Women-only (selfie-verified)'],['verified','Verified people only'],['fof','Friends and friends of friends']];
 let mgPanel=null;
 function manage(id){
   const t=T(id)||T('coorg'), st=S.joined[t.id], host=st!=='approved'&&st!=='requested';

@@ -20,6 +20,7 @@ function setSection(){
      <div class="row2"><label class="in" for="ep-city">City<input id="ep-city" value="Bengaluru"></label>
       <label class="in" for="ep-lang">Languages you speak<input id="ep-lang" value="${esc(P.langs||'')}"></label></div>
      <label class="in" for="ep-bio">Short bio<textarea id="ep-bio">${esc(P.bio)}</textarea></label>
+     <label class="in" for="ep-gen">Gender (optional)<select id="ep-gen">${['','Woman','Man','Non-binary','Prefer not to say'].map(g=>`<option value="${g}" ${(P.gender||'')===g?'selected':''}>${g||'Not set'}</option>`).join('')}</select><small class="hint" style="font-weight:400">Only used for women-only trips. Not shown on your profile unless you choose.</small></label>
      <div class="in">Pace<div class="radios">${['Relaxed','Balanced','Active'].map(p=>`<button type="button" class="chip" data-eppace="${p}" aria-pressed="${p===pace}">${p}</button>`).join('')}</div></div>
      <div class="in">Interests<div class="radios">${SET_INTS.map(i=>`<button type="button" class="chip" data-epint="${i}" aria-pressed="${P.tags.includes(i)}">${i}</button>`).join('')}</div></div>
      <p class="hint">Budget and group size are set on each trip, not on your profile.</p>
@@ -55,7 +56,7 @@ bind.settings=()=>{
     if(name.length<2){err.textContent='Add your full name so travellers know who they\'re meeting.'; err.hidden=false; return}
     const u=me(); u.name=name; store.set('user',u); window.__u=u;
     const pace=($('[data-eppace][aria-pressed="true"]')||{}).dataset; const ints=$$('[data-epint][aria-pressed="true"]').map(x=>x.dataset.epint);
-    S.profile.bio=$('#ep-bio').value.trim(); S.profile.langs=$('#ep-lang').value.trim(); S.profile.tags=[(pace?pace.eppace:'Relaxed')+' pace',...ints];
+    S.profile.gender=$('#ep-gen').value; S.profile.bio=$('#ep-bio').value.trim(); S.profile.langs=$('#ep-lang').value.trim(); S.profile.tags=[(pace?pace.eppace:'Relaxed')+' pace',...ints];
     location.hash='profile'; demoToast('profile updated on this device only.');
   });
 };

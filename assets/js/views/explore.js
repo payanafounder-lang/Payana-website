@@ -6,14 +6,14 @@ function explore(){
    <div class="frow"><span class="flabel">Length</span>${[['all','Any'],['day','Day trip'],['weekend','Weekend'],['long','3+ days']].map(([k,l])=>`<button class="chip" data-len="${k}" aria-pressed="${f.len===k}">${l}</button>`).join('')}</div>
    <div class="frow"><span class="flabel">Budget</span><div class="range"><label for="budget" class="sr" hidden>Max budget</label><input type="range" id="budget" min="2000" max="10000" step="500" value="${f.max}"><output id="bout">up to ${rupee(f.max)}</output></div></div>
    <div class="frow"><span class="flabel">Pace</span>${['all','Relaxed','Active'].map(k=>`<button class="chip" data-pace="${k}" aria-pressed="${f.pace===k}">${k==='all'?'Any':k}</button>`).join('')}
-     <label class="toggle" style="margin-left:auto"><input type="checkbox" id="ver" ${f.ver?'checked':''}>Verified hosts only</label></div>
+     <label class="toggle" style="margin-left:auto"><input type="checkbox" id="wo" ${f.wo?'checked':''}>Women-only trips</label><label class="toggle"><input type="checkbox" id="ver" ${f.ver?'checked':''}>Verified hosts only</label></div>
    <div class="frow"><span class="flabel">Interests</span>${ints.map(k=>`<button class="chip" data-int="${k}" aria-pressed="${f.ints.has(k)}">${k}</button>`).join('')}</div>
   </div>
   <p class="count" id="count"></p><div class="tgrid" id="results"></div>`;
 }
 function renderResults(){
   const f=S.f, order={strong:0,good:1,partial:2};
-  const r=TRIPS.filter(t=>(f.len==='all'||t.len===f.len)&&t.budget<=f.max&&(f.pace==='all'||t.pace===f.pace)&&(!f.ver||t.hv)&&(!f.ints.size||t.interests.some(i=>f.ints.has(i)))).sort((a,b)=>order[a.fit]-order[b.fit]);
+  const r=TRIPS.filter(t=>(f.len==='all'||t.len===f.len)&&t.budget<=f.max&&(f.pace==='all'||t.pace===f.pace)&&(!f.ver||t.hv)&&(!f.wo||t.who==='women')&&(!f.ints.size||t.interests.some(i=>f.ints.has(i)))).sort((a,b)=>order[a.fit]-order[b.fit]);
   $('#count').textContent=`${r.length} trip${r.length===1?'':'s'} match your filters`;
   $('#results').innerHTML=r.length?r.map(t=>tripCard(t,true)).join(''):`<div style="grid-column:1/-1">${emptyState('search','No trips match these filters','Try a higher budget or clear an interest, or create the trip and let people come to you.','<a class="btn btn-primary" href="#newtrip">Create this trip</a>')}</div>`;
 }
@@ -25,4 +25,5 @@ bind.explore=()=>{renderResults();
     renderResults()});
   $('#budget').oninput=e=>{S.f.max=+e.target.value; $('#bout').textContent='up to '+rupee(S.f.max); renderResults()};
   $('#ver').onchange=e=>{S.f.ver=e.target.checked; renderResults()};
+  $('#wo').onchange=e=>{S.f.wo=e.target.checked; renderResults()};
 };

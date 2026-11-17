@@ -2,6 +2,8 @@
 
 Landing site and clickable member-app prototype for **Payana**: find compatible travel companions, plan trips together, and share the journey.
 
+> **Versions 1.2 – 1.6 are built in.** See `docs/CHANGELOG.md` for every screen and the team-review changes.
+
 > **This is a demo.** All people, trips, prices, posts and messages are sample content. Sign-up does not create an account, nothing is sent to anyone, and there are no payments. A "DEMO VERSION" tag shows in the corner, and every simulated action says "Demo:".
 
 ## Open it
@@ -20,6 +22,7 @@ index.html                 Page markup only (landing, app shell, sign-in sheet)
 assets/
   css/
     reset.css              Base reset
+    pages.css              Screens added in versions 1.2 – 1.6
     base.css               Design tokens: colours, fonts, light/dark theme, buttons
     landing.css            Landing page sections
     auth.css               Sign up / log in sheet
@@ -32,11 +35,12 @@ assets/
     services/              The only layer that touches data: auth, trips, social,
                            payments (stub), api (future backend client)
     state.js               In-page UI state
-    components/            Shared UI pieces (trip card)
+    components/            Shared UI pieces (trip card, report sheet, invite sheet, feedback tab)
     views/                 One file per screen
     app.js                 Starts the app
 img/                       Photos (WebP)
-docs/                      Architecture, data model, demo-vs-real list, production roadmap, image list
+docs/                      Architecture, data model, demo-vs-real list, production roadmap, image list,
+                           changelog (versions), email & SMS templates (MESSAGES.md)
 .env.example               Future server settings (placeholders only, no keys)
 ```
 

@@ -19,6 +19,16 @@ Everything in this build runs only in the visitor's browser. Nothing is sent to 
 | Photo uploads (trip cover, post, album) | Shown from your device on the page only, never uploaded | Storage with size/type checks, moderation |
 | Messages, friend requests, communities | Page-only changes, labelled Demo | Backend |
 | Verified badges | Decorative sample data | Real verification process |
+| Forgot / reset password | 3 steps that only check the form; any 6 digits work | Provider's OTP reset flow |
+| Safety consent | Version, time and ticked boxes stored in this browser only | Store with the user server-side; show again when terms change |
+| Verification: selfie, DigiLocker, ID upload | Simulated; nothing is captured or uploaded. Aadhaar card photos are not accepted | Liveness vendor; DigiLocker via a registered requester or KYC partner; delete ID photos after review |
+| Reviews (stars, travel again, written) | Page only; profile reviews are sample data | Reviews table; always public; report + one reply; moderation queue |
+| Cancel trip / hand over hosting / leave trip | Page only; reason required; nobody is told | Notify the group; handover needs the new host to accept within 24 h |
+| Women-only trips | Uses the optional gender field and the selfie check in this browser | Server-side rule; lawyer to review the wording |
+| Notifications, search, saved, invite | Sample data; actions on the page only | Backend, push/email/SMS (see docs/MESSAGES.md) |
+| Support chat, appeal, feedback | Automatic sample replies; nothing is sent | Support inbox / ticketing; appeals reviewed by a second person |
+| Admin dashboard (`#admin`) | Inside the demo for review only, sample queues | Separate internal tool behind staff login and access control |
+| Trip day | Statuses on the page only; no location tracking | Real-time statuses; in-app call that hides numbers |
 | Payments, bookings | **Not present.** No payment screens. Budget says payments happen outside the app | Razorpay (server-side), see roadmap |
 
 Statements on the landing page ("Our team reviews every report", "Optional ID and phone checks") describe planned features. Make sure they are true before launch.

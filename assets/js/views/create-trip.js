@@ -17,7 +17,8 @@ function newtrip(){
      <label class="in" for="nt-group">Group size, including you<select id="nt-group">${[2,3,4,5,6,8,10,12].map(n=>`<option ${n===6?'selected':''}>${n}</option>`).join('')}</select></label></div>
     <div class="in">Pace<div class="radios">${['Relaxed','Active'].map(p=>`<button type="button" class="chip" data-tpace="${p}" aria-pressed="${p==='Relaxed'}">${p}</button>`).join('')}</div></div>
     <div class="in">Interests<div class="radios">${ints.map(k=>`<button type="button" class="chip" data-tint="${k}" aria-pressed="false">${k}</button>`).join('')}</div></div>
-    <label class="toggle"><input type="checkbox" id="nt-ver">Only verified travellers can request</label>
+    <fieldset class="rp-opts"><legend style="font-size:13px;font-weight:600">Who can join? <span class="hint" style="font-weight:400">You still approve every request.</span></legend>${[['all','Everyone','Open to all verified adults'],['women','Women-only','Only people whose profile says woman, and who passed the selfie check, can request'],['fof','Friends and friends of friends','Hidden from Explore; shared by link or invite']].map(([k,l,d],i)=>`<label class="rp-opt"><input type="radio" name="nt-who" value="${k}" ${i===0?'checked':''}><span><b>${l}</b><br><small class="hint">${d}</small></span></label>`).join('')}</fieldset>
+    <div class="radios"><label class="toggle"><input type="checkbox" id="nt-ver">Selfie-verified people only</label><label class="toggle"><input type="checkbox" id="nt-dry">Alcohol-free trip</label></div>
    </div>
    <div class="card sec"><h2 style="font-size:20px">Cover photo</h2>
     <div class="memgrid" id="covers" style="grid-template-columns:repeat(5,1fr)">${COVERS.map((n,i)=>`<button type="button" data-cover="${n}" aria-pressed="${i===0}" style="padding:0;border:3px solid ${i===0?'var(--terra)':'transparent'};border-radius:14px;cursor:pointer;background:none"><img src="${src(n)}" alt="" style="border-radius:10px"></button>`).join('')}</div>
@@ -37,7 +38,7 @@ function draftTrip(){
     dates:a?(days>1?`${fmtD(a)} – ${fmtD(b)}`:`${fmtD(a)} · day trip`):'Pick your dates',len:days<=1?'day':days<=2?'weekend':'long',
     budget:bud,pace:tpace,seats:`${g-1} of ${g}`,group:g,fit:'strong',host:me().name,hv:true,interests:[...tints].length?[...tints]:['Travel'],
     why:['Your trip',...[...tints].slice(0,2)],miss:[],plan:[[days>1?'Day 1':'Day',lines[0]||'Plan to be shared with the group',lines.slice(1)]],
-    people:[[me().name,'Host',true]],a,b,dest};
+    people:[[me().name,'Host',true]],a,b,dest,who:($('input[name=nt-who]:checked')||{}).value||'all',selfieOnly:$('#nt-ver').checked,dry:$('#nt-dry').checked};
 }
 bind.newtrip=()=>{
   const v=$('#view'), prev=()=>{const t=draftTrip(); $('#ntprev').innerHTML=tripCard(t,false).replace('class="trip"','class="trip" style="min-height:400px;pointer-events:none"')};
