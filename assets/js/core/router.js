@@ -1,23 +1,46 @@
-/* Router: shows the landing page or an app screen based on the #hash in the address.
-   Screens register a render function (by name) and an optional bind[name] for event wiring. */
+/* Router: shows the landing page, a public page or an app screen based on the #hash in the address.
+   Screens register a render function (by name) and an optional bind[name] for event wiring.
+   Address forms: #feed (screen), #trip-coorg (screen + argument after the first "-"). */
 /* ---------- ROUTER ---------- */
-const APP=['newtrip','feed','explore','mytrips','friends','messages','communities','profile','create','plan'];
+// App screens: need a (demo) session, otherwise the log-in sheet opens.
+const APP=['newtrip','feed','explore','mytrips','friends','messages','communities','profile','create','plan','settings','notifications','admin'];
+// Screens that take an argument after the first "-", e.g. #trip-coorg, #legal-privacy.
+const PREFIXED=['trip','legal','about'];
+// Public pages: anyone can open them, signed in or not (rules, about, password reset).
+const PUBLIC=['legal','about','reset'];
+// App screens shown full width without the member menu (admin has its own menu).
+const FOCUS=['admin'];
+function splitHash(h){const i=h.indexOf('-'); return i>0&&PREFIXED.includes(h.slice(0,i))?[h.slice(0,i),h.slice(i+1)]:[h,'']}
+function screens(){return {newtrip,feed,explore,mytrips,friends,messages,communities,profile,create,plan,settings,notifications,admin,trip,legal,about,reset}}
 function route(){
-  const h=location.hash.slice(1)||'top', base=h.startsWith('trip-')?'trip':h;
+  const h=location.hash.slice(1)||'top', [base,arg]=splitHash(h);
+  if(PUBLIC.includes(base)){showPublic(base,arg); return}
   const inApp=APP.includes(base)||base==='trip';
   if(inApp&&!authed()){pending=h; showLanding(); openM('login'); return}
   if(!inApp){showLanding(); return}
-  $('#landing').hidden=true; $('#app').hidden=false; document.body.classList.add('in-app');
+  $('#landing').hidden=true; $('#public').hidden=true; $('#app').hidden=false; document.body.classList.add('in-app');
+  $('#app').classList.toggle('focus',FOCUS.includes(base));
   const u=me(); $('#mename').textContent=u.name; $('#meav').textContent=u.name.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
   $$('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===base||(base==='trip'&&a.dataset.nav==='explore')||((base==='plan'||base==='newtrip')&&a.dataset.nav==='mytrips')));
   const old=$('#view'), v=old.cloneNode(false); old.replaceWith(v);
-  const R={newtrip,feed,explore,mytrips,friends,messages,communities,profile,create,plan,trip:()=>trip(h.slice(5))};
-  v.innerHTML=`<div class="page">${R[base]()}</div>`; bind[base]&&bind[base](h.slice(5));
+  v.innerHTML=`<div class="page">${screens()[base](arg)}</div>`; bind[base]&&bind[base](arg);
+  updateBadges();
   scrollTo({top:0,behavior:'instant'});
 }
-function showLanding(){$('#app').hidden=true; $('#landing').hidden=false; document.body.classList.remove('in-app');
+function showPublic(base,arg){
+  $('#landing').hidden=true; $('#app').hidden=true; $('#public').hidden=false; document.body.classList.remove('in-app');
+  $('#pubcta').innerHTML=authed()?`<a class="btn btn-primary btn-sm" href="#feed">Open Payana</a>`:`<button class="btn btn-line btn-sm" data-open="login">Log in</button><button class="btn btn-primary btn-sm" data-open="signup">Sign up free</button>`;
+  $$('#pubcta [data-open]').forEach(b=>b.addEventListener('click',()=>openM(b.dataset.open)));
+  const old=$('#pview'), v=old.cloneNode(false); old.replaceWith(v);
+  v.innerHTML=screens()[base](arg); bind[base]&&bind[base](arg);
+  scrollTo({top:0,behavior:'instant'});
+}
+function showLanding(){$('#app').hidden=true; $('#public').hidden=true; $('#landing').hidden=false; document.body.classList.remove('in-app');
   $('#navcta').innerHTML=authed()?`<a class="btn btn-primary" href="#feed">Open Payana</a>`:`<button class="btn btn-glass login" data-open="login">Log in</button><button class="btn btn-primary" data-open="signup">Sign up free</button>`;
   $$('#navcta [data-open]').forEach(b=>b.addEventListener('click',()=>openM(b.dataset.open)));
+  const h=location.hash.slice(1); if(h&&h!=='top'){const el=document.getElementById(h); el&&el.closest('#landing')&&setTimeout(()=>el.scrollIntoView(),0)}
 }
+// Counters in the member menu (unread notifications, etc.)
+function updateBadges(){const n=S.notifs.filter(x=>!x.read).length, b=$('#ntbadge'); if(b){b.textContent=n; b.hidden=!n}}
 addEventListener('hashchange',route);
 const bind={};

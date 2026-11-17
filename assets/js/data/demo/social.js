@@ -37,7 +37,8 @@ const DEMO_SOCIAL={
   // Sample profile shown for whoever signs in to the demo
   profile:{cover:6074,tripsDone:7,
     bio:'Weekend trekker and coffee person. Happiest on a hill at sunrise. Looking for people who don\'t mind early starts.',
-    tags:['Relaxed pace','₹3,000–6,000','Trekking','Coffee','Groups of 4–6'],
+    tags:['Relaxed pace','Trekking','Coffee'],
+    langs:'Kannada, English',
     upcoming:{trip:'coorg',img:6046,label:'Coorg · Sat 7 – Sun 8 Nov'},
     reviews:[['Ananya K.','Easy to travel with, always on time and great company on the trek.','Coorg, Aug'],['Sana G.','Kept the group going on the climb. Would travel together again.','Chikkamagaluru, Sep']],
     tagged:[6054,6062,6084]},

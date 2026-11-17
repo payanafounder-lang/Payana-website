@@ -11,7 +11,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#modal').hidden)closeM()
 function signIn(name){const u=AuthService.startDemoSession(name); $('#modal').hidden=true; const to=pending||'feed'; pending=null; if(location.hash==='#'+to) route(); else location.hash=to; demoToast(mode==='signup'?`Welcome to Payana, ${u.name.split(' ')[0]}! No real account was created.`:'Logged in. No real account was checked.')}
 // Demo: Google sign-in is not connected; this only starts a demo session.
 $('#google').onclick=()=>signIn($('#f-name').value.trim()||'Traveller');
-$('#forgot').onclick=()=>{const e=$('#err'); e.hidden=false; e.textContent='We\'ll send a reset link to your phone or email once accounts open.'};
+$('#forgot').onclick=()=>{closeM(); location.hash='reset'};
 $('#form').addEventListener('submit',e=>{e.preventDefault();
   const id=$('#f-id').value.trim(), pw=$('#f-pw').value, name=$('#f-name').value.trim(); let msg='';
   if(mode==='signup'&&!name) msg='Add your full name so travellers know who they\'re meeting.';
