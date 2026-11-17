@@ -3,15 +3,17 @@
    Address forms: #feed (screen), #trip-coorg (screen + argument after the first "-"). */
 /* ---------- ROUTER ---------- */
 // App screens: need a (demo) session, otherwise the log-in sheet opens.
-const APP=['newtrip','feed','explore','mytrips','friends','messages','communities','profile','create','plan','settings','notifications','admin'];
+const APP=['newtrip','feed','explore','mytrips','friends','messages','communities','profile','create','plan','settings','notifications','admin',
+  'consent','welcome','verify','review','manage'];
 // Screens that take an argument after the first "-", e.g. #trip-coorg, #legal-privacy.
-const PREFIXED=['trip','legal','about'];
+const PREFIXED=['trip','legal','about','review','manage'];
 // Public pages: anyone can open them, signed in or not (rules, about, password reset).
 const PUBLIC=['legal','about','reset'];
 // App screens shown full width without the member menu (admin has its own menu).
-const FOCUS=['admin'];
+const FOCUS=['admin','consent','welcome'];
 function splitHash(h){const i=h.indexOf('-'); return i>0&&PREFIXED.includes(h.slice(0,i))?[h.slice(0,i),h.slice(i+1)]:[h,'']}
-function screens(){return {newtrip,feed,explore,mytrips,friends,messages,communities,profile,create,plan,settings,notifications,admin,trip,legal,about,reset}}
+function screens(){return {newtrip,feed,explore,mytrips,friends,messages,communities,profile,create,plan,settings,notifications,admin,trip,legal,about,reset,
+  consent,welcome,verify,review,manage}}
 function route(){
   const h=location.hash.slice(1)||'top', [base,arg]=splitHash(h);
   if(PUBLIC.includes(base)){showPublic(base,arg); return}

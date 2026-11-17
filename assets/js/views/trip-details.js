@@ -21,8 +21,8 @@ function reqBox(t,st){
     return `<div class="statusbox p-ok"><b>You're hosting this trip</b><span>It's live in Explore. You approve who joins.</span></div>
      <h2 style="font-size:18px">Join requests · ${rq.length}</h2>
      ${rq.length?rq.map((p,i)=>`<div class="person">${av(p[0],i+1)}<div><b>${p[0]}<span class="vf">✓</span></b><small>${p[1]}</small></div><div class="btns"><button class="btn btn-primary btn-sm" data-happ="${i}">Approve</button><button class="btn btn-line btn-sm" data-hdec="${i}" aria-label="Decline">✕</button></div></div>`).join(''):'<p style="color:var(--muted);font-size:14px">No pending requests right now.</p>'}
-     <a class="btn btn-primary" href="#plan" data-plan="${t.id}">Open trip planner</a><button class="linkbtn" style="font-size:14px" data-share-trip>Share trip link</button>`}
-  if(st==='approved') return `<div class="statusbox p-ok"><b>You're in!</b><span>${t.host} approved your request. The group chat and planner are open.</span></div><a class="btn btn-primary" href="#plan" data-plan="${t.id}">Open trip planner</a>`;
+     <a class="btn btn-primary" href="#plan" data-plan="${t.id}">Open trip planner</a><a class="btn btn-soft" href="#manage-${t.id}">Manage trip</a><button class="linkbtn" style="font-size:14px" data-share-trip>Share trip link</button>`}
+  if(st==='approved') return `<div class="statusbox p-ok"><b>You're in!</b><span>${t.host} approved your request. The group chat and planner are open.</span></div><a class="btn btn-primary" href="#plan" data-plan="${t.id}">Open trip planner</a><a class="linkbtn" style="font-size:14px" href="#manage-${t.id}">Leave trip</a>`;
   if(st==='requested') return `<div class="statusbox p-warn"><b>Request sent</b><span>${t.host} and the group will review it. Most hosts reply within a day.</span></div><button class="btn btn-soft" data-approve>Demo: host approves</button><button class="linkbtn" style="font-size:14px" data-cancel>Cancel request</button>`;
   return `<h2>Request to join</h2><p style="color:var(--muted);font-size:14.5px">Hosted by <b style="color:var(--fg)">${t.host}</b>${t.hv?'<span class="vf">✓</span>':''}. The host and group approve each request.</p>
    <form class="fm" id="joinf"><label class="in" for="jmsg">Message to the group<textarea id="jmsg" placeholder="Hi! I'm into ${t.interests[0].toLowerCase()} and free those dates…"></textarea></label>
@@ -39,5 +39,5 @@ bind.trip=id=>{const t=T(id)||TRIPS[0]; const sec=$('#reqsec');
     if(ha||hd){const p=HOSTREQ[t.id].splice(+(ha||hd).dataset[ha?'happ':'hdec'],1)[0]; if(ha){t.people.push([p[0],p[1].split(' · ')[0],true]); t.seats=Math.max(t.group-t.people.length,0)+' of '+t.group} demoToast(ha?`${p[0]} approved (sample request). In the real app they'd now see the group chat.`:'sample request declined'); route()}
     if(e.target.closest('[data-share-trip]')) demoToast('sharing isn\'t connected yet. No link was copied.');
   });
-  $('[data-report]').onclick=()=>demoToast('reports aren\'t sent yet. In the real app our team reviews every report.');
+  $('[data-report]').onclick=()=>openReport({what:'trip',name:t.name});
 };

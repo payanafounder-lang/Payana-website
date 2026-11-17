@@ -11,3 +11,11 @@ Everything is still a **demo**: actions that would send, save or charge somethin
 - **Notifications** (`#notifications`) with filters and Approve / Accept / Decline. Includes the "become the host" request (team follow-up). New menu item with an unread counter.
 - **Admin & safety dashboard** (`#admin`, team only, demo). Safety reports queue; every action needs a note for the action log.
 - Router: public pages (no sign-in) and full-width "focus" screens. New styles in `assets/css/pages.css`, new sample data in `assets/js/data/demo/more.js`.
+
+## 1.3 — Joining safely, verification, reviews, managing a trip
+- **Safety consent** (`#consent`): shown after sign-up. Four required boxes; "Agree and continue" stays disabled until all are ticked. Demo stores the consent version and time in this browser only (live: store server-side).
+- **Welcome steps** (`#welcome`): 4 steps (about you, travel style, places, photo & verification). Budget and group size are not asked (they belong to each trip).
+- **Verification** (`#verify`): phone, email, selfie and government ID. Team change: **DigiLocker** is the main ID option; PAN card / driving licence / passport photo as a fallback, deleted after the check. **Aadhaar card photos are not accepted** (unlicensed private companies may not collect or keep Aadhaar copies).
+- **Report & block** sheet (`components/report.js`): one form for people, trips, posts, chats and reviews; reason required; "also block" for people. Wired into trip pages and chats.
+- **After-trip review** (`#review-<trip>`): team change: every travel mate gets stars, "travel again?" and a written review. Reviews are public; the "uncomfortable?" box is private to the safety team. Linked from My trips.
+- **Manage a trip** (`#manage-<trip>`): edit details, approve/remove people, invite. Team change: **Cancel trip** first offers to hand the trip to a new host (they must accept), then needs a reason and a message to the group. Members get **Leave trip** with a reason.
