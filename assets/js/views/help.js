@@ -13,7 +13,7 @@ function help(a){if(a&&typeof helpArticle==='function') return helpArticle(a);
 function helpList(q){const L=HELP_Q.filter(([,t,x])=>(!S.hpTopic||t===S.hpTopic)&&(!q||x.toLowerCase().includes(q)));
   return L.length?L.map(([id,,x])=>`<a class="hp-q" href="#help-${id}">${x}</a>`).join(''):`<div class="empty" style="padding:24px">No answers for "${esc(q)}". Try other words, or chat with support.</div>`}
 bind.help=()=>{const root=$('#pview');
-  $('#hp-q').addEventListener('input',e=>{$('#hp-list').innerHTML=helpList(e.target.value.trim().toLowerCase()); $('#hp-title').textContent=e.target.value.trim()?'Results':'Popular questions'});
+  $('#hp-q')&&$('#hp-q').addEventListener('input',e=>{$('#hp-list').innerHTML=helpList(e.target.value.trim().toLowerCase()); $('#hp-title').textContent=e.target.value.trim()?'Results':'Popular questions'});
   root.addEventListener('click',e=>{
     const tp=e.target.closest('[data-hptopic]'); if(tp){S.hpTopic=S.hpTopic===tp.dataset.hptopic?null:tp.dataset.hptopic; $$('[data-hptopic]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.hptopic===S.hpTopic)); $('#hp-list').innerHTML=helpList($('#hp-q').value.trim().toLowerCase())}
     if(e.target.closest('[data-hp-report]')) openReport({what:'person',name:'a safety issue',block:false});

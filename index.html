@@ -54,6 +54,7 @@
     <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></symbol>
     <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2.5-6.5z"/><path d="M11.5 13.5L20 4"/></symbol>
     <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 015 .5c0 1.7-2.5 2-2.5 3.5M12 17h.01"/></symbol>
   </defs>
 </svg>
@@ -177,6 +178,8 @@
     <a href="#mytrips" data-nav="mytrips"><svg class="i"><use href="#i-map"/></svg>My trips</a>
     <a href="#friends" data-nav="friends"><svg class="i"><use href="#i-users"/></svg>Friends<span class="badge" id="frbadge">2</span></a>
     <a href="#messages" data-nav="messages"><svg class="i"><use href="#i-chat"/></svg>Messages<span class="badge" id="msgbadge">3</span></a>
+    <a href="#search" data-nav="search"><svg class="i"><use href="#i-search"/></svg>Search</a>
+    <a href="#saved" data-nav="saved"><svg class="i"><use href="#i-save"/></svg>Saved</a>
     <a href="#notifications" data-nav="notifications"><svg class="i"><use href="#i-bell"/></svg>Notifications<span class="badge" id="ntbadge" hidden>0</span></a>
     <a href="#communities" data-nav="communities"><svg class="i"><use href="#i-grid"/></svg>Communities</a>
     <a href="#profile" data-nav="profile"><svg class="i"><use href="#i-user"/></svg>Profile</a>
@@ -188,7 +191,7 @@
   </aside>
   <div style="min-width:0">
     <div class="topbar"><a class="brand" href="#feed"><svg><use href="#mark"/></svg>Payana</a>
-      <nav aria-label="Quick links"><a class="iconbtn" href="#notifications" aria-label="Notifications"><svg class="i"><use href="#i-bell"/></svg></a><a class="iconbtn" href="#settings" aria-label="Settings"><svg class="i"><use href="#i-gear"/></svg></a><a class="iconbtn" href="#friends" aria-label="Friends"><svg class="i"><use href="#i-users"/></svg></a><a class="iconbtn" href="#messages" aria-label="Messages"><svg class="i"><use href="#i-chat"/></svg></a><button class="iconbtn" data-logout aria-label="Log out" style="border:0;background:none;cursor:pointer"><svg class="i"><use href="#i-out"/></svg></button></nav></div>
+      <nav aria-label="Quick links"><a class="iconbtn" href="#search" aria-label="Search"><svg class="i"><use href="#i-search"/></svg></a><a class="iconbtn" href="#notifications" aria-label="Notifications"><svg class="i"><use href="#i-bell"/></svg></a><a class="iconbtn" href="#settings" aria-label="Settings"><svg class="i"><use href="#i-gear"/></svg></a><a class="iconbtn" href="#friends" aria-label="Friends"><svg class="i"><use href="#i-users"/></svg></a><a class="iconbtn" href="#messages" aria-label="Messages"><svg class="i"><use href="#i-chat"/></svg></a><button class="iconbtn" data-logout aria-label="Log out" style="border:0;background:none;cursor:pointer"><svg class="i"><use href="#i-out"/></svg></button></nav></div>
     <main class="main" id="view"></main>
   </div>
   <nav class="tabbar" aria-label="Tabs">
@@ -237,7 +240,7 @@
 <script src="assets/js/services/trips.js?v=20261116"></script>
 <script src="assets/js/services/social.js?v=20261117"></script>
 <script src="assets/js/services/payments.js?v=20261116"></script>
-<script src="assets/js/state.js?v=20261116"></script>
+<script src="assets/js/state.js?v=20261117"></script>
 <script src="assets/js/components/trip-card.js?v=20261116"></script>
 <script src="assets/js/views/landing.js?v=20261116"></script>
 <script src="assets/js/views/auth-modal.js?v=20261117"></script>
@@ -274,6 +277,15 @@
 <script src="assets/js/views/person.js?v=20261117"></script>
 <script src="assets/js/views/shared.js?v=20261117"></script>
 <script src="assets/js/views/help.js?v=20261117"></script>
+<!-- Version 1.5 screens -->
+<script src="assets/js/components/invite.js?v=20261117"></script>
+<script src="assets/js/views/saved.js?v=20261117"></script>
+<script src="assets/js/views/search.js?v=20261117"></script>
+<script src="assets/js/views/help-article.js?v=20261117"></script>
+<script src="assets/js/views/support.js?v=20261117"></script>
+<script src="assets/js/views/appeal.js?v=20261117"></script>
+<script src="assets/js/views/settings-more.js?v=20261117"></script>
+<script src="assets/js/views/admin-more.js?v=20261117"></script>
 <script src="assets/js/app.js?v=20261116"></script>
 </body>
 </html>

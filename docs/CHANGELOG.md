@@ -27,3 +27,13 @@ Everything is still a **demo**: actions that would send, save or charge somethin
 - **Shared trip link** (`#t-<trip>`): public preview for people without an account, with "Sign up to request a spot" that returns them to the trip after consent and welcome steps. Includes a WhatsApp link preview. "Share trip link" copies this address.
 - **Help & support** (`#help`): search, topics, popular questions, safety banner, contact options. In the menu and footer.
 - **Error & empty screens**: page not found for unknown app addresses, account paused (`#paused`), offline banner, and empty states for friends and Explore.
+
+## 1.5 — Gaps found in the full link check
+- **Saved** (`#saved`): saved trips and posts with filters and empty state. Trip pages now have a **Save** button. In the menu.
+- **Search** (`#search`): people, trips and communities, with Add friend, recent searches and a no-results state. In the menu and phone top bar. Blocked people never show.
+- **Help articles** (`#help-<id>`): one template for every help question, with "Was this helpful?" and related articles.
+- **Support chat** (`#support`): quick topics; safety topics are routed to the safety team. Demo replies are automatic samples.
+- **Appeal** (`#appeal`): for paused accounts; reason required, confirmation box, "what happens next" timeline.
+- **Invite friends** sheet (`components/invite.js`): WhatsApp / Instagram / SMS / copy link, and invite Payana friends. Used on Manage trip.
+- **Settings**: Account & login, Notification settings (in-app / email / SMS per type, quiet hours), Blocked people (unblock), Delete account (type DELETE, 30 days to change your mind).
+- **Admin**: Users lookup, selfie Verification queue, Support tickets, and **Reported reviews** (team follow-up): remove / hide personal details only / keep; remove only reviews that break the rules.

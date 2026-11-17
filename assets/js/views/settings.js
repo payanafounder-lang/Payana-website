@@ -2,6 +2,8 @@
    Team change (17 Nov): budget per trip and group size are NOT part of the profile;
    they are set on each trip. Reviews about you are always visible. */
 const SET_TABS=[['edit','Edit profile'],['privacy','Privacy & safety']];
+// Later versions add sections: SET_EXTRA[key]=()=>html and click handlers in SET_CLICK.
+const SET_EXTRA={}, SET_CLICK=[];
 const SET_INTS=['Trekking','Coffee','Food','Photography','Heritage','Beaches','Camping','Wildlife','Rail'];
 function settings(){
   if(!S.setTab) S.setTab='edit';
@@ -28,11 +30,11 @@ function setSection(){
      ${[['priv-trips','Only friends can see which trips I\'m going on','Others still see the trip, not that you\'re on it',true],['priv-loc','Hide post locations until I\'m back','Applies to new posts',true],['priv-req','Only friends of friends can send me friend requests','',false]].map(([id,t,s,on])=>`<label class="setrow" for="${id}"><span><b>${t}</b>${s?`<small>${s}</small>`:''}</span><span class="toggle"><input type="checkbox" id="${id}" ${on?'checked':''}></span></label>`).join('')}
      <div class="setrow"><span><b>Trusted contact</b><small>${S.trusted?esc(S.trusted):'Gets your itinerary and group list when you share a trip'}</small></span><button class="btn btn-soft btn-sm" data-trusted-set>${S.trusted?'Change':'Add contact'}</button></div>
      ${S.trustedEdit?`<form class="inline-form" id="trustf"><label class="in" for="tc-in">Name and phone<input id="tc-in" value="${esc(S.trusted||'')}" placeholder="Amma · +91 98XXX XXXXX"></label><button class="btn btn-primary btn-sm">Save</button></form>`:''}
-     <div class="setrow"><span><b>Verification</b><small>Phone and email verified</small></span><a class="btn btn-soft btn-sm" href="#settings" data-goverify>Get verified</a></div>
+     <div class="setrow"><span><b>Verification</b><small>${typeof verifiedCount==='function'?verifiedCount()+' of 4 checks done':'Phone and email verified'}</small></span><a class="btn btn-soft btn-sm" href="#verify" data-goverify>Get verified</a></div>
      <div class="setrow"><span><b>Download my data</b><small>A copy of your profile, posts and trips</small></span><button class="btn btn-line btn-sm" data-dl>Request</button></div>
     </div>
     <p class="hint" style="padding:0 4px">Payana team member? <a class="linkbtn" href="#admin">Open the admin dashboard (demo)</a></p>`;
-  return '';
+  return SET_EXTRA[k]?SET_EXTRA[k]():'';
 }
 bind.settings=()=>{
   const v=$('#view'), draw=()=>{$('#setbody').innerHTML=setSection(); $$('[data-stab]').forEach(b=>b.setAttribute('aria-current',b.dataset.stab===S.setTab))};
@@ -41,8 +43,9 @@ bind.settings=()=>{
     const p=e.target.closest('[data-eppace]'); if(p){$$('[data-eppace]').forEach(x=>x.setAttribute('aria-pressed',x===p)); return}
     const i=e.target.closest('[data-epint]'); if(i){i.setAttribute('aria-pressed',i.getAttribute('aria-pressed')!=='true'); return}
     if(e.target.closest('[data-trusted-set]')){S.trustedEdit=!S.trustedEdit; draw(); const i=$('#tc-in'); i&&i.focus()}
-    if(e.target.closest('[data-goverify]')){e.preventDefault(); if(typeof verify==='function') location.hash='verify'; else demoToast('verification comes in version 1.3')}
+    if(e.target.closest('[data-goverify]')){e.preventDefault(); location.hash='verify'}
     if(e.target.closest('[data-dl]')) demoToast('no data was exported. In the real app we email you a download link.');
+    SET_CLICK.forEach(h=>h(e,draw));
   });
   v.addEventListener('change',e=>{if(e.target.closest('.setrow')&&e.target.type==='checkbox') demoToast('setting changed on this page only')});
   v.addEventListener('submit',e=>{

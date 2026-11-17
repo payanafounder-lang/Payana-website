@@ -51,4 +51,24 @@ const DEMO_MORE={
   // v1.4 — sample posts inside a community, by community index
   commPosts:{0:[{who:'Meera R.',time:'2 h',text:'Kudremukh permits for December open next week. Planning a trip on the 13th, 4 spots. Who\'s in?',trip:'chikkamagaluru',likes:18,com:6},{who:'Arjun J.',time:'Yesterday',tip:true,text:'Carry a light rain jacket even in December. Mullayanagiri got misty and cold by 5 pm.',likes:31,com:4}]},
   commRules:['Treks only, no paid tour ads.','Share real difficulty and costs.','No littering on trails.','Payana\'s Community Rules apply.']
+  ,
+  // v1.5 — sample blocked people (Settings → Blocked people)
+  blocked:[['Vikram P.','Blocked 5 days ago · also reported'],['@weekend_deals','Blocked last month']],
+  // v1.5 — admin: users, selfie checks, support tickets, reported reviews
+  adminUsers:[
+   {id:'U-20418',name:'Rohit S.',user:'rohit.roams',area:'Koramangala',status:'Active',joined:'3 months ago',phone:'+91 98XXX XXX07',verified:'Phone, email, selfie',consent:'Terms v1.0',trips:'7 done · 1 upcoming · 0 no-shows',reports:'0 against · 1 made',
+    tripRows:[['Coorg coffee-estate weekend','Member','28–29 Nov','Upcoming'],['Chikkamagaluru sunrise trek','Member','Oct','Completed'],['Skandagiri night trek','Host','Sep','Completed']],
+    history:[['2 weeks ago','Selfie verification approved','Moderator'],['1 month ago','Reported a user (R-0988, action taken)','Rohit'],['3 months ago','Account created, Terms v1.0 accepted','System']]},
+   {id:'U-20577',name:'Kiran B.',user:'kiran_vibes',area:'Whitefield',status:'Active',joined:'2 days ago',phone:'+91 99XXX XXX42',verified:'Phone only',consent:'Terms v1.0',trips:'0 done',reports:'2 against (open)',
+    tripRows:[],history:[['Today','Reported: fake profile (R-1041)','System'],['2 days ago','Account created, Terms v1.0 accepted','System']]}
+  ],
+  selfieQueue:[{name:'Kavya N.',user:'kavya.wanders',when:'25 min ago'},{name:'Sameer K.',user:'sameer.k',when:'1 hr ago'},{name:'Divya V.',user:'divya.v',when:'3 hr ago'}],
+  tickets:[
+   {id:'S-2291',title:'Change phone number',who:'Rohit S.',via:'chat',when:'12 min ago',status:'Waiting on user'},
+   {id:'S-2290',title:'Host cancelled, want refund',who:'Divya M.',via:'email',when:'1 hr ago',status:'New'},
+   {id:'S-2288',title:'Login code not arriving',who:'Sameer K.',via:'call back',when:'3 hr ago',status:'New'},
+   {id:'S-2285',title:'How to split costs?',who:'Neha P.',via:'chat',when:'Yesterday',status:'Resolved'}],
+  reportedReviews:[
+   {id:'RV-0142',about:'Kavya N.',by:'Sameer K.',trip:'Gokarna beach camp (both went, confirmed)',stars:1,text:'Rude and fake person, don\'t trust her. Her number is 98XXX…',reason:'Shares my phone number and isn\'t true.',when:'2 hr ago',checks:[['Contains personal details','Yes'],['Abusive language','Partly'],['Travelled together','Yes']],status:'open'},
+   {id:'RV-0139',about:'Rohit S.',by:'Vinay D.',trip:'Skandagiri night trek (both went, confirmed)',stars:4,text:'Good company. The drive back ran late, but he kept us updated.',reason:'Not fair, traffic wasn\'t my fault.',when:'1 day ago',checks:[['Contains personal details','No'],['Abusive language','No'],['Travelled together','Yes']],status:'open'}]
 };

@@ -4,7 +4,7 @@
 /* ---------- ROUTER ---------- */
 // App screens: need a (demo) session, otherwise the log-in sheet opens.
 const APP=['newtrip','feed','explore','mytrips','friends','messages','communities','profile','create','plan','settings','notifications','admin',
-  'consent','welcome','verify','review','manage','community','post','person','notfound'];
+  'consent','welcome','verify','review','manage','community','post','person','notfound','saved','search','support','appeal'];
 // Screens that take an argument after the first "-", e.g. #trip-coorg, #legal-privacy.
 const PREFIXED=['trip','legal','about','review','manage','community','post','u','t','help'];
 // Short address names → screen names (#u-rohit-s → person, #t-coorg → sharedTrip).
@@ -15,7 +15,7 @@ const PUBLIC=['legal','about','reset','sharedTrip','help','paused'];
 const FOCUS=['admin','consent','welcome'];
 function splitHash(h){const i=h.indexOf('-'); return i>0&&PREFIXED.includes(h.slice(0,i))?[h.slice(0,i),h.slice(i+1)]:[h,'']}
 function screens(){return {newtrip,feed,explore,mytrips,friends,messages,communities,profile,create,plan,settings,notifications,admin,trip,legal,about,reset,
-  consent,welcome,verify,review,manage,community,post,person,sharedTrip,help,paused,notfound}}
+  consent,welcome,verify,review,manage,community,post,person,sharedTrip,help,paused,notfound,saved,search,support,appeal}}
 function route(){
   const h=location.hash.slice(1)||'top', [raw,arg]=splitHash(h); let base=ALIAS[raw]||raw;
   if(PUBLIC.includes(base)){showPublic(base,arg); return}

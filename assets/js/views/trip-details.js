@@ -1,7 +1,7 @@
 /* ---------- TRIP DETAILS ---------- */
 function trip(id){
   const t=T(id)||TRIPS[0], st=S.joined[t.id];
-  return `<div class="cover"><img src="${src(t.img)}" alt="${t.name}"><a class="btn btn-glass back" href="#explore">← Explore</a>
+  return `<div class="cover"><img src="${src(t.img)}" alt="${t.name}"><a class="btn btn-glass back" href="#explore">← Explore</a><button class="btn btn-glass savetrip" data-savetrip aria-pressed="${S.savedTrips.has(t.id)}">${I('save')}${S.savedTrips.has(t.id)?'Saved':'Save'}</button>
    <div class="cover-in"><span class="fit ${t.fit}" style="position:static;justify-self:start"><b></b>${FITL[t.fit]}</span><h1>${t.name}</h1>
     <div class="facts"><div class="fact"><small>Dates</small><b>${t.dates}</b></div><div class="fact"><small>Budget</small><b>${rupee(t.budget)} / person</b></div><div class="fact"><small>Pace</small><b>${t.pace}</b></div><div class="fact"><small>Group</small><b>${t.seats} seats left</b></div></div></div></div>
   <div class="tdgrid"><div>
@@ -40,4 +40,5 @@ bind.trip=id=>{const t=T(id)||TRIPS[0]; const sec=$('#reqsec');
     if(e.target.closest('[data-share-trip]')){const link=location.href.split('#')[0]+'#t-'+t.id; try{navigator.clipboard.writeText(link)}catch(_){} demoToast('link copied. It opens a preview page for people without an account.')}
   });
   $('[data-report]').onclick=()=>openReport({what:'trip',name:t.name});
+  $('[data-savetrip]').onclick=e=>{const b=e.currentTarget, on=!S.savedTrips.has(t.id); on?S.savedTrips.add(t.id):S.savedTrips.delete(t.id); b.setAttribute('aria-pressed',on); b.innerHTML=I('save')+(on?'Saved':'Save'); demoToast(on?'trip saved on this page only. Find it in Saved.':'removed from saved')};
 };
