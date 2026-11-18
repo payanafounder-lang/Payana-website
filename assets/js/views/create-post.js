@@ -3,7 +3,7 @@ const CTYPES=[['Photo','photo'],['Trip story','book'],['Travel tip','bulb'],['Lo
 let ctype='Photo', cimgs=[];
 function create(){
   cimgs=[];
-  return `<div class="ph"><div><h1>Create a post</h1><p>Share a moment, a story, a tip, or find people for your next trip</p></div></div>
+  return `<div class="ph"><div><h1>Create a post</h1><p>Share a moment, a story, a tip, or find people for your next trip</p></div><div class="btns"><a class="btn btn-line btn-sm" href="#feed">Cancel</a><button class="btn btn-primary btn-sm" type="submit" form="cpf">Post</button></div></div>
    <form class="cgrid" id="cpf"><div class="card sec">
     <div class="types">${CTYPES.map(([l,ic])=>`<button type="button" data-ct="${l}" aria-pressed="${ctype===l}">${I(ic)}${l}</button>`).join('')}</div>
     <label class="drop" for="cfile">${I('photo','style="width:32px;height:32px"')}<b>Add photos or videos</b><small>Tap to choose from your device</small><input type="file" id="cfile" accept="image/*" multiple hidden></label>

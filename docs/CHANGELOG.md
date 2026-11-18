@@ -44,3 +44,13 @@ Everything is still a **demo**: actions that would send, save or charge somethin
 - **Women-only trips**: "Who can join?" when creating a trip (Everyone / Women-only / Friends of friends) plus selfie-verified-only and alcohol-free options; women-only badge on cards and trip pages; Explore filter. Only people whose profile says woman and who passed the selfie check can request. Optional gender field in Edit profile, used only for this. Sample trip: Gokarna. **Lawyer to review the wording.**
 - **Pilot feedback**: Feedback tab on every member screen (ease 1–5, topic, note, screenshot, contact permission). Safety problems point to Report. "Pilot" label next to the logo.
 - **Emails & text messages**: templates in `docs/MESSAGES.md` (welcome, approved, reminder, handover, cancelled, review; SMS for code, approved, trip morning, trusted contact, handover, cancelled).
+
+## Team review round 2 — 18 November 2026
+
+1. **Phone fit.** The bottom tab bar was wider than small phones (under ~386 px), so pages slid sideways. Fixed, and the page can no longer be pushed wider than the screen. Form fields are 16 px on phones so iPhones don't zoom in when you tap them. Long star ratings on reviews no longer run off the card. Checked at 320, 360, 375, 390 and 412 px.
+2. **Feedback tab removed** from every page (`components/feedback.js` deleted).
+3. **Friends page removed.** Its three parts already live elsewhere: your friends list (tap the Friends count on your profile), friend requests (now at the top of that list, and on the Home feed) and people you may know (Search). Old `#friends` links open the profile friends list.
+4. **Emergency contacts.** Settings › Privacy & safety: a main contact plus an alternative number, each marked Family or Friend, with a 10-digit Indian mobile check. Both show as "Call" buttons on the trip-day screen. Replaces the single "trusted contact" field.
+5. **Create post moved up.** First item in the desktop menu (it was at the bottom), and the Create a post page has Post and Cancel at the top as well as the bottom.
+6. **Gender:** "Prefer not to say" removed (Not set, Woman, Man, Non-binary).
+7. **Settings opens from the profile** (Settings button next to Edit profile, like Instagram). Removed from the menu and the phone top bar.

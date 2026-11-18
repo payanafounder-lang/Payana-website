@@ -23,7 +23,7 @@ Addresses use the `#hash`. Screens that take an argument use `#<screen>-<argumen
 |---|---|---|
 | Landing | `#top` and its sections (`#how`, `#safety`…) | No |
 | Public pages | `#legal-<rules\|safety\|terms\|privacy\|grievance>`, `#about`, `#about-contact`, `#reset`, `#help`, `#help-<id>`, `#t-<trip>` (shared trip preview), `#paused` | No |
-| Member app | `#feed`, `#explore`, `#trip-<id>`, `#mytrips`, `#newtrip`, `#plan`, `#tripday-<id>`, `#manage-<id>`, `#review-<id>`, `#friends`, `#messages`, `#communities`, `#community-<n>`, `#post-<id>`, `#u-<name>`, `#profile`, `#create`, `#notifications`, `#search`, `#saved`, `#settings`, `#verify`, `#support`, `#appeal` | Yes |
+| Member app | `#feed`, `#explore`, `#trip-<id>`, `#mytrips`, `#newtrip`, `#plan`, `#tripday-<id>`, `#manage-<id>`, `#review-<id>`, `#messages`, `#communities`, `#community-<n>`, `#post-<id>`, `#u-<name>`, `#profile`, `#create`, `#notifications`, `#search`, `#saved`, `#settings`, `#verify`, `#support`, `#appeal` | Yes |
 | Full-width (no member menu) | `#consent`, `#welcome`, `#admin` | Yes |
 
 Unknown addresses show the landing page when signed out, and "page not found" when signed in.

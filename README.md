@@ -35,7 +35,7 @@ assets/
     services/              The only layer that touches data: auth, trips, social,
                            payments (stub), api (future backend client)
     state.js               In-page UI state
-    components/            Shared UI pieces (trip card, report sheet, invite sheet, feedback tab)
+    components/            Shared UI pieces (trip card, report sheet, invite sheet)
     views/                 One file per screen
     app.js                 Starts the app
 img/                       Photos (WebP)

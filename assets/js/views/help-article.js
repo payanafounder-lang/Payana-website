@@ -10,7 +10,7 @@ const HELP_ART={
     steps:['The person leaving has to give the group a reason, so you\'ll see why in the chat.','If it was the host, they can <b>hand over hosting</b> to someone in the group before cancelling.','Update the <b>Budget</b> tab so the cost per person is right.','Settle any money already shared directly. Payana doesn\'t hold payments.'],
     warn:'Repeated last-minute cancellations can limit an account. If someone cancels to avoid paying back money, report it.',rel:['costs','review']},
   share:{t:'How do I share my trip with family?',topic:'Safety',intro:'Share the plan and the group list with someone you trust, before you leave.',
-    steps:['Add a trusted contact in <b>Settings → Privacy & safety</b>.','On the trip planner, tap <b>Share with a trusted contact</b>.','On the trip day, use <b>I\'ve reached</b> so the group knows you arrived.'],rel:['review','badge']},
+    steps:['Add your emergency contacts (a main contact and an alternative number) in <b>Profile → Settings → Privacy & safety</b>.','On the trip planner, tap <b>Share with a trusted contact</b>.','On the trip day, use <b>I\'ve reached</b> so the group knows you arrived.'],rel:['review','badge']},
   message:{t:'Why can\'t I message someone?',topic:'Getting started',intro:'To keep things safe, you can message friends and people on the same trip. Others get a message request they can accept or ignore.',
     steps:['Send a friend request from their profile.','Or request to join a trip they\'re on, then use the trip chat.','If they blocked you, you won\'t be able to message them.'],rel:['badge','noreply']},
   code:{t:'I didn\'t get my login code',topic:'Account & privacy',intro:'Codes usually arrive within a minute.',

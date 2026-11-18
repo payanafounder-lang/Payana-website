@@ -7,7 +7,8 @@
 .side a:hover,.side button.nl:hover{background:var(--chip); color:var(--fg)}
 .side a.on{background:var(--fg); color:var(--bg)}
 .side .badge{margin-left:auto; font:700 11px/1 var(--f-body); background:var(--terra); color:#FBF3E6; padding:4px 7px; border-radius:999px}
-.side .create{margin-block:10px; justify-content:center}
+.side a.create{margin-block:6px 12px; justify-content:center; background:var(--terra); color:#FBF3E6}
+.side a.create:hover{background:var(--terra); color:#FBF3E6; filter:brightness(1.06)}
 .side .me{margin-top:auto; display:flex; align-items:center; gap:10px; padding:10px; border-radius:16px; background:var(--chip)}
 .me b{display:block; font-size:14px; line-height:1.2}
 .me small{color:var(--muted); font-size:12px}
@@ -27,7 +28,7 @@
   .topbar nav{display:flex; gap:4px}
   .iconbtn{width:40px; height:40px; display:grid; place-items:center; border-radius:50%; text-decoration:none; color:var(--fg)}
   .iconbtn:hover{background:var(--chip)}
-  .tabbar{display:grid; grid-template-columns:repeat(5,1fr); position:fixed; left:0; right:0; bottom:0; z-index:30; background:var(--surface); border-top:1px solid var(--line); padding:6px max(8px, env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px, env(safe-area-inset-left,0px))}
+  .tabbar{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); position:fixed; left:0; right:0; bottom:0; z-index:30; background:var(--surface); border-top:1px solid var(--line); padding:6px max(8px, env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px, env(safe-area-inset-left,0px))}
   .tabbar a{display:grid; justify-items:center; gap:2px; padding:6px 0; text-decoration:none; font-size:11px; font-weight:600; color:var(--muted)}
   .tabbar a.on{color:var(--accent)}
   .tabbar a.plus svg{background:var(--terra); color:#FBF3E6; border-radius:12px; width:38px; height:30px; padding:5px 9px}
@@ -318,3 +319,14 @@
 @media (max-width:860px){.toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}}
 
 @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important; transition:none!important} .slide{transform:none}}
+
+/* ---------- Phone fit (team review, 18 Nov) ----------
+   Nothing may push the page wider than the phone, and form fields stay at 16px
+   so iPhones don't zoom in when you tap them. */
+html{overflow-x:clip}
+@media (max-width:860px){
+  input,select,textarea{font-size:16px!important}
+  .main,.page,.card{min-width:0; max-width:100%}
+  .topbar .brand{min-width:0}
+  img,video,table{max-width:100%}
+}
