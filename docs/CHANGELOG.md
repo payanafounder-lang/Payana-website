@@ -61,3 +61,10 @@ Everything is still a **demo**: actions that would send, save or charge somethin
 12. **Help & support in Settings** (phones have no side menu): Help centre, chat with support, how emergency contacts work, report a safety problem, Call 112, About and the rules/privacy/terms.
 13. Emergency contacts help article rewritten for the family/friend side; the planner button now says "Share with family".
 14. Fix: help article steps that start with bold text were broken into one word per line on phones. Fixed for every article.
+
+## Team review round 3 — 18 November 2026
+
+15. **Budget you can edit, with group approval.** In a trip's planner › Budget, anyone in the group can change an amount or name, add an item or remove one, until the last day of the trip (then it locks). The group total is shown too. A "Group approval" card shows who has approved the current total; any change resets approvals, and the Budget tab shows a dot until everyone approves again.
+16. **Budget changes posted in the trip chat automatically**, e.g. "You changed Food: ₹1,100 → ₹1,300. New total ₹4,400 per person (was ₹4,200). Everyone needs to approve it again." Approvals and "Everyone approved" are posted too, with a "Check the budget" link.
+17. **Posts open from profile grids.** Tapping a photo on your profile (Posts and Tagged) or on someone else's profile opens the full post with likes, comments and save. The post page's Back button returns to where you came from.
+18. **"Who's handling what" removed** from the Budget tab (it was fixed sample text that nobody could change).
