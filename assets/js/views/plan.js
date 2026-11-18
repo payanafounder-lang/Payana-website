@@ -67,8 +67,7 @@ function budgetTab(t){
      ${grp.map((x,i)=>`<div class="person">${av(x,i)}<div><b>${x===me().name?'You':esc(x)}</b></div><span class="pill ${ok.has(x)?'p-ok':'p-warn'}">${ok.has(x)?'Approved':'Waiting'}</span></div>`).join('')}
      ${mine?'':`<button class="btn btn-primary" data-bok>I approve ${rupee(tot)} per person</button>`}
      ${all?'':`<button class="linkbtn muted" data-bsim style="font-size:13px">Demo: show everyone else approving</button>`}
-     <p class="hint" style="font-size:13px">If the budget changes again, everyone approves the new total again.</p></div>
-    <div class="card sec"><h2 style="font-size:18px">Who's handling what</h2>${S.handling.map((p,i)=>`<div class="person">${av(p[0],i)}<div><b>${p[0]}</b><small>${p[1]}</small></div></div>`).join('')}</div></div></div>`;
+     <p class="hint" style="font-size:13px">If the budget changes again, everyone approves the new total again.</p></div></div></div>`;
 }
 function budgetClick(e,draw){
   if(!S.bPrevTotal) S.bPrevTotal=bTotal();

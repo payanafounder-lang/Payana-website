@@ -23,7 +23,6 @@ const DEMO_SOCIAL={
   chat:[['Ananya K.','Homestay confirmed for Sat! Sending the location here.','9:41'],['Rohit S.','I can drive, 3 seats free in my car.','9:52'],['Meera J.','Can someone share a packing list? First trek for me 😅','10:05']],
   // Budget estimates per person and who handles what (planner Budget tab)
   budget:[['Homestay (1 night)',1800],['Fuel and tolls',900],['Food',1100],['Entry tickets',400]],
-  handling:[['Ananya','Homestay booking'],['Rohit','Car and fuel'],['Meera','Snacks and first aid'],['You','Abbey Falls entry']],
   albumExtra:[6084,6054,6064,6066],
   dms:[
    {name:'Coorg weekend group',kind:'trip',trip:'coorg',sub:'Ananya, Rohit, Meera and you',unread:2,msgs:null},

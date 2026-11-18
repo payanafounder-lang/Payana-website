@@ -29,7 +29,7 @@ Suggested tables: `trips` (id, host_user_id, destination, start_date, end_date, 
 | `comms` | `[name, img, members, joined]` | `communities`, `community_members` |
 | `chat` | `[sender, text, time]` | trip group chat, shared with the planner and the Messages inbox |
 | `dms` | `{name, kind, trip, v, req, sub, unread, msgs:[[sender, text, time, day]]}` (`sender` is `'me'` for the user; `kind:'trip'` is a group chat; `req:true` is a message request from a non-friend) | `conversations`, `conversation_members`, `messages` (or a managed chat service) |
-| `plan`, `budget`, `handling` | planner rows | `trip_plan_items`, `trip_budget_items`, `trip_tasks` |
+| `plan`, `budget` | planner rows | `trip_plan_items`, `trip_budget_items` (plus budget approvals per member) |
 | `profile` | bio, tags, reviews | `users`/`profiles` (name, city, bio, pace, budget band, verified_at), `reviews` (trip_id, from, to, rating, text) |
 
 ## Users and safety (not in the demo yet)
