@@ -3,17 +3,16 @@
    There's no separate Friends page: tap the Friends count for your friends and friend requests. */
 function profile(){
   const u=me(), ini=u.name.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
-  const tabs=['Posts','Trips','Reviews','Tagged']; if(S.profTab==='friends') S.profTab='posts';
+  const tabs=['Posts','Saved','Reviews','Tagged']; if(!['posts','saved','reviews','tagged'].includes(S.profTab)) S.profTab='posts';
   let body='';
   if(S.profTab==='posts') body=`<div class="pgridimg">${S.myPosts.map(n=>`<img src="${src(n)}" alt="">`).join('')}</div>`;
-  else if(S.profTab==='trips') body=`<div style="display:grid;gap:10px">${TRIPS.slice(0,3).map(t=>`<a class="upbanner card" href="#trip-${t.id}"><img src="${src(t.img)}" alt=""><div><b>${t.name}</b><br><small style="color:var(--muted)">${t.dates}</small></div></a>`).join('')}</div>`;
-  else if(S.profTab==='friends') body=`<div class="card sec">${S.friends.map((p,i)=>`<div class="person">${av(p[0],i)}<div><b>${p[0]}</b><small>${p[1]}</small></div></div>`).join('')}</div>`;
+  else if(S.profTab==='saved') body=savedBody();
   else if(S.profTab==='reviews') body=`<div style="display:grid;gap:12px">${S.profile.reviews.map((r,i)=>`<div class="card sec"><div class="person">${av(r[0],i)}<div><b>${r[0]}</b><small>${r[2]}</small></div><span style="color:var(--sun)">★★★★★</span></div><p>${r[1]}</p></div>`).join('')}</div>`;
   else body=`<div class="pgridimg">${S.profile.tagged.map(n=>`<img src="${src(n)}" alt="">`).join('')}</div>`;
   return `<div class="pcover"><img src="${src(S.profile.cover)}" alt=""></div>
    <div class="phead"><div class="bigav">${esc(ini)}</div><div class="who"><h1>${esc(u.name)}<span class="vf" style="width:22px;height:22px;font-size:13px">✓</span></h1><small>@${esc(u.name.toLowerCase().replace(/\s+/g,'.'))} · Bengaluru</small></div>
     <div class="btns"><button class="btn btn-soft btn-sm" data-edit>Edit profile</button><a class="btn btn-line btn-sm" href="#settings">${I('gear')}Settings</a><button class="btn btn-line btn-sm" data-more>More</button></div></div>
-   <div class="stats"><button class="stat" data-stat="posts"><b>${S.myPosts.length}</b><small>Posts</small></button><button class="stat" data-stat="friends"><b>${S.friends.length}</b><small>Friends</small></button><button class="stat" data-stat="trips"><b>${S.profile.tripsDone}</b><small>Trips done</small></button></div>
+   <div class="stats"><button class="stat" data-stat="posts"><b>${S.myPosts.length}</b><small>Posts</small></button><button class="stat" data-stat="friends"><b>${S.friends.length}</b><small>Friends</small></button><a class="stat" href="#mytrips" style="text-decoration:none;color:inherit"><b>${S.profile.tripsDone}</b><small>Trips done</small></a></div>
    <div style="display:grid;gap:14px;padding:0 20px 20px"><p style="max-width:60ch">${esc(S.profile.bio)}</p>
     <div class="tags">${S.profile.tags.map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div>
     <a class="upbanner" href="#trip-${S.profile.upcoming.trip}"><img src="${src(S.profile.upcoming.img)}" alt=""><div><span class="eyebrow">Upcoming trip</span><br><b style="font-size:17px">${esc(S.profile.upcoming.label)}</b></div><span class="btn btn-primary btn-sm">View trip</span></a></div>
@@ -37,4 +36,4 @@ function friendSheet(){
   m.querySelector('#fsq').oninput=e=>m.querySelector('#fsl').innerHTML=list(e.target.value.trim().toLowerCase());
   m.querySelector('#fsq').focus();
 }
-bind.profile=()=>{if(S.openFriends){S.openFriends=false; setTimeout(friendSheet,0)} $('#view').addEventListener('click',e=>{const st=e.target.closest('[data-stat]'); if(st){if(st.dataset.stat==='friends') friendSheet(); else {S.profTab=st.dataset.stat; route(); setTimeout(()=>$('.subtabs').scrollIntoView({behavior:'smooth',block:'start'}),50)} return}const b=e.target.closest('[data-prof]'); if(b){S.profTab=b.dataset.prof; route()} if(e.target.closest('[data-edit]')){S.setTab='edit'; location.hash='settings'} if(e.target.closest('[data-more]'))demoToast('others see Report and Block here')});}
+bind.profile=()=>{if(S.openFriends){S.openFriends=false; setTimeout(friendSheet,0)} $('#view').addEventListener('click',e=>{if(S.profTab==='saved'&&savedClick(e)) return; const st=e.target.closest('[data-stat]'); if(st){if(st.dataset.stat==='friends') friendSheet(); else {S.profTab=st.dataset.stat; route(); setTimeout(()=>$('.subtabs').scrollIntoView({behavior:'smooth',block:'start'}),50)} return}const b=e.target.closest('[data-prof]'); if(b){S.profTab=b.dataset.prof; route()} if(e.target.closest('[data-edit]')){location.hash='editprofile'} if(e.target.closest('[data-more]'))demoToast('others see Report and Block here')});}

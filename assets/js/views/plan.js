@@ -4,7 +4,7 @@ function plan(){
   const t=T(S.planTrip)||TRIPS[0];
   return `<div class="cover" style="min-height:220px"><img src="${src(t.img)}" alt=""><a class="btn btn-glass back" href="#mytrips">← My trips</a>
    <div class="cover-in"><span class="eyebrow" style="color:var(--sun)">Plan together</span><h1 style="font-size:clamp(34px,5vw,56px)">${t.name}</h1><div class="meta">${t.dates} · ${t.people.length+1} going</div></div></div>
-   <div style="display:flex;gap:10px;flex-wrap:wrap;margin:18px 0"><a class="btn btn-primary btn-sm" href="#tripday-${t.id}">${I('clock')}Trip day view</a><button class="btn btn-soft btn-sm" data-trusted>${I('pin')}Share with a trusted contact</button><button class="btn btn-line btn-sm" data-help>Get help</button></div>
+   <div style="display:flex;gap:10px;flex-wrap:wrap;margin:18px 0"><a class="btn btn-primary btn-sm" href="#tripday-${t.id}">${I('clock')}Trip day view</a><button class="btn btn-soft btn-sm" data-trusted>${I('pin')}Share with family</button><button class="btn btn-line btn-sm" data-help>Get help</button></div>
    <div class="ptabs" role="tablist">${['Plan','Chat','Budget','People','Memories'].map(x=>`<button role="tab" data-ptab="${x.toLowerCase()}" aria-selected="${S.planTab===x.toLowerCase()}">${x}</button>`).join('')}</div>
    <div id="ptab"></div>`;
 }
@@ -28,7 +28,7 @@ bind.plan=()=>{
   $('#view').addEventListener('click',e=>{
     const tb=e.target.closest('[data-ptab]'); if(tb){S.planTab=tb.dataset.ptab; $$('[data-ptab]').forEach(b=>b.setAttribute('aria-selected',b===tb)); draw()}
     const st=e.target.closest('[data-st]'); if(st){const p=S.plan[+st.dataset.st]; p[4]=STN[(STN.indexOf(p[4])+1)%STN.length]; draw()}
-    if(e.target.closest('[data-trusted]')) demoToast('nothing was sent. In the real app this shares the itinerary and group list with your trusted contact.');
+    if(e.target.closest('[data-trusted]')) demoToast('nothing was sent. In the real app your main emergency contact gets a text with the plan and group list.');
     if(e.target.closest('[data-help]')) demoToast('support isn\'t connected yet. In the real app this contacts the Payana team.');
   });
   $('#view').addEventListener('submit',e=>{e.preventDefault();

@@ -56,6 +56,6 @@ Rules
 | Login code | `{code} is your Payana code. It expires in 10 min. Never share it, not even with Payana staff.` |
 | Request approved | `Payana: You're in for {trip_name}, {dates}! Say hi to the group: {short_link}` |
 | Trip morning | `Payana: {trip_name} today. Meet {meet_time}, {meeting_point}. Tap "I've reached" when you arrive.` |
-| Trusted contact | `{first_name} shared their Payana trip with you: {trip_name}, {dates}, {people} people. See plan & group: {short_link}` |
+| Emergency contact (main) | `{first_name} shared their Payana trip with you: {trip_name}, {dates}, {people} people. See plan & group: {short_link}` |
 | Host handover | `Payana: {old_host} asked you to host {trip_name}. Reply in the app within 24 hours: {short_link}` |
 | Trip cancelled | `Payana: {trip_name} on {dates} was cancelled by the host. Details: {short_link}` |

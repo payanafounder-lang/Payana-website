@@ -54,3 +54,10 @@ Everything is still a **demo**: actions that would send, save or charge somethin
 5. **Create post moved up.** First item in the desktop menu (it was at the bottom), and the Create a post page has Post and Cancel at the top as well as the bottom.
 6. **Gender:** "Prefer not to say" removed (Not set, Woman, Man, Non-binary).
 7. **Settings opens from the profile** (Settings button next to Edit profile, like Instagram). Removed from the menu and the phone top bar.
+8. **Edit profile and Settings separated.** Edit profile on the profile page opens its own page (`#editprofile`) with only what others see: name, username, city, languages, bio, gender, pace and interests. Settings no longer has an Edit profile section; it keeps Account & login, Privacy & safety (with emergency contacts), Notification settings, Blocked people and Delete account.
+9. **Profile tabs: Trips replaced by Saved.** Profile tabs are Posts, Saved, Reviews and Tagged. Saved (posts and trips, only you can see it) moved here from the menu; old `#saved` links open this tab. "Trips done" now opens My trips.
+10. **Communities under Explore.** Explore has two tabs, Trips and Communities. Communities is no longer its own menu item, and the menu says "Explore".
+11. Fix: a stray bracket left after removing the Feedback styles meant some new styles only worked on phones. Closed it.
+12. **Help & support in Settings** (phones have no side menu): Help centre, chat with support, how emergency contacts work, report a safety problem, Call 112, About and the rules/privacy/terms.
+13. Emergency contacts help article rewritten for the family/friend side; the planner button now says "Share with family".
+14. Fix: help article steps that start with bold text were broken into one word per line on phones. Fixed for every article.

@@ -1,7 +1,10 @@
-/* ---------- EXPLORE ---------- */
+/* ---------- EXPLORE ----------
+   Team change (18 Nov): Communities lives under Explore as a second tab (#communities),
+   not as its own menu item. */
+function exTabs(on){return `<nav class="ex-tabs" aria-label="Explore">${[['explore','Trips'],['communities','Communities']].map(([h,l])=>`<a href="#${h}" ${on===h?'aria-current="page"':''}>${l}</a>`).join('')}</nav>`}
 function explore(){
   const f=S.f, ints=['Trekking','Food','Coffee','Rafting','Heritage','Rail','Photography','Wildlife'];
-  return `<div class="ph"><div><h1>Explore trips</h1><p>Trips forming near Bengaluru, ranked by how well they fit you</p></div><a class="btn btn-primary" href="#newtrip">${I('plus')}Create a trip</a></div>
+  return `${exTabs('explore')}<div class="ph"><div><h1>Explore trips</h1><p>Trips forming near Bengaluru, ranked by how well they fit you</p></div><a class="btn btn-primary" href="#newtrip">${I('plus')}Create a trip</a></div>
   <div class="card filters">
    <div class="frow"><span class="flabel">Length</span>${[['all','Any'],['day','Day trip'],['weekend','Weekend'],['long','3+ days']].map(([k,l])=>`<button class="chip" data-len="${k}" aria-pressed="${f.len===k}">${l}</button>`).join('')}</div>
    <div class="frow"><span class="flabel">Budget</span><div class="range"><label for="budget" class="sr" hidden>Max budget</label><input type="range" id="budget" min="2000" max="10000" step="500" value="${f.max}"><output id="bout">up to ${rupee(f.max)}</output></div></div>
