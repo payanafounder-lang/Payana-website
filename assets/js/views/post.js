@@ -10,13 +10,18 @@ const GRID_CAP={6046:['Jeep ride up to the estate. Worth the bumpy road for that
   6062:['Snow day with the group.','Manali'],6084:['Campfire by the lake, last night of the trip.','Chikkamagaluru']};
 function gridPost(img,who){S.gridPosts=S.gridPosts||[];
   let p=[...S.posts,...S.gridPosts].find(x=>x.img===img&&x.who===who);
-  if(!p){const c=GRID_CAP[img]||['','Bengaluru']; p={id:900000+S.gridPosts.length,who,v:true,where:c[1],time:'Earlier',type:'Photo',img,text:c[0],likes:12+(((+img)||7)%57),com:0}; S.gridPosts.push(p)}
+  if(!p){const c=GRID_CAP[img]||['','Bengaluru']; p={id:typeof img==='number'?`g${img}-${slug(who)}`:'g'+Date.now()+S.gridPosts.length,who,v:true,where:c[1],time:'Earlier',type:'Photo',img,text:c[0],likes:12+(((+img)||7)%57),com:0}; S.gridPosts.push(p)}
   return p;
 }
 // A grid of photos that each open their post. who: a name, or (i)=>name for mixed grids like Tagged.
 function postGrid(imgs,who){return `<div class="pgridimg">${imgs.map((n,i)=>{const p=gridPost(n,typeof who==='function'?who(i):who); return `<a href="#post-${p.id}" aria-label="Open post${p.text?': '+esc(p.text.slice(0,50)):''}"><img src="${src(n)}" alt=""></a>`}).join('')}</div>`}
-const findPost=id=>[...S.posts,...(S.gridPosts||[])].find(x=>x.id===+id)||S.posts[0];
+// Grid post ids look like g6046-asha-rao, so a link still works after a reload.
+function findPost(id){const all=[...S.posts,...(S.gridPosts||[])], hit=all.find(x=>String(x.id)===String(id)); if(hit) return hit;
+  const m=/^g(\d+)-(.+)$/.exec(id||''); if(m){const sl=m[2], names=[me().name,...S.friends.map(f=>f[0]),...Object.values(S.people||{}).map(p=>p.name)];
+    const who=names.find(n=>slug(n)===sl)||(typeof personData==='function'?personData(sl).name:sl); return gridPost(+m[1],who)}
+  return S.posts[0]}
 function post(id){
+  if(S.cmPost!==id){S.cmReplyTo=null; S.cmPost=id}
   const p=findPost(id), cm=S.comments[p.id]||(S.comments[p.id]=[]);
   const one=(c,i,reply)=>`<div class="cm ${reply?'reply':''}">${av(c[0],i+(reply?3:0),reply?32:40)}<div><div class="cm-b"><b><a href="#u-${slug(c[0])}">${esc(c[0])}</a></b> ${esc(c[1])}</div>
     <div class="cm-a"><button data-cmlike>Like</button>${reply?'':`<button data-cmreply="${i}">Reply</button>`}<button data-cmrep="${esc(c[0])}">Report</button><small>${c[2]}</small></div></div></div>`;
@@ -26,7 +31,7 @@ function post(id){
      <p>${esc(p.text)}</p>${p.trip&&T(p.trip)?`<a class="linked" href="#trip-${p.trip}" style="text-decoration:none">Going again · ${T(p.trip).name} <b style="color:var(--accent)">View trip →</b></a>`:''}
      <div class="acts" data-post="${p.id}" style="padding:4px 0"><button data-like class="${S.liked.has(p.id)?'on':''}">${I('heart')}<span>${p.likes+(S.liked.has(p.id)?1:0)}</span></button><button>${I('comment')}${cm.reduce((n,c)=>n+1+c[3].length,0)}</button><button data-share>${I('share')}Share</button><button data-save class="save ${S.saved.has(p.id)?'on':''}">${I('save')}${S.saved.has(p.id)?'Saved':'Save'}</button></div>
      <section class="cm-list" aria-label="Comments">${cm.length?cm.map((c,i)=>one(c,i)+c[3].map((r,j)=>one(r,j,true)).join('')).join(''):'<p class="hint">No comments yet. Start the conversation.</p>'}</section>
-     <form class="send" id="cmf">${av(me().name,0,36)}<input id="cm-in" placeholder="${S.cmReplyTo!=null?'Reply to '+esc(cm[S.cmReplyTo][0].split(' ')[0])+'…':'Write a comment…'}" aria-label="Write a comment"><button class="btn btn-primary btn-sm">Post</button></form>
+     <form class="send" id="cmf">${av(me().name,0,36)}<input id="cm-in" placeholder="${S.cmReplyTo!=null&&cm[S.cmReplyTo]?'Reply to '+esc(cm[S.cmReplyTo][0].split(' ')[0])+'…':'Write a comment…'}" aria-label="Write a comment"><button class="btn btn-primary btn-sm">Post</button></form>
      <p class="hint" style="font-size:12.5px">Only friends can comment on this post. Be kind. Comments that break the Community Rules are removed.</p></div></article>`;
 }
 bind.post=id=>{const p=findPost(id), cm=S.comments[p.id]; S.cmReplyTo=null;
@@ -43,5 +48,5 @@ bind.post=id=>{const p=findPost(id), cm=S.comments[p.id]; S.cmReplyTo=null;
   });
   $('#cmf').addEventListener('submit',e=>{e.preventDefault(); const t=$('#cm-in').value.trim(); if(!t) return;
     if(S.cmReplyTo!=null) cm[S.cmReplyTo][3].push([me().name,t,'now']); else cm.push([me().name,t,'now',[]]);
-    route(); demoToast('comment shown on this page only. Nobody else can see it.')});
+    S.cmReplyTo=null; route(); demoToast('comment shown on this page only. Nobody else can see it.')});
 };

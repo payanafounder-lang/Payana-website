@@ -29,7 +29,10 @@ bind.plan=()=>{
   const draw=()=>{$('#ptab').innerHTML=planTab(); const c=$('#chat'); if(c) c.scrollTop=c.scrollHeight};
   draw();
   $('#view').addEventListener('click',e=>{
-    const tb=e.target.closest('[data-ptab]'); if(tb){S.planTab=tb.dataset.ptab; $$('.ptabs [data-ptab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.ptab===S.planTab)); draw(); return}
+    const tb=e.target.closest('[data-ptab]'); if(tb){S.planTab=tb.dataset.ptab; $$('.ptabs [data-ptab]').forEach(b=>b.setAttribute('aria-selected',b.dataset.ptab===S.planTab)); draw();
+      // Phones show the whole chat on the page, so bring the newest message into view.
+      if(S.planTab==='chat'){const last=$('#chat')&&$('#chat').lastElementChild; last&&last.scrollIntoView({block:'center'})}
+      else $('.ptabs').scrollIntoView({block:'start'}); return}
     if(budgetClick(e,draw)) return;
     const st=e.target.closest('[data-st]'); if(st){const p=S.plan[+st.dataset.st]; p[4]=STN[(STN.indexOf(p[4])+1)%STN.length]; draw()}
     if(e.target.closest('[data-trusted]')) demoToast('nothing was sent. In the real app your main emergency contact gets a text with the plan and group list.');
