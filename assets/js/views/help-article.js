@@ -9,8 +9,8 @@ const HELP_ART={
   cancel:{t:'Someone in my group cancelled last minute',topic:'Trips & requests',intro:'Plans change. Here\'s how to keep the trip on track.',
     steps:['The person leaving has to give the group a reason, so you\'ll see why in the chat.','If it was the host, they can <b>hand over hosting</b> to someone in the group before cancelling.','Update the <b>Budget</b> tab so the cost per person is right.','Settle any money already shared directly. Payana doesn\'t hold payments.'],
     warn:'Repeated last-minute cancellations can limit an account. If someone cancels to avoid paying back money, report it.',rel:['costs','review']},
-  share:{t:'How do I share my trip with family?',topic:'Safety',intro:'Share the plan and the group list with someone you trust, before you leave.',
-    steps:['Add your emergency contacts (a main contact and an alternative number) in <b>Profile → Settings → Privacy & safety</b>.','On the trip planner, tap <b>Share with a trusted contact</b>.','On the trip day, use <b>I\'ve reached</b> so the group knows you arrived.'],rel:['review','badge']},
+  share:{t:'Emergency contacts: how they work',topic:'Safety',intro:'Add one or two people from your family or friends. They don\'t need the Payana app, and they only hear from us when you choose to share a trip.',
+    steps:['<b>Add them:</b> Profile → Settings → Privacy & safety → Emergency contacts. A main contact, plus an alternative number in case the first can\'t be reached.','<b>Share a trip:</b> on the trip planner or the trip-day screen, tap <b>Share with family</b>. Your main contact gets a text with the trip, dates and a link to the plan and group list.','<b>On the trip day:</b> both contacts show as <b>Call</b> buttons next to Call 112, so you can reach them in one tap.','Tap <b>I\'ve reached</b> so your group knows you arrived.'],warn:'Payana doesn\'t track your location, and your contacts never see your chats. In an emergency, call 112 first.',rel:['review','badge']},
   message:{t:'Why can\'t I message someone?',topic:'Getting started',intro:'To keep things safe, you can message friends and people on the same trip. Others get a message request they can accept or ignore.',
     steps:['Send a friend request from their profile.','Or request to join a trip they\'re on, then use the trip chat.','If they blocked you, you won\'t be able to message them.'],rel:['badge','noreply']},
   code:{t:'I didn\'t get my login code',topic:'Account & privacy',intro:'Codes usually arrive within a minute.',
@@ -23,7 +23,7 @@ const HELP_ART={
 function helpArticle(id){
   const a=HELP_ART[id]; if(!a) return notfound();
   return `<div class="ha-grid"><article class="card sec ha-body"><nav class="hint" aria-label="Breadcrumb"><a class="linkbtn" href="#help">Help</a> › ${a.topic}</nav><h1>${a.t}</h1><p class="hint">Updated [date] · 2 min read</p><p class="lead">${a.intro}</p>
-     <ol class="ha-steps">${a.steps.map(s=>`<li>${s}</li>`).join('')}</ol>${a.warn?`<div class="note warn"><p><b>Stay safe:</b> ${a.warn}</p></div>`:''}
+     <ol class="ha-steps">${a.steps.map(s=>`<li><span>${s}</span></li>`).join("")}</ol>${a.warn?`<div class="note warn"><p><b>Stay safe:</b> ${a.warn}</p></div>`:''}
      <div class="ha-fb" id="hafb"><b>Was this helpful?</b><button class="btn btn-soft btn-sm" data-ha="yes">Yes</button><button class="btn btn-soft btn-sm" data-ha="no">No</button></div></article>
     <aside style="display:grid;gap:16px;align-content:start"><section class="card sec"><h2 style="font-size:18px">Related</h2>${a.rel.map(r=>`<a class="hp-q" href="#help-${r}">${HELP_ART[r].t}</a>`).join('')}</section>
      <section class="card sec" style="background:var(--surface-2)"><h2 style="font-size:18px">Need a person?</h2><p class="hint">Our team replies in [under 1 hour] during support hours.</p><button class="btn btn-primary" data-hp-chat>Chat with support</button></section></aside></div>`;
