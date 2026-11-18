@@ -68,3 +68,5 @@ Everything is still a **demo**: actions that would send, save or charge somethin
 16. **Budget changes posted in the trip chat automatically**, e.g. "You changed Food: ₹1,100 → ₹1,300. New total ₹4,400 per person (was ₹4,200). Everyone needs to approve it again." Approvals and "Everyone approved" are posted too, with a "Check the budget" link.
 17. **Posts open from profile grids.** Tapping a photo on your profile (Posts and Tagged) or on someone else's profile opens the full post with likes, comments and save. The post page's Back button returns to where you came from.
 18. **"Who's handling what" removed** from the Budget tab (it was fixed sample text that nobody could change).
+19. **Approve or Don't agree.** In Group approval, each person picks **Approve** or **Don't agree**. Don't agree asks for a short reason; the person shows as "Not agreed" with their reason, and it's posted in the trip chat. Anyone can change their answer. Any budget change resets everyone's answer.
+20. Demo link "someone else changes the budget" shows the budget from a group member's side (your answer back on Waiting, with the two buttons).

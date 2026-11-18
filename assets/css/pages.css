@@ -442,3 +442,15 @@
 @media (max-width:520px){.b-tbl th,.b-tbl td{padding:10px 4px} .b-tbl .b-ctl .ibtn{width:36px; height:36px}}
 .msg-sys{padding:8px 12px; gap:8px; font-size:13.5px; line-height:1.4}
 .msg-sys small{display:block; margin-top:2px}
+
+/* Budget answers: Approve / Don't agree (18 Nov) */
+.b-appr.bad .b-stat{background:var(--bad-bg); color:var(--bad-fg)}
+.b-ans{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+.b-ans .btn{justify-content:center}
+.b-no{display:grid; gap:8px; padding:12px; border-radius:14px; background:var(--surface-2)}
+.b-no .b-acts{display:flex; gap:8px; justify-content:flex-end}
+.b-demo{display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline; font-size:13px; color:var(--muted)}
+.person small{overflow-wrap:anywhere}
+.b-ans .btn{min-width:0; padding-inline:12px; white-space:normal; text-align:center}
+.b-appr .person > div{min-width:0}
+.b-appr .person small{white-space:normal; text-overflow:clip; overflow:visible}

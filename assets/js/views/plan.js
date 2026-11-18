@@ -2,7 +2,8 @@
    Budget (team change, 18 Nov): anyone in the group can add, change or remove items
    until the last day of the trip, then it locks. Every change is posted in the trip chat
    automatically, and everyone approves the new total again. The tab shows a dot while
-   anyone hasn't approved. Demo: changes and approvals stay on this page only. */
+   anyone hasn't approved. Each person can Approve or say Don't agree (with a reason that
+   goes to the chat). Demo: changes and answers stay on this page only. */
 const STC={Booked:'p-ok','To confirm':'p-warn',Planned:'p-mut',Idea:'p-bad'}, STN=['Idea','Planned','To confirm','Booked'];
 function plan(){
   const t=T(S.planTrip)||TRIPS[0];
@@ -47,12 +48,13 @@ const bTotal=()=>S.budget.reduce((a,r)=>a+r[1],0);
 const bLastDay=t=>(t.dates.split('–').pop()||t.dates).replace(/·.*$/,'').trim();
 function bApproved(){if(!S.bOk) S.bOk=new Set(bGroup(T(S.planTrip)||TRIPS[0])); return S.bOk}
 function bAllOk(t){const ok=bApproved(); return bGroup(t).every(n=>ok.has(n))}
+function bNo(){return S.bNo||(S.bNo=new Map())}
 function bPost(text,ask){S.chat.push(['Payana',text,'now','sys',ask])}
-function bChanged(what){const old=S.bPrevTotal, now=bTotal(); S.bOk=new Set([me().name]);
-  bPost(`You ${what}. New total ${rupee(now)} per person${old!==now?` (was ${rupee(old)})`:''}. Everyone needs to approve it again.`,true);
-  demoToast('budget changed and posted in the trip chat (this page only).')}
+function bChanged(what,who){const old=S.bPrevTotal, now=bTotal(), by=who||me().name; S.bOk=new Set([by]); bNo().clear(); S.bAsk=false;
+  bPost(`${who||'You'} ${what}. New total ${rupee(now)} per person${old!==now?` (was ${rupee(old)})`:''}. Everyone needs to approve it again.`,true);
+  if(!who) demoToast('budget changed and posted in the trip chat (this page only).')}
 function budgetTab(t){
-  const rows=S.budget, tot=bTotal(), grp=bGroup(t), ok=bApproved(), n=grp.filter(x=>ok.has(x)).length, all=n===grp.length, mine=ok.has(me().name), ed=S.bEdit;
+  const rows=S.budget, tot=bTotal(), grp=bGroup(t), ok=bApproved(), no=bNo(), n=grp.filter(x=>ok.has(x)).length, all=n===grp.length, mine=ok.has(me().name), ed=S.bEdit;
   const row=(r,i)=>ed===i?`<tr><td colspan="3"><form class="b-edit" id="bef" data-i="${i}"><label class="in" for="be-n">Item<input id="be-n" value="${esc(r[0])}"></label><label class="in" for="be-a">Per person (₹)<input id="be-a" type="number" inputmode="numeric" min="0" step="50" value="${r[1]}"></label><div class="b-acts"><button type="button" class="btn btn-line btn-sm" data-bcancel>Cancel</button><button class="btn btn-primary btn-sm">Save</button></div><p class="err" id="beerr" hidden></p></form></td></tr>`
     :`<tr><td>${esc(r[0])}</td><td>${rupee(r[1])}</td><td class="b-ctl"><button class="ibtn" data-bedit="${i}" aria-label="Change ${esc(r[0])}">✎</button><button class="ibtn" data-bdel="${i}" aria-label="Remove ${esc(r[0])}">✕</button></td></tr>`;
   return `<div class="pgrid"><div class="card sec"><h2 style="font-size:18px">Estimated cost per person</h2>
@@ -62,23 +64,35 @@ function budgetTab(t){
     <form class="b-add" id="baf"><input id="ba-n" placeholder="Add an item, e.g. Jeep to the viewpoint" aria-label="New item"><input id="ba-a" type="number" inputmode="numeric" min="0" step="50" placeholder="₹ per person" aria-label="Amount per person"><button class="btn btn-soft btn-sm">Add</button></form><p class="err" id="baerr" hidden></p>
     <p style="color:var(--muted);font-size:13.5px">Estimates only. Payments happen outside the app.</p></div>
    <div style="display:grid;gap:18px;align-content:start;min-width:0">
-    <div class="card sec b-appr ${all?'ok':''}"><h2 style="font-size:18px">Group approval</h2>
-     <div class="b-stat">${all?`${I('check')}<p><b>Everyone approved</b> ${rupee(tot)} per person.</p>`:`${I('clock')}<p><b>${n} of ${grp.length} approved</b> ${rupee(tot)} per person.</p>`}</div>
-     ${grp.map((x,i)=>`<div class="person">${av(x,i)}<div><b>${x===me().name?'You':esc(x)}</b></div><span class="pill ${ok.has(x)?'p-ok':'p-warn'}">${ok.has(x)?'Approved':'Waiting'}</span></div>`).join('')}
-     ${mine?'':`<button class="btn btn-primary" data-bok>I approve ${rupee(tot)} per person</button>`}
-     ${all?'':`<button class="linkbtn muted" data-bsim style="font-size:13px">Demo: show everyone else approving</button>`}
-     <p class="hint" style="font-size:13px">If the budget changes again, everyone approves the new total again.</p></div></div></div>`;
+    <div class="card sec b-appr ${all?'ok':no.size?'bad':''}"><h2 style="font-size:18px">Group approval</h2>
+     <div class="b-stat">${all?`${I('check')}<p><b>Everyone approved</b> ${rupee(tot)} per person.</p>`:`${I(no.size?'flag':'clock')}<p><b>${n} of ${grp.length} approved</b>${no.size?` · ${no.size} ${no.size>1?'don\'t':'doesn\'t'} agree`:''} · ${rupee(tot)} per person.</p>`}</div>
+     ${grp.map((x,i)=>{const st=ok.has(x)?['p-ok','Approved']:no.has(x)?['p-bad','Not agreed']:['p-warn','Waiting']; return `<div class="person">${av(x,i)}<div><b>${x===me().name?'You':esc(x)}</b>${no.has(x)?`<small>“${esc(no.get(x))}”</small>`:''}</div><span class="pill ${st[0]}">${st[1]}</span></div>`}).join('')}
+     ${S.bAsk?`<form class="b-no" id="bnf"><label class="in" for="bn-r">Why don't you agree?<textarea id="bn-r" rows="2" placeholder="e.g. The homestay is too expensive, can we find a cheaper one?"></textarea></label><p class="hint" style="font-size:13px;margin:0">Your reason is posted in the trip chat so the group can sort it out.</p><p class="err" id="bnerr" hidden></p><div class="b-acts"><button type="button" class="btn btn-line btn-sm" data-bnocancel>Cancel</button><button class="btn btn-sm danger-btn">Send</button></div></form>`
+      :mine?`<p class="hint" style="margin:0">You approved this total. <button class="linkbtn" data-bnoask>Changed your mind?</button></p>`
+      :`<p style="margin:4px 0 0;font-weight:700">Your answer${no.has(me().name)?' (you said you don\'t agree)':''}</p><div class="b-ans"><button class="btn btn-primary" data-bok>${I('check')}Approve ${rupee(tot)}</button><button class="btn btn-line" data-bnoask>Don't agree</button></div>`}
+     <div class="b-demo"><span>Demo:</span><button class="linkbtn muted" data-bmember>someone else changes the budget</button>${all?'':`<button class="linkbtn muted" data-bsim>everyone else approves</button>`}</div>
+     <p class="hint" style="font-size:13px">If the budget changes again, everyone answers again.</p></div></div></div>`;
 }
 function budgetClick(e,draw){
   if(!S.bPrevTotal) S.bPrevTotal=bTotal();
   const ed=e.target.closest('[data-bedit]'); if(ed){S.bEdit=+ed.dataset.bedit; draw(); const i=$('#be-a'); i&&i.focus(); return true}
   if(e.target.closest('[data-bcancel]')){S.bEdit=null; draw(); return true}
   const del=e.target.closest('[data-bdel]'); if(del){const r=S.budget[+del.dataset.bdel]; S.bPrevTotal=bTotal(); S.budget.splice(+del.dataset.bdel,1); S.bEdit=null; bChanged(`removed ${r[0]} (${rupee(r[1])})`); draw(); return true}
-  if(e.target.closest('[data-bok]')){const t=T(S.planTrip)||TRIPS[0]; bApproved().add(me().name); bPost(`You approved the budget: ${rupee(bTotal())} per person.`); if(bAllOk(t)) bPost(`Everyone approved the budget: ${rupee(bTotal())} per person.`); route(); return true}
-  if(e.target.closest('[data-bsim]')){const t=T(S.planTrip)||TRIPS[0]; bGroup(t).forEach(n=>{if(n!==me().name&&!bApproved().has(n)){bApproved().add(n); S.chat.push([n,`${n} approved the budget: ${rupee(bTotal())} per person.`,'now','sys'])}}); if(bAllOk(t)) bPost(`Everyone approved the budget: ${rupee(bTotal())} per person.`); route(); return true}
+  if(e.target.closest('[data-bnoask]')){S.bAsk=true; draw(); const r=$('#bn-r'); r&&r.focus(); return true}
+  if(e.target.closest('[data-bnocancel]')){S.bAsk=false; draw(); return true}
+  if(e.target.closest('[data-bmember]')){const t=T(S.planTrip)||TRIPS[0], who=(t.people.find(p=>!/Host/.test(p[1]))||t.people[0])[0], i=S.budget.length>2?2:0, r=S.budget[i];
+    if(!r){S.bPrevTotal=bTotal(); S.budget.push(['Food',1000]); bChanged('added Food: '+rupee(1000),who); route(); return true}
+    S.bPrevTotal=bTotal(); const a=r[1]+200; S.budget[i]=[r[0],a]; bChanged(`changed ${r[0]}: ${rupee(r[1])} → ${rupee(a)}`,who); S.bEdit=null;
+    route(); demoToast(`${who} changed the budget. You now see it as a group member would.`); return true}
+  if(e.target.closest('[data-bok]')){const t=T(S.planTrip)||TRIPS[0]; bApproved().add(me().name); bNo().delete(me().name); bPost(`You approved the budget: ${rupee(bTotal())} per person.`); if(bAllOk(t)) bPost(`Everyone approved the budget: ${rupee(bTotal())} per person.`); route(); return true}
+  if(e.target.closest('[data-bsim]')){const t=T(S.planTrip)||TRIPS[0]; bGroup(t).forEach(n=>{if(n!==me().name&&!bApproved().has(n)){bApproved().add(n); bNo().delete(n); S.chat.push([n,`${n} approved the budget: ${rupee(bTotal())} per person.`,'now','sys'])}}); if(bAllOk(t)) bPost(`Everyone approved the budget: ${rupee(bTotal())} per person.`); route(); return true}
   return false;
 }
 function budgetSubmit(e,draw){
+  if(e.target.id==='bnf'){const why=$('#bn-r').value.trim(), er=$('#bnerr');
+    if(why.length<3){er.textContent='Add a short reason so the group knows what to change.'; er.hidden=false; return true}
+    bApproved().delete(me().name); bNo().set(me().name,why); S.bAsk=false;
+    bPost(`You don't agree with the budget (${rupee(bTotal())} per person): "${why}"`,true); route(); demoToast('your answer was posted in the trip chat (this page only).'); return true}
   if(e.target.id==='bef'){const i=+e.target.dataset.i, r=S.budget[i], nm=$('#be-n').value.trim(), a=Math.round(+$('#be-a').value), er=$('#beerr');
     if(!nm){er.textContent='Give the item a name.'; er.hidden=false; return true}
     if(!(a>=0)||$('#be-a').value===''){er.textContent='Enter an amount in rupees.'; er.hidden=false; return true}
