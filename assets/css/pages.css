@@ -414,3 +414,31 @@
 .ex-tabs{display:inline-flex; gap:4px; padding:4px; background:var(--chip); border-radius:999px; margin-bottom:18px}
 .ex-tabs a{padding:9px 18px; border-radius:999px; text-decoration:none; font-weight:700; font-size:15px; color:var(--muted); min-height:44px; display:flex; align-items:center}
 .ex-tabs a[aria-current="page"]{background:var(--surface); color:var(--fg); box-shadow:0 1px 4px rgba(0,0,0,.08)}
+
+/* Budget editing and group approval (18 Nov) */
+.b-tbl .b-ctl{white-space:nowrap; text-align:right; width:1%}
+.b-tbl .b-ctl .ibtn{width:40px; height:40px; border:0; background:none; border-radius:50%; cursor:pointer; color:var(--muted); font-size:16px}
+.b-tbl .b-ctl .ibtn:hover{background:var(--chip); color:var(--fg)}
+.b-tbl .b-grp td{font-weight:500; color:var(--muted); font-size:14px; padding-top:0}
+.b-edit{display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:10px; align-items:end}
+.b-edit .b-acts{grid-column:1/-1; display:flex; gap:8px; justify-content:flex-end}
+.b-edit .err{grid-column:1/-1}
+.b-add{display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr) auto; gap:8px; margin-top:12px}
+.b-add input{padding:10px 12px; border-radius:12px; border:1px solid var(--line); background:var(--bg); font-size:15px; min-width:0}
+@media (max-width:520px){.b-add{grid-template-columns:1fr 1fr} .b-add button{grid-column:1/-1} .b-edit{grid-template-columns:1fr}}
+.b-appr{display:grid; gap:10px}
+.b-stat{display:flex; gap:10px; align-items:center; padding:12px 14px; border-radius:14px; background:var(--warn-bg,#FBEFD3); color:var(--warn-fg,#6B4A00)}
+.b-appr.ok .b-stat{background:var(--ok-bg); color:var(--ok-fg)}
+.b-stat svg{width:20px; height:20px; flex:none}
+.tabdot{display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--terra); margin-left:6px; vertical-align:middle}
+.msg-sys{justify-self:center; display:flex; gap:10px; align-items:flex-start; max-width:92%; padding:10px 14px; border-radius:14px; background:var(--surface-2,var(--chip)); border:1px dashed var(--line); font-size:14px}
+.msg-sys svg{width:16px; height:16px; flex:none; margin-top:3px; color:var(--accent)}
+.msg-sys p{margin:0}
+.msg-sys small{color:var(--muted); font-size:12px}
+.pgridimg a{display:block; border-radius:6px; overflow:hidden}
+.pgridimg a:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+.b-tbl th{white-space:nowrap}
+.b-tbl .b-ctl .ibtn{display:inline-grid; place-items:center; vertical-align:middle}
+@media (max-width:520px){.b-tbl th,.b-tbl td{padding:10px 4px} .b-tbl .b-ctl .ibtn{width:36px; height:36px}}
+.msg-sys{padding:8px 12px; gap:8px; font-size:13.5px; line-height:1.4}
+.msg-sys small{display:block; margin-top:2px}

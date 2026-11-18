@@ -5,10 +5,10 @@ function profile(){
   const u=me(), ini=u.name.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
   const tabs=['Posts','Saved','Reviews','Tagged']; if(!['posts','saved','reviews','tagged'].includes(S.profTab)) S.profTab='posts';
   let body='';
-  if(S.profTab==='posts') body=`<div class="pgridimg">${S.myPosts.map(n=>`<img src="${src(n)}" alt="">`).join('')}</div>`;
+  if(S.profTab==='posts') body=postGrid(S.myPosts,u.name);
   else if(S.profTab==='saved') body=savedBody();
   else if(S.profTab==='reviews') body=`<div style="display:grid;gap:12px">${S.profile.reviews.map((r,i)=>`<div class="card sec"><div class="person">${av(r[0],i)}<div><b>${r[0]}</b><small>${r[2]}</small></div><span style="color:var(--sun)">★★★★★</span></div><p>${r[1]}</p></div>`).join('')}</div>`;
-  else body=`<div class="pgridimg">${S.profile.tagged.map(n=>`<img src="${src(n)}" alt="">`).join('')}</div>`;
+  else body=postGrid(S.profile.tagged,i=>(S.friends[i%S.friends.length]||['Ananya K.'])[0]);
   return `<div class="pcover"><img src="${src(S.profile.cover)}" alt=""></div>
    <div class="phead"><div class="bigav">${esc(ini)}</div><div class="who"><h1>${esc(u.name)}<span class="vf" style="width:22px;height:22px;font-size:13px">✓</span></h1><small>@${esc(u.name.toLowerCase().replace(/\s+/g,'.'))} · Bengaluru</small></div>
     <div class="btns"><button class="btn btn-soft btn-sm" data-edit>Edit profile</button><a class="btn btn-line btn-sm" href="#settings">${I('gear')}Settings</a><button class="btn btn-line btn-sm" data-more>More</button></div></div>

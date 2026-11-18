@@ -1,10 +1,26 @@
 /* ---------- POST WITH COMMENTS (v1.4) ----------
-   #post-<id>. Demo: comments you add stay on this page only. */
+   #post-<id>. Demo: comments you add stay on this page only.
+   Team change (18 Nov): photos in profile grids (yours, someone else's, Tagged) open the
+   full post here. Grid photos get a post record the first time they're shown. */
+const GRID_CAP={6046:['Jeep ride up to the estate. Worth the bumpy road for that view.','Coorg'],6047:['Mysuru Palace early on a Sunday, before the crowds.','Mysuru'],
+  6074:['Wildflowers all along the lake trail. Slow walk, no rush.','Ooty'],6058:['First dive. Nervous for ten minutes, then never wanted to come up.','Netrani Island'],
+  6064:['Rope bridges in the canopy. The group cheered me across the last one.','Coorg'],6071:['A night on a houseboat in the backwaters.','Alappuzha'],
+  6056:['Dandeli rafting. Everyone fell in at least once.','Dandeli'],6045:['Nilgiri toy train. Left-side window seat going up.','Ooty'],
+  6073:['Blue train over the arched bridge. Timed it perfectly.','Nilgiris'],6054:['Three of us, one summit, one very windy selfie.','Kudremukh'],
+  6062:['Snow day with the group.','Manali'],6084:['Campfire by the lake, last night of the trip.','Chikkamagaluru']};
+function gridPost(img,who){S.gridPosts=S.gridPosts||[];
+  let p=[...S.posts,...S.gridPosts].find(x=>x.img===img&&x.who===who);
+  if(!p){const c=GRID_CAP[img]||['','Bengaluru']; p={id:900000+S.gridPosts.length,who,v:true,where:c[1],time:'Earlier',type:'Photo',img,text:c[0],likes:12+(((+img)||7)%57),com:0}; S.gridPosts.push(p)}
+  return p;
+}
+// A grid of photos that each open their post. who: a name, or (i)=>name for mixed grids like Tagged.
+function postGrid(imgs,who){return `<div class="pgridimg">${imgs.map((n,i)=>{const p=gridPost(n,typeof who==='function'?who(i):who); return `<a href="#post-${p.id}" aria-label="Open post${p.text?': '+esc(p.text.slice(0,50)):''}"><img src="${src(n)}" alt=""></a>`}).join('')}</div>`}
+const findPost=id=>[...S.posts,...(S.gridPosts||[])].find(x=>x.id===+id)||S.posts[0];
 function post(id){
-  const p=S.posts.find(x=>x.id===+id)||S.posts[0], cm=S.comments[p.id]||(S.comments[p.id]=[]);
+  const p=findPost(id), cm=S.comments[p.id]||(S.comments[p.id]=[]);
   const one=(c,i,reply)=>`<div class="cm ${reply?'reply':''}">${av(c[0],i+(reply?3:0),reply?32:40)}<div><div class="cm-b"><b><a href="#u-${slug(c[0])}">${esc(c[0])}</a></b> ${esc(c[1])}</div>
     <div class="cm-a"><button data-cmlike>Like</button>${reply?'':`<button data-cmreply="${i}">Reply</button>`}<button data-cmrep="${esc(c[0])}">Report</button><small>${c[2]}</small></div></div></div>`;
-  return `<a class="btn btn-line btn-sm" href="#feed" style="margin-bottom:14px">← Back to feed</a>
+  return `<button class="btn btn-line btn-sm" data-psback style="margin-bottom:14px">← Back</button>
    <article class="card ps-grid">${p.img?`<img src="${src(p.img)}" alt="">`:`<div class="ps-noimg">${esc(p.type)}</div>`}
     <div class="ps-side"><div class="post-h" style="padding:0">${av(p.who,p.id)}<div><b><a href="#u-${slug(p.who)}">${esc(p.who)}</a>${p.v?'<span class="vf">✓</span>':''}</b><small>${esc(p.where)} · ${esc(p.time)}</small></div><button class="ibtn" aria-label="Report post" data-psrep style="margin-left:auto">${I('flag')}</button></div>
      <p>${esc(p.text)}</p>${p.trip&&T(p.trip)?`<a class="linked" href="#trip-${p.trip}" style="text-decoration:none">Going again · ${T(p.trip).name} <b style="color:var(--accent)">View trip →</b></a>`:''}
@@ -13,9 +29,10 @@ function post(id){
      <form class="send" id="cmf">${av(me().name,0,36)}<input id="cm-in" placeholder="${S.cmReplyTo!=null?'Reply to '+esc(cm[S.cmReplyTo][0].split(' ')[0])+'…':'Write a comment…'}" aria-label="Write a comment"><button class="btn btn-primary btn-sm">Post</button></form>
      <p class="hint" style="font-size:12.5px">Only friends can comment on this post. Be kind. Comments that break the Community Rules are removed.</p></div></article>`;
 }
-bind.post=id=>{const p=S.posts.find(x=>x.id===+id)||S.posts[0], cm=S.comments[p.id]; S.cmReplyTo=null;
+bind.post=id=>{const p=findPost(id), cm=S.comments[p.id]; S.cmReplyTo=null;
   const v=$('#view');
   v.addEventListener('click',e=>{
+    if(e.target.closest('[data-psback]')){history.length>1?history.back():(location.hash='feed'); return}
     const r=e.target.closest('[data-cmreply]'); if(r){S.cmReplyTo=+r.dataset.cmreply; $('#cm-in').placeholder='Reply to '+cm[S.cmReplyTo][0].split(' ')[0]+'…'; $('#cm-in').focus(); return}
     const rp=e.target.closest('[data-cmrep]'); if(rp){openReport({what:'post',name:'a comment by '+rp.dataset.cmrep}); return}
     if(e.target.closest('[data-psrep]')){openReport({what:'post',name:'this post'}); return}
