@@ -70,3 +70,14 @@ Everything is still a **demo**: actions that would send, save or charge somethin
 18. **"Who's handling what" removed** from the Budget tab (it was fixed sample text that nobody could change).
 19. **Approve or Don't agree.** In Group approval, each person picks **Approve** or **Don't agree**. Don't agree asks for a short reason; the person shows as "Not agreed" with their reason, and it's posted in the trip chat. Anyone can change their answer. Any budget change resets everyone's answer.
 20. Demo link "someone else changes the budget" shows the budget from a group member's side (your answer back on Waiting, with the two buttons).
+
+## Full check — 18 November 2026
+
+Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every button on every page (about 600) clicked at phone and desktop size; sign-up, consent, onboarding, logout and login run end to end; dark mode checked. Fixed:
+
+21. Replying to a comment on one post, then opening another post, crashed the page.
+22. Links to profile-photo posts stopped working after a page reload. They now use stable addresses (for example `#post-g6046-asha-rao`).
+23. Pop-up sheets (report, friends list) stayed open after pressing Back. They now close when the page changes.
+24. The "Demo:" pop-up message turned into a large round bubble on phones and covered the page. It's now a wide rounded bar.
+25. Opening the trip chat on a phone now shows the newest message; switching planner tabs keeps the tabs in view.
+26. The dotted road line on the landing page ran slightly past the screen edge at tablet width.

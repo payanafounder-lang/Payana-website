@@ -52,7 +52,7 @@
 .head p{color:var(--muted); font-size:18px; max-width:60ch}
 
 .steps{position:relative; display:grid; grid-template-columns:repeat(5,1fr); gap:18px}
-.road{position:absolute; left:4%; right:4%; top:118px; height:20px; pointer-events:none}
+.road{position:absolute; left:4%; right:4%; top:118px; height:20px; pointer-events:none; overflow:hidden; max-width:92%}
 .road path{stroke:var(--accent); stroke-width:3; stroke-dasharray:10 12; fill:none; animation:drive 2.4s linear infinite}
 @keyframes drive{to{stroke-dashoffset:-44}}
 .step{position:relative; display:grid; gap:12px; min-width:0}

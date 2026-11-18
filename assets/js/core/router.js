@@ -49,5 +49,7 @@ function showLanding(){$('#app').hidden=true; $('#public').hidden=true; $('#land
 }
 // Counters in the member menu (unread notifications, etc.)
 function updateBadges(){const n=S.notifs.filter(x=>!x.read).length, b=$('#ntbadge'); if(b){b.textContent=n; b.hidden=!n}}
+// Close any open sheet (report, friends list, feedback...) when the page changes, e.g. with the Back button.
+addEventListener('hashchange',()=>document.querySelectorAll('.modal:not(#modal)').forEach(m=>m.remove()));
 addEventListener('hashchange',route);
 const bind={};
