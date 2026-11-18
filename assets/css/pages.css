@@ -394,14 +394,19 @@
 @media (max-width:600px){.td{margin:-18px -16px 0; border-radius:0; min-height:100vh}}
 
 /* pilot feedback */
-.fb-tab{position:fixed; right:0; top:45%; z-index:70; transform:rotate(-90deg) translateY(-100%); transform-origin:right top; border:0; cursor:pointer; padding:10px 18px; border-radius:12px 12px 0 0; background:var(--forest); color:#FFF8EE; font:700 14px var(--f-body); box-shadow:0 6px 20px rgba(0,0,0,.2)}
-.fb-modal{align-items:end; justify-items:end}
-.fb-sheet{width:min(440px,100%)}
-.fb-scale{display:flex; gap:6px}
-.fb-scale button{flex:1; min-height:48px; border-radius:12px; border:1px solid var(--line); background:var(--bg); font:700 16px var(--f-body); cursor:pointer}
-.fb-scale button[aria-pressed="true"]{background:var(--forest); color:#FFF8EE; border-color:var(--forest)}
-.fb-ends{display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-top:4px}
-@media (max-width:860px){.fb-tab{top:auto; right:12px; bottom:calc(122px + env(safe-area-inset-bottom,0px)); transform:none; border-radius:999px; padding:9px 14px; font-size:13px} .fb-modal{justify-items:center}}
-/* Phones: stack two-column form rows so date and number inputs never overflow */
+@media (max-width:860px){/* Phones: stack two-column form rows so date and number inputs never overflow */
 .in input,.in select,.in textarea{min-width:0}
 @media (max-width:520px){.row2{grid-template-columns:1fr}}
+
+/* Emergency contacts (18 Nov) */
+.ec-box{border-top:1px solid var(--line); margin-top:6px}
+.ec-form{display:grid; gap:12px; padding:4px 0 14px}
+.ec-form .actions{display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap}
+.td-ec{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:8px}
+.td-ec .btn{flex-direction:column; gap:0; line-height:1.25}
+.td-ec small{font-weight:500; font-size:12px; opacity:.75}
+.fs-reqs{display:grid; gap:4px; padding-bottom:10px; border-bottom:1px solid var(--line)}
+.op-rev{grid-template-columns:minmax(0,1fr)}
+.op-rev .person{flex-wrap:wrap; row-gap:4px}
+@media (max-width:520px){.op-rev .stars-ro{font-size:14px; letter-spacing:1px}}
+.setrow .btns{flex-wrap:nowrap; flex:none}

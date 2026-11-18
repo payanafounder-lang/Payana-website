@@ -37,7 +37,7 @@ function bindReqs(){
   document.addEventListener('click',reqClick);
 }
 function reqClick(e){const a=e.target.closest('[data-acc]'), d=e.target.closest('[data-dec]'), ad=e.target.closest('[data-add]');
-  if(a||d){const i=+(a||d).dataset[a?'acc':'dec']; const p=S.requests.splice(i,1)[0]; if(a)S.friends.unshift([p[0],'New friend']); demoToast(a?`you and ${p[0]} are now friends (sample request, this page only)`:'request declined (sample request, this page only)'); $$('#reqs').forEach(r=>r.innerHTML=reqHTML()); $('#frbadge').textContent=S.requests.length; $('#frbadge').hidden=!S.requests.length; if(location.hash==='#friends')route()}
+  if(a||d){const i=+(a||d).dataset[a?'acc':'dec']; const p=S.requests.splice(i,1)[0]; if(a)S.friends.unshift([p[0],'New friend']); demoToast(a?`you and ${p[0]} are now friends (sample request, this page only)`:'request declined (sample request, this page only)'); $$('#reqs').forEach(r=>r.innerHTML=reqHTML()); }
   if(ad){ad.textContent='Requested'; ad.disabled=true; demoToast('no request was sent. In the real app they need to accept it.')}
 }
 document.addEventListener('click',reqClick);

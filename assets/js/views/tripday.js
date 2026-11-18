@@ -15,14 +15,16 @@ function tripday(id){
     ${d.people.map((p,i)=>`<div class="person">${av(p[0],i)}<div><b>${esc(p[0])}</b><small>${p[1]?'Host':'&nbsp;'}</small></div><span class="pill ${ST[p[2]][0]}">${ST[p[2]][1]}</span></div>`).join('')}
     <div class="person">${av(me().name,7)}<div><b>You</b><small>&nbsp;</small></div><span class="pill ${d.me?'p-ok':'p-mut'}">${d.me?'Reached':'Not yet'}</span></div></section>
    <section class="card sec td-safe"><div class="row2"><button class="btn ${d.me?'btn-soft':'forest-btn'} td-big" data-td="reached">${d.me?'✓ You\'ve reached':'I\'ve reached'}<small>Tell the group</small></button><button class="btn btn-soft td-big" data-td="share">Share with family<small>Itinerary + group</small></button></div>
-    <a class="btn danger-btn td-112" href="tel:112">${I('phone')}Emergency · call 112</a><p class="hint" style="text-align:center">Feeling unsafe but not an emergency? <button class="linkbtn" data-td="help">Get help from Payana</button></p></section>
+    <a class="btn danger-btn td-112" href="tel:112">${I('phone')}Emergency · call 112</a>
+    ${S.emergency.length?`<div class="td-ec">${S.emergency.map(c=>`<a class="btn btn-soft" href="tel:+91${c.phone}">${I('phone')}Call ${esc(c.name)}<small>${c.rel}</small></a>`).join('')}</div>`:`<p class="hint" style="text-align:center">No emergency contacts yet. <a class="linkbtn" href="#settings" data-td-ec>Add family or a friend</a></p>`}<p class="hint" style="text-align:center">Feeling unsafe but not an emergency? <button class="linkbtn" data-td="help">Get help from Payana</button></p></section>
    <section class="card sec"><h2 style="font-size:16px">Today</h2><ol class="td-tl">${plan.map(p=>`<li><time>${p[1]}</time><span>${esc(p[2])}</span><span class="pill ${STC[p[4]]}">${p[4]}</span></li>`).join('')}</ol></section>
    <p class="hint" style="text-align:center">Payana doesn't track your location. Share it in the group chat only if you want to.</p></div>`;
 }
 bind.tripday=id=>{const t=T(id)||T('coorg'), d=TD[t.id];
+  $('#view').addEventListener('click',e=>{if(e.target.closest('[data-td-ec]')){S.setTab='privacy'}});
   $('#view').addEventListener('click',e=>{const b=e.target.closest('[data-td]'); if(!b) return; const k=b.dataset.td;
     if(k==='reached'){d.me=!d.me; route(); if(d.me) demoToast('the group would see you\'ve reached. Nothing was sent.')}
-    if(k==='share') demoToast('nothing was sent. In the real app your trusted contact gets the plan and the group list.');
+    if(k==='share') demoToast('nothing was sent. In the real app your main emergency contact gets the plan and the group list.');
     if(k==='dir') demoToast('maps aren\'t connected in the demo.');
     if(k==='call') demoToast('in-app calling isn\'t connected in the demo. Your number stays private.');
     if(k==='help') openReport({what:'person',name:'a problem on this trip',block:false});
