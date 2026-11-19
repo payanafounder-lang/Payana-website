@@ -52,6 +52,7 @@
 .head p{color:var(--muted); font-size:18px; max-width:60ch}
 
 .steps{position:relative; display:grid; grid-template-columns:repeat(5,1fr); gap:18px}
+#how .steps{display:grid; flex-wrap:nowrap; margin:0} /* beats the sign-up .steps style in pages.css */
 .road{position:absolute; left:4%; right:4%; top:118px; height:20px; pointer-events:none; overflow:hidden; max-width:92%}
 .road path{stroke:var(--accent); stroke-width:3; stroke-dasharray:10 12; fill:none; animation:drive 2.4s linear infinite}
 @keyframes drive{to{stroke-dashoffset:-44}}
@@ -62,8 +63,9 @@
 .step .n{position:absolute; left:12px; top:12px; width:38px; height:38px; display:grid; place-items:center; border-radius:50%; background:rgba(20,12,7,.35); border:1px solid rgba(255,248,238,.5); color:#FFF8EE; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); font:500 14px/1 var(--f-mono)}
 .step h3{font-size:24px}
 .step p{color:var(--muted); font-size:15px}
-@media (min-width:521px) and (max-width:980px){.steps{gap:12px} .road{display:none} .step{gap:8px} .step h3{font-size:18px} .step p{font-size:13px; line-height:1.45} .step .n{width:30px; height:30px; left:8px; top:8px; font-size:12px} .step figure{border-radius:16px}}
+@media (min-width:521px) and (max-width:980px){#how .steps{gap:12px} .road{display:none} .step{gap:8px} .step h3{font-size:18px} .step p{font-size:13px; line-height:1.45} .step .n{width:30px; height:30px; left:8px; top:8px; font-size:12px} .step figure{border-radius:16px}}
 @media (max-width:520px){.steps{grid-template-columns:1fr} .step figure{aspect-ratio:4/3}}
+@media (min-width:981px){#how .steps{gap:20px} .step figure{aspect-ratio:4/3} .step figure img{transform:none!important; transition:none} .road{top:72px}}
 
 .band{background:var(--surface); border-block:1px solid var(--line)}
 .trips-top{display:flex; justify-content:space-between; align-items:end; gap:24px; flex-wrap:wrap; margin-bottom:36px}
