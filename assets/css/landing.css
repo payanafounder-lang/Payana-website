@@ -55,14 +55,14 @@
 .road{position:absolute; left:4%; right:4%; top:118px; height:20px; pointer-events:none; overflow:hidden; max-width:92%}
 .road path{stroke:var(--accent); stroke-width:3; stroke-dasharray:10 12; fill:none; animation:drive 2.4s linear infinite}
 @keyframes drive{to{stroke-dashoffset:-44}}
-.step{position:relative; display:grid; gap:12px; min-width:0}
-.step figure{margin:0; aspect-ratio:3/4; border-radius:var(--radius); overflow:hidden; position:relative; max-width:100%}
+.step{position:relative; display:grid; gap:12px; min-width:0; align-content:start}
+.step figure{margin:0; aspect-ratio:4/5; border-radius:var(--radius); overflow:hidden; position:relative; max-width:100%}
 .step figure img{width:100%; height:100%; object-fit:cover; transition:transform .8s}
 .step:hover figure img{transform:scale(1.05)}
 .step .n{position:absolute; left:12px; top:12px; width:38px; height:38px; display:grid; place-items:center; border-radius:50%; background:rgba(20,12,7,.35); border:1px solid rgba(255,248,238,.5); color:#FFF8EE; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); font:500 14px/1 var(--f-mono)}
 .step h3{font-size:24px}
 .step p{color:var(--muted); font-size:15px}
-@media (max-width:980px){.steps{grid-template-columns:repeat(2,1fr)} .road{display:none} .step:last-child{grid-column:1/-1} .step:last-child figure{aspect-ratio:16/9}}
+@media (min-width:521px) and (max-width:980px){.steps{gap:12px} .road{display:none} .step{gap:8px} .step h3{font-size:18px} .step p{font-size:13px; line-height:1.45} .step .n{width:30px; height:30px; left:8px; top:8px; font-size:12px} .step figure{border-radius:16px}}
 @media (max-width:520px){.steps{grid-template-columns:1fr} .step figure{aspect-ratio:4/3}}
 
 .band{background:var(--surface); border-block:1px solid var(--line)}
