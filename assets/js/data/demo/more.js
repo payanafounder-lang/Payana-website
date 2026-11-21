@@ -43,9 +43,9 @@ const DEMO_MORE={
   },
   // v1.4 — other travellers' profiles (slug → profile). Reviews are always visible.
   people:{
-   'rohit-s':{name:'Rohit S.',user:'rohit.roams',area:'Koramangala',v:'Phone, email & selfie verified',cover:6085,bio:'Weekend trekker, sunrise chaser, always the one with the snacks.',tags:['Balanced pace','Trekking','Photography'],posts:24,friends:86,trips:7,mutual:['Ananya K.','Arjun J.'],upcoming:'coorg',postsPrivate:true,
+   'rohit-s':{name:'Rohit S.',user:'rohit.roams',area:'Koramangala',v:'Phone, email & selfie verified',cover:6085,bio:'Weekend trekker, sunrise chaser, always the one with the snacks.',langs:'Kannada, English, Hindi',tags:['Balanced pace','Trekking','Photography'],posts:24,friends:86,trips:7,mutual:['Ananya K.','Arjun J.'],upcoming:'coorg',postsPrivate:true,
      reviews:[{who:'Meera R.',trip:'Chikkamagaluru sunrise trek',when:'Oct',stars:5,text:'Super punctual and kept the group laughing. Would host him again.'},{who:'Ananya K.',trip:'Skandagiri night trek',when:'Sep',stars:5,text:'Great host. Shared the plan early and made sure everyone got home.'},{who:'Vinay D.',trip:'Skandagiri night trek',when:'Sep',stars:4,text:'Good company. The drive back ran late, but he kept us updated.',reply:'Fair point! Traffic at Nandi Hills was bad. I now plan a buffer for the drive back.'}]},
-   'ananya-k':{name:'Ananya K.',user:'ananya.k',area:'Indiranagar',v:'Phone, email, selfie & ID verified',cover:6046,bio:'Coffee-estate weekends and long walks. Host of the Coorg trips.',tags:['Relaxed pace','Coffee','Food'],posts:41,friends:132,trips:11,mutual:['Rohit S.','Meera R.','Sana G.'],upcoming:'coorg',postsPrivate:false,
+   'ananya-k':{name:'Ananya K.',user:'ananya.k',area:'Indiranagar',v:'Phone, email, selfie & ID verified',cover:6046,bio:'Coffee-estate weekends and long walks. Host of the Coorg trips.',langs:'English, Kannada, Kodava',tags:['Relaxed pace','Coffee','Food'],posts:41,friends:132,trips:11,mutual:['Rohit S.','Meera R.','Sana G.'],upcoming:'coorg',postsPrivate:false,
      reviews:[{who:'Rohit S.',trip:'Coorg weekend',when:'Aug',stars:5,text:'Best host I\'ve travelled with. Everything was planned.'},{who:'Sana G.',trip:'Coorg weekend',when:'Jul',stars:5,text:'Kind, organised and fun.'}]}
   },
   // v1.4 — sample posts inside a community, by community index

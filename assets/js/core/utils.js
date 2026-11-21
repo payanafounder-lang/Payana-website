@@ -4,6 +4,8 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const I=(n,st='')=>`<svg class="i" ${st}><use href="#i-${n}"/></svg>`;
+/* "Languages you speak" line shown under the bio on profiles. Takes the saved text, e.g. "Kannada, English". */
+const langLine=l=>{const a=String(l||'').split(/[,/]+/).map(x=>x.trim()).filter(Boolean); return a.length?`<p class="plangs">${I('chat')}<span><b>Speaks</b> ${a.map(esc).join(' · ')}</span></p>`:''};
 // Image reference → URL. Numbers/names map to img/<name>.webp; data: and blob: URLs (user uploads) pass through.
 const src=x=>/^(data|blob):/.test(String(x))?x:`img/${x}.webp`;
 const rupee=n=>'₹'+n.toLocaleString('en-IN');

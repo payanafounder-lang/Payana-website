@@ -334,3 +334,8 @@ html{overflow-x:clip}
 .toast{border-radius:16px; width:max-content; max-width:min(560px, calc(100vw - 32px)); text-align:center; line-height:1.4}
 @media (max-width:860px){.toast{width:calc(100vw - 32px); font-size:14px; padding:12px 16px}}
 .ptabs{scroll-margin-top:76px}
+
+/* Profile: "Languages you speak" line under the bio */
+.plangs{display:flex; align-items:center; gap:8px; margin:0; font-size:14px; color:var(--muted)}
+.plangs .i{width:16px; height:16px; flex:none}
+.plangs b{color:var(--fg); font-weight:600; margin-right:4px}
