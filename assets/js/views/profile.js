@@ -13,7 +13,7 @@ function profile(){
    <div class="phead"><div class="bigav">${esc(ini)}</div><div class="who"><h1>${esc(u.name)}<span class="vf" style="width:22px;height:22px;font-size:13px">✓</span></h1><small>@${esc(u.name.toLowerCase().replace(/\s+/g,'.'))} · Bengaluru</small></div>
     <div class="btns"><button class="btn btn-soft btn-sm" data-edit>Edit profile</button><a class="btn btn-line btn-sm" href="#settings">${I('gear')}Settings</a><button class="btn btn-line btn-sm" data-more>More</button></div></div>
    <div class="stats"><button class="stat" data-stat="posts"><b>${S.myPosts.length}</b><small>Posts</small></button><button class="stat" data-stat="friends"><b>${S.friends.length}</b><small>Friends</small></button><a class="stat" href="#mytrips" style="text-decoration:none;color:inherit"><b>${S.profile.tripsDone}</b><small>Trips done</small></a></div>
-   <div style="display:grid;gap:14px;padding:0 20px 20px"><p style="max-width:60ch">${esc(S.profile.bio)}</p>
+   <div style="display:grid;gap:14px;padding:0 20px 20px">${S.profile.bio?`<p style="max-width:60ch">${esc(S.profile.bio)}</p>`:''}${langLine(S.profile.langs)}
     <div class="tags">${S.profile.tags.map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div>
     <a class="upbanner" href="#trip-${S.profile.upcoming.trip}"><img src="${src(S.profile.upcoming.img)}" alt=""><div><span class="eyebrow">Upcoming trip</span><br><b style="font-size:17px">${esc(S.profile.upcoming.label)}</b></div><span class="btn btn-primary btn-sm">View trip</span></a></div>
    <div class="subtabs" role="tablist">${tabs.map(x=>`<button role="tab" data-prof="${x.toLowerCase()}" aria-selected="${S.profTab===x.toLowerCase()}">${x}</button>`).join('')}</div>${body}`;

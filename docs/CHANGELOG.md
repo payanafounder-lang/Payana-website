@@ -81,3 +81,7 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 24. The "Demo:" pop-up message turned into a large round bubble on phones and covered the page. It's now a wide rounded bar.
 25. Opening the trip chat on a phone now shows the newest message; switching planner tabs keeps the tabs in view.
 26. The dotted road line on the landing page ran slightly past the screen edge at tablet width.
+
+## Fix — 21 November 2026
+
+27. **Languages now show on profiles.** "Languages you speak" (from Edit profile or the welcome steps) was saved but never shown. It now appears below the bio as **Speaks** Kannada · English, on your own profile and on other travellers' profiles. If no languages are added, the line is hidden.
