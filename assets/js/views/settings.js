@@ -69,7 +69,9 @@ function emergencyHTML(){
 
 /* ---------- EDIT PROFILE (own page, team change 18 Nov) ----------
    #editprofile, opened from the Edit profile button on your profile. Only what others
-   see about you: name, username, city, languages, bio, gender, pace and interests.
+   see about you: banner, profile photo, name, username, city, languages, bio, gender, pace and interests.
+   Photo and banner (23 Nov): picked from the device, cropped in the page (photo square, banner 3:1)
+   and kept on this device only. Live: upload to storage and save the URL on the profile.
    Account, privacy and the rest stay in Settings. */
 function editprofile(){
   const u=me(), P=S.profile, pace=(P.tags.find(t=>/pace/i.test(t))||'Relaxed pace').replace(' pace','');
@@ -77,6 +79,11 @@ function editprofile(){
    <div class="ep-wrap">`+EP_FORM(u,P,pace)+`</div>`;
 }
 const EP_FORM=(u,P,pace)=>`<form class="card sec" id="editf">
+     <div class="ep-media"><div class="ep-cover" id="ep-cover" role="button" tabindex="0" aria-label="Change banner"><img id="ep-cimg" src="${src(u.cover||P.cover)}" alt="Banner preview">
+       <button type="button" class="ep-pill ep-crst" id="ep-crm"${u.cover?'':' hidden'}>Reset</button><span class="ep-pill ep-cchg">${I('photo')}Change banner</span><input type="file" id="ep-cfile" accept="image/*" hidden></div>
+      <div class="ep-avrow"><button type="button" class="ep-av" id="ep-av" aria-label="Change profile photo"></button>
+       <div class="ep-avtxt"><div class="ep-avacts"><label class="linkbtn" for="ep-pfile" id="ep-plab">${u.photo?'Change photo':'Add profile photo'}</label><input type="file" id="ep-pfile" accept="image/*" hidden><button type="button" class="linkbtn ep-rm" id="ep-prm"${u.photo?'':' hidden'}>Remove</button></div>
+        <small class="hint">Use a clear photo of your face. It helps travellers trust who they're meeting.</small></div></div></div>
      <div class="row2"><label class="in" for="ep-name">Full name<input id="ep-name" value="${esc(u.name)}" autocomplete="name"></label>
       <label class="in" for="ep-user">Username<input id="ep-user" value="@${esc(u.name.toLowerCase().replace(/\s+/g,'.'))}"></label></div>
      <div class="row2"><label class="in" for="ep-city">City<input id="ep-city" value="Bengaluru"></label>
@@ -88,7 +95,24 @@ const EP_FORM=(u,P,pace)=>`<form class="card sec" id="editf">
      <p class="hint">Budget and group size are set on each trip, not on your profile.</p>
      <p class="err" id="eperr" hidden></p>
      <div class="actions"><a class="btn btn-line" href="#profile">Cancel</a><button class="btn btn-primary">Save changes</button></div></form>`;
-bind.editprofile=()=>{const v=$('#view');
+/* Crop an image file to w×h (centre) and return a JPEG data URL. */
+function cropImage(file,w,h,cb){if(!file||!file.type.startsWith('image/')){toast('Please choose an image'); return}
+  const r=new FileReader(); r.onload=()=>{const img=new Image(); img.onload=()=>{const c=document.createElement('canvas'); c.width=w; c.height=h;
+    let sw=img.width, sh=sw*h/w; if(sh>img.height){sh=img.height; sw=sh*w/h}
+    c.getContext('2d').drawImage(img,(img.width-sw)/2,(img.height-sh)/2,sw,sh,0,0,w,h); cb(c.toDataURL('image/jpeg',.82))}; img.src=r.result}; r.readAsDataURL(file)}
+const initials=n=>String(n||'You').split(' ').filter(Boolean).map(x=>x[0]).join('').slice(0,2).toUpperCase();
+bind.editprofile=()=>{const v=$('#view'), u0=me(); let photo=u0.photo||null, cover=u0.cover||null;
+  const drawAv=()=>{$('#ep-av').innerHTML=(photo?`<img src="${photo}" alt="">`:esc(initials($('#ep-name').value||u0.name)))+`<span class="ep-cam" aria-hidden="true">${I('photo')}</span>`; $('#ep-prm').hidden=!photo; $('#ep-plab').textContent=photo?'Change photo':'Add profile photo'};
+  const drawCov=()=>{$('#ep-cimg').src=src(cover||S.profile.cover); $('#ep-crm').hidden=!cover};
+  drawAv();
+  $('#ep-av').onclick=()=>$('#ep-pfile').click();
+  $('#ep-prm').onclick=()=>{photo=null; $('#ep-pfile').value=''; drawAv()};
+  $('#ep-name').addEventListener('input',()=>{if(!photo) drawAv()});
+  $('#ep-pfile').onchange=e=>cropImage(e.target.files[0],320,320,d=>{photo=d; drawAv()});
+  $('#ep-cover').onclick=e=>{if(e.target.closest('#ep-crm')) return; $('#ep-cfile').click()};
+  $('#ep-cover').onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target.id==='ep-cover'){e.preventDefault(); $('#ep-cfile').click()}};
+  $('#ep-crm').onclick=()=>{cover=null; $('#ep-cfile').value=''; drawCov()};
+  $('#ep-cfile').onchange=e=>cropImage(e.target.files[0],1200,400,d=>{cover=d; drawCov()});
   v.addEventListener('click',e=>{
     const p=e.target.closest('[data-eppace]'); if(p){$$('[data-eppace]').forEach(x=>x.setAttribute('aria-pressed',x===p)); return}
     const i=e.target.closest('[data-epint]'); if(i){i.setAttribute('aria-pressed',i.getAttribute('aria-pressed')!=='true'); return}
@@ -97,7 +121,7 @@ bind.editprofile=()=>{const v=$('#view');
     if(e.target.id!=='editf') return; e.preventDefault();
     const name=$('#ep-name').value.trim(), err=$('#eperr');
     if(name.length<2){err.textContent='Add your full name so travellers know who they\'re meeting.'; err.hidden=false; return}
-    const u=me(); u.name=name; store.set('user',u); window.__u=u;
+    const u=me(); u.name=name; if(photo) u.photo=photo; else delete u.photo; if(cover) u.cover=cover; else delete u.cover; store.set('user',u); window.__u=u;
     const pace=($('[data-eppace][aria-pressed="true"]')||{}).dataset; const ints=$$('[data-epint][aria-pressed="true"]').map(x=>x.dataset.epint);
     S.profile.gender=$('#ep-gen').value; S.profile.bio=$('#ep-bio').value.trim(); S.profile.langs=$('#ep-lang').value.trim(); S.profile.tags=[(pace?pace.eppace:'Relaxed')+' pace',...ints];
     location.hash='profile'; demoToast('profile updated on this device only.');

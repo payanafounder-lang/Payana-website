@@ -411,6 +411,28 @@
 @media (max-width:520px){.op-rev .stars-ro{font-size:14px; letter-spacing:1px}}
 .setrow .btns{flex-wrap:nowrap; flex:none}
 .ep-wrap{max-width:760px}
+
+/* Edit profile: banner and profile photo (23 Nov) */
+.bigav{overflow:hidden; text-decoration:none}
+.bigav img,#meav img,.ep-av img{width:100%; height:100%; object-fit:cover; border-radius:50%; display:block}
+#meav{overflow:hidden}
+.ep-media{display:grid; margin-bottom:6px}
+.ep-cover{position:relative; aspect-ratio:3/1; border-radius:20px; overflow:hidden; background:#2a1a12; cursor:pointer}
+.ep-cover img{width:100%; height:100%; object-fit:cover; display:block}
+.ep-pill{position:absolute; top:10px; display:inline-flex; align-items:center; gap:6px; padding:8px 13px; min-height:36px; border:0; border-radius:999px; background:rgba(20,12,7,.62); color:#FFF8EE; font:600 13px var(--f-body); backdrop-filter:blur(8px); cursor:pointer}
+.ep-pill .i{width:15px; height:15px}
+.ep-cchg{right:10px}
+.ep-crst{left:10px}
+.ep-avrow{display:flex; align-items:flex-end; gap:16px; margin:-48px 0 0 18px; position:relative}
+.ep-av{width:108px; height:108px; flex:none; border-radius:50%; padding:0; border:5px solid var(--surface); background:var(--sun); color:#2A1A12; font:800 36px/1 var(--f-display); display:grid; place-items:center; position:relative; cursor:pointer}
+.ep-av>img{border-radius:50%}
+.ep-cam{position:absolute; right:-2px; bottom:-2px; width:32px; height:32px; border-radius:50%; background:var(--terra); color:#FBF3E6; display:grid; place-items:center; border:3px solid var(--surface)}
+.ep-cam .i{width:15px; height:15px}
+.ep-avtxt{display:grid; gap:2px; padding-bottom:6px}
+.ep-avacts{display:flex; gap:14px; flex-wrap:wrap}
+.ep-avacts .linkbtn{font-size:14.5px; cursor:pointer}
+.ep-rm{color:var(--bad-fg)}
+@media (max-width:520px){.ep-avrow{flex-direction:column; align-items:center; text-align:center; margin:-48px 0 0}.ep-avacts{justify-content:center}}
 .ex-tabs{display:inline-flex; gap:4px; padding:4px; background:var(--chip); border-radius:999px; margin-bottom:18px}
 .ex-tabs a{padding:9px 18px; border-radius:999px; text-decoration:none; font-weight:700; font-size:15px; color:var(--muted); min-height:44px; display:flex; align-items:center}
 .ex-tabs a[aria-current="page"]{background:var(--surface); color:var(--fg); box-shadow:0 1px 4px rgba(0,0,0,.08)}

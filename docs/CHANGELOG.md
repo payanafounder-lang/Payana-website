@@ -85,3 +85,9 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 ## Fix — 21 November 2026
 
 27. **Languages now show on profiles.** "Languages you speak" (from Edit profile or the welcome steps) was saved but never shown. It now appears below the bio as **Speaks** Kannada · English, on your own profile and on other travellers' profiles. If no languages are added, the line is hidden.
+
+## Profile photo and banner — 23 November 2026
+
+28. **Profile photo in Edit profile.** Tap the round photo (camera badge) or "Add profile photo" to pick a picture; it's cropped to a circle and previewed before saving. "Change photo" and "Remove" once one is set. The photo then shows on your profile and in the menu's name card. Tapping the photo on your profile opens Edit profile.
+29. **Banner in Edit profile.** The top of Edit profile shows your banner; tap it or "Change banner" to pick a picture (cropped to the banner's wide 3:1 shape). "Reset" goes back to the default Payana banner. The new banner shows at the top of your profile.
+30. Demo: photo and banner are kept on this device only (nothing is uploaded). Live: upload to storage and save the image address on the profile.
