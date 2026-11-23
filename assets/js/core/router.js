@@ -27,7 +27,7 @@ function route(){
   if(!inApp){const el=document.getElementById(h); if(authed()&&h!=='top'&&!(el&&el.closest('#landing'))) base='notfound'; else {showLanding(); return}}
   $('#landing').hidden=true; $('#public').hidden=true; $('#app').hidden=false; document.body.classList.add('in-app');
   $('#app').classList.toggle('focus',FOCUS.includes(base));
-  const u=me(); $('#mename').textContent=u.name; $('#meav').textContent=u.name.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
+  const u=me(); $('#mename').textContent=u.name; const ma=$('#meav'); if(u.photo) ma.innerHTML=`<img src="${u.photo}" alt="">`; else ma.textContent=u.name.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
   $$('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===base||((base==='trip'||base==='communities'||base==='community')&&a.dataset.nav==='explore')||((base==='plan'||base==='newtrip')&&a.dataset.nav==='mytrips')||((base==='settings'||base==='editprofile')&&a.dataset.nav==='profile')));
   const old=$('#view'), v=old.cloneNode(false); old.replaceWith(v);
   v.innerHTML=`<div class="page">${screens()[base](arg)}</div>`; bind[base]&&bind[base](arg);
