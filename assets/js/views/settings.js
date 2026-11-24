@@ -108,11 +108,14 @@ bind.editprofile=()=>{const v=$('#view'), u0=me(); let photo=u0.photo||null, cov
   $('#ep-av').onclick=()=>$('#ep-pfile').click();
   $('#ep-prm').onclick=()=>{photo=null; $('#ep-pfile').value=''; drawAv()};
   $('#ep-name').addEventListener('input',()=>{if(!photo) drawAv()});
-  $('#ep-pfile').onchange=e=>cropImage(e.target.files[0],320,320,d=>{photo=d; drawAv()});
+  // Team change (24 Nov): pick the framing in the photo editor instead of an automatic centre crop.
+  const pick=async(e,lock,out,title,done)=>{const f=e.target.files[0]; e.target.value=''; if(!f) return; if(!f.type.startsWith('image/')){toast('Please choose an image'); return}
+    const it=await loadImg(f); if(!it){toast("Couldn't open that photo. Try a JPG or PNG."); return} openEditor(it,{lock,out,title,round:lock===1,onDone:r=>done(r.s)})};
+  $('#ep-pfile').onchange=e=>pick(e,1,[400,400],'Profile photo',d=>{photo=d; drawAv()});
   $('#ep-cover').onclick=e=>{if(e.target.closest('#ep-crm')) return; $('#ep-cfile').click()};
   $('#ep-cover').onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target.id==='ep-cover'){e.preventDefault(); $('#ep-cfile').click()}};
   $('#ep-crm').onclick=()=>{cover=null; $('#ep-cfile').value=''; drawCov()};
-  $('#ep-cfile').onchange=e=>cropImage(e.target.files[0],1200,400,d=>{cover=d; drawCov()});
+  $('#ep-cfile').onchange=e=>pick(e,3,[1200,400],'Position your banner',d=>{cover=d; drawCov()});
   v.addEventListener('click',e=>{
     const p=e.target.closest('[data-eppace]'); if(p){$$('[data-eppace]').forEach(x=>x.setAttribute('aria-pressed',x===p)); return}
     const i=e.target.closest('[data-epint]'); if(i){i.setAttribute('aria-pressed',i.getAttribute('aria-pressed')!=='true'); return}

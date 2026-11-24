@@ -29,7 +29,7 @@ Addresses use the `#hash`. Screens that take an argument use `#<screen>-<argumen
 Unknown addresses show the landing page when signed out, and "page not found" when signed in.
 New members go `sign up → #consent → #welcome → where they were heading`.
 
-Shared pieces in `components/`: `trip-card.js`, `report.js` (`openReport()`), `invite.js` (`openInvite()`), `feedback.js` (pilot Feedback tab).
+Shared pieces in `components/`: `trip-card.js`, `report.js` (`openReport()`), `invite.js` (`openInvite()`), `feedback.js` (pilot Feedback tab), `media.js` (post photos and videos: `carousel()`, `openEditor()`, `openVideoEditor()`, `postMenu()`, `openModal()`; styles in `assets/css/media.css`).
 Styles for screens added from version 1.2 live in `assets/css/pages.css`; their sample data in `assets/js/data/demo/more.js`.
 
 ## Adding a screen

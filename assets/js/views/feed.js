@@ -2,8 +2,8 @@
 function postHTML(p){
   const t=p.trip&&T(p.trip), lf=p.lfc&&T(p.lfc), liked=S.liked.has(p.id), saved=S.saved.has(p.id);
   return `<article class="card post" data-post="${p.id}">
-   <div class="post-h">${av(p.who,p.id)}<div><b><a href="#u-${slug(p.who)}">${esc(p.who)}</a>${p.v?'<span class="vf" title="Verified">✓</span>':''}</b><small>${esc(p.where)} · ${esc(p.time)}</small></div><span class="pill p-mut ptype">${esc(p.type)}</span></div>
-   ${p.img?`<img class="post-img" src="${src(p.img)}" alt="" loading="lazy">`:''}
+   <div class="post-h">${av(p.who,p.id)}<div><b><a href="#u-${slug(p.who)}">${esc(p.who)}</a>${p.v?'<span class="vf" title="Verified">✓</span>':''}</b><small>${esc(p.where)} · ${esc(p.time)}${p.edited?' · Edited':''}</small></div><span class="pill p-mut ptype">${esc(p.type)}</span><button type="button" class="pmore" data-pmenu aria-label="Post options">${I('dots')}</button></div>
+   ${carousel(p,{alt:p.where?`Photo from ${p.where}`:''})}
    <div class="post-b"><p>${esc(p.text)}</p>
     ${lf?`<div class="lfc"><span class="eyebrow">Looking for companions</span><h4>${lf.name} · ${lf.dates}</h4><div class="meta" style="color:var(--muted)"><span>${rupee(lf.budget)} / person</span><span>${lf.pace} pace</span><span>${lf.seats} seats</span></div><a class="btn btn-primary btn-sm" style="justify-self:start" href="#trip-${lf.id}">View trip and request to join</a></div>`:''}
     ${t?`<div class="linked"><span>${I('pin','style="width:16px;height:16px;vertical-align:-3px"')} Going again · ${t.name}, ${t.dates.split('–')[0].trim()}</span><a class="linkbtn" href="#trip-${t.id}">View trip →</a></div>`:''}
@@ -25,10 +25,16 @@ function feed(){
    </aside></div>`;
 }
 function reqHTML(){return S.requests.length?S.requests.map((p,i)=>`<div class="person" style="margin-bottom:10px">${av(p[0],i+3)}<div><b>${p[0]}</b><small>${p[1]}</small></div><div class="btns"><button class="btn btn-primary btn-sm" data-acc="${i}">Accept</button><button class="btn btn-line btn-sm" data-dec="${i}" aria-label="Decline">✕</button></div></div>`).join(''):'<p style="color:var(--muted);font-size:14px">No pending requests.</p>'}
+// Re-draw one post (after a like, save or edit) without jumping back to its first photo.
+function rePost(el,p){const c=el.querySelector('[data-car]'), k=c?carIdx(c):0, w=document.createElement('div'); w.innerHTML=postHTML(p).trim(); const n=w.firstElementChild; el.replaceWith(n); const c2=n.querySelector('[data-car]'); if(c2&&k) carSet(c2,k); return n}
 function bindPosts(root){
-  root.addEventListener('click',e=>{const post=e.target.closest('[data-post]'); if(!post) return; const id=+post.dataset.post, p=S.posts.find(x=>x.id===id);
-    if(e.target.closest('[data-like]')){S.liked.has(id)?S.liked.delete(id):S.liked.add(id); post.outerHTML=postHTML(p)}
-    else if(e.target.closest('[data-save]')){S.saved.has(id)?S.saved.delete(id):S.saved.add(id); post.outerHTML=postHTML(p); demoToast(S.saved.has(id)?'saved on this page only':'removed from saved')}
+  root.addEventListener('click',e=>{const post=e.target.closest('[data-post]'); if(!post) return; const id=post.dataset.post, p=S.posts.find(x=>String(x.id)===id); if(!p) return;
+    const el=()=>root.querySelector(`[data-post="${id}"]`);
+    // Double-tap a photo to like it, like Instagram.
+    if(dblTap(e,sl=>{if(!S.liked.has(p.id)){S.liked.add(p.id); heartPop(rePost(post,p).querySelector('[data-car]'))} else heartPop(sl.closest('[data-car]'))})) return;
+    if(e.target.closest('[data-pmenu]')){const c=post.querySelector('[data-car]'); postMenu(p,{idx:carIdx(c),onEdit:k=>{const x=el(); if(!x) return; const n=rePost(x,p); if(k!=null) carSet(n.querySelector('[data-car]'),k)},onDelete:()=>{const x=el(); x&&x.remove()}}); return}
+    if(e.target.closest('[data-like]')){S.liked.has(p.id)?S.liked.delete(p.id):S.liked.add(p.id); rePost(post,p)}
+    else if(e.target.closest('[data-save]')){S.saved.has(p.id)?S.saved.delete(p.id):S.saved.add(p.id); rePost(post,p); demoToast(S.saved.has(p.id)?'saved on this page only':'removed from saved')}
     else if(e.target.closest('[data-share]')){demoToast('sharing isn\'t connected yet. The real app will copy a link to this post.')}
     else if(e.target.closest('[data-cmt]')){demoToast('comments come in the full app.')}
   });

@@ -17,6 +17,7 @@ Everything in this build runs only in the visitor's browser. Nothing is sent to 
 | Report trip / post, Block | Message only, labelled Demo | Reports queue, moderation dashboard, response times |
 | Like, save, share, comments | Like/save on the page only; share and comments show a Demo message | Backend + share links |
 | Photo uploads (trip cover, post, album) | Shown from your device on the page only, never uploaded | Storage with size/type checks, moderation |
+| Post photo/video editing (crop, rotate, filters, trim), edit and delete post | Done in the browser on this page only; nothing is uploaded or changed for anyone else | Upload the edited file (and keep the original), video processing on the server, post edit history, deletes removed from storage |
 | Messages, friend requests, communities | Page-only changes, labelled Demo | Backend |
 | Verified badges | Decorative sample data | Real verification process |
 | Forgot / reset password | 3 steps that only check the form; any 6 digits work | Provider's OTP reset flow |

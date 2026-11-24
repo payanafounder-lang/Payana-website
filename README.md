@@ -27,6 +27,7 @@ assets/
     landing.css            Landing page sections
     auth.css               Sign up / log in sheet
     app.css                Member app screens and the toast
+    media.css              Post photos/videos: carousel, photo grid, editor
     demo.css               "DEMO VERSION" tag
   js/
     config.js              Demo/live mode, storage prefix, feature switches
@@ -35,7 +36,8 @@ assets/
     services/              The only layer that touches data: auth, trips, social,
                            payments (stub), api (future backend client)
     state.js               In-page UI state
-    components/            Shared UI pieces (trip card, report sheet, invite sheet)
+    components/            Shared UI pieces (trip card, report sheet, invite sheet,
+                           media.js: photo carousel, photo/video editor, post ⋯ menu)
     views/                 One file per screen
     app.js                 Starts the app
 img/                       Photos (WebP)

@@ -91,3 +91,14 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 28. **Profile photo in Edit profile.** Tap the round photo (camera badge) or "Add profile photo" to pick a picture; it's cropped to a circle and previewed before saving. "Change photo" and "Remove" once one is set. The photo then shows on your profile and in the menu's name card. Tapping the photo on your profile opens Edit profile.
 29. **Banner in Edit profile.** The top of Edit profile shows your banner; tap it or "Change banner" to pick a picture (cropped to the banner's wide 3:1 shape). "Reset" goes back to the default Payana banner. The new banner shows at the top of your profile.
 30. Demo: photo and banner are kept on this device only (nothing is uploaded). Live: upload to storage and save the image address on the profile.
+
+## Photo and video posts — 24 November 2026
+
+31. **Photos and videos in Create post.** Videos can now be added as well as photos, up to 10 per post (choose them or drag them in). They show as a swipe carousel with a thumbnail strip; each item has ✎ edit and × remove. **Preview post** shows the finished post before **Publish**.
+32. **Photo editor.** Crop (Original, Square, 4:5, 16:9) and drag to choose what stays in the frame; zoom (slider, pinch or scroll), straighten, rotate left/right, flip; brightness, contrast, saturation, warmth, fade, vignette; 8 filters; hold to compare with the original.
+33. **Video editor.** Trim start and end, adjust brightness, contrast and saturation, keep or remove the sound.
+34. **Carousel posts.** Posts with several photos swipe like Instagram in the feed and on the post page (counter, dots, arrows on desktop). Double-tap a photo to like it.
+35. **No more cropped photos.** Profile grids (Posts, Tagged, other people's profiles) and the post page show the whole photo at its real shape; a blurred copy of the photo fills any space. A stacked-squares icon marks carousel posts.
+36. **⋯ menu on posts** (feed and post page). Your posts: Edit post (caption, location, photos), Edit this photo / video, Copy link, Delete post (with a confirmation). Other people's posts: Report post (opens the report sheet), Not interested, Copy link. Edited posts show "Edited".
+37. **Edit profile:** the profile photo and banner open in the photo editor so you choose the framing, instead of an automatic centre crop.
+38. Code: `assets/js/components/media.js` and `assets/css/media.css`. Demo: uploads and edits stay on this page only and are never uploaded.

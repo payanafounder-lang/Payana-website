@@ -25,7 +25,7 @@ Suggested tables: `trips` (id, host_user_id, destination, start_date, end_date, 
 |---|---|---|
 | `friends` | `[name, area]` | `friendships` (user_a, user_b, created_at), mutual only |
 | `requests` / `suggest` | `[name, subtitle]` | `friend_requests` (from, to, status) |
-| `posts` | `{id, who, v, where, time, type, img, text, trip, lfc, likes, com}` | `posts`, `post_media`, `post_likes`, `post_saves`, `comments` with `visibility` (everyone/friends/only me) and `hide_location_until` |
+| `posts` | `{id, who, v, where, time, type, img, media, text, trip, lfc, likes, com, edited}`. `media` lists every photo/video in order: a photo number, or `{t:'i'\|'v', s, w, h, ed, trim, adj, noSound}` for uploads; `img` is the first photo | `posts`, `post_media`, `post_likes`, `post_saves`, `comments` with `visibility` (everyone/friends/only me) and `hide_location_until` |
 | `comms` | `[name, img, members, joined]` | `communities`, `community_members` |
 | `chat` | `[sender, text, time]` | trip group chat, shared with the planner and the Messages inbox |
 | `dms` | `{name, kind, trip, v, req, sub, unread, msgs:[[sender, text, time, day]]}` (`sender` is `'me'` for the user; `kind:'trip'` is a group chat; `req:true` is a message request from a non-friend) | `conversations`, `conversation_members`, `messages` (or a managed chat service) |

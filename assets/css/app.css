@@ -186,7 +186,7 @@
 .upbanner img{width:72px; height:72px; border-radius:14px; object-fit:cover}
 .upbanner div{flex:1; min-width:160px}
 .pgridimg{display:grid; grid-template-columns:repeat(3,1fr); gap:6px}
-.pgridimg img{aspect-ratio:1; object-fit:cover; width:100%; border-radius:6px}
+.pgridimg > img{aspect-ratio:1; object-fit:cover; width:100%; border-radius:6px}
 .subtabs{display:flex; gap:6px; border-bottom:1px solid var(--line); margin-bottom:14px; overflow-x:auto; scrollbar-width:none}
 .subtabs button{border:0; background:none; padding:12px 14px; font-weight:700; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap}
 .subtabs button[aria-selected="true"]{color:var(--fg); border-color:var(--terra)}

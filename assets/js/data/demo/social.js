@@ -12,11 +12,12 @@ const DEMO_SOCIAL={
   // [name, image, members label, joined]
   comms:[['Weekend Trekkers BLR',6086,'4.2k members',true],['Coffee Country',6046,'1.8k members',false],['Bikers of the South',6050,'3.1k members',false],['Rail Journeys India',6073,'960 members',true],['Water Sports Karnataka',6056,'1.1k members',false],['Slow Travel Kerala',6071,'2.4k members',false]],
   posts:[
-   {id:1,who:'Meera R.',v:true,where:'Indiranagar',time:'2 h',type:'Trip story',img:6088,text:'Met these four on a Payana trip in August. Now we\'re a group that plans something every month. Coorg again next weekend, two seats left.',trip:'coorg',likes:128,com:24},
+   // media: all photos of a post, shown as a swipe carousel (img stays the first one)
+   {id:1,who:'Meera R.',v:true,where:'Indiranagar',time:'2 h',type:'Trip story',img:6088,media:[6088,6084,6066],text:'Met these four on a Payana trip in August. Now we\'re a group that plans something every month. Coorg again next weekend, two seats left.',trip:'coorg',likes:128,com:24},
    {id:2,who:'Nikhil P.',v:true,where:'Koramangala',time:'5 h',type:'Looking for companions',lfc:'dandeli',text:'Looking for 3 more people for Kali river rafting in Dandeli. Beginners welcome, the guides are great.',likes:41,com:12},
    {id:3,who:'Arjun J.',v:true,where:'Jayanagar',time:'Yesterday',type:'Travel tip',img:6048,text:'Tip: start the Mullayanagiri climb by 5:30 am. You beat the crowd and the mist is still in the valley.',likes:342,com:51},
    {id:4,who:'Lakshmi R.',v:true,where:'Basavanagudi',time:'2 days',type:'Photo',img:6045,text:'The Nilgiri toy train is worth booking a month ahead. Window seat on the left side going up.',trip:'ooty',likes:219,com:18},
-   {id:5,who:'Sana G.',v:true,where:'Whitefield',time:'3 days',type:'Trip story',img:6068,text:'Seven days, five strangers, one monastery at the end of the trail. Already planning the next one with the same group.',likes:506,com:63}
+   {id:5,who:'Sana G.',v:true,where:'Whitefield',time:'3 days',type:'Trip story',img:6068,media:[6068,6064,6062,6071],text:'Seven days, five strangers, one monastery at the end of the trail. Already planning the next one with the same group.',likes:506,com:63}
   ],
   // Sample planner for the Coorg trip: [day, time, activity, owner, status]
   plan:[['Sat','06:00','Meet at Mysuru Road metro','Ananya','Booked'],['Sat','09:30','Breakfast stop, Channapatna','Rohit','Planned'],['Sat','13:00','Check in at estate homestay','Ananya','Booked'],['Sat','16:00','Estate walk and coffee tasting','Meera','To confirm'],['Sun','06:30','Abbey Falls sunrise walk','You','Idea'],['Sun','17:30','Sunset at Raja\'s Seat','Varun','Planned']],
@@ -31,7 +32,8 @@ const DEMO_SOCIAL={
    {name:'Neha P.',v:true,req:true,sub:'Not friends yet · 4 mutual friends',unread:0,msgs:[['Neha P.','Hey! Saw you\'re going to Coorg too. Mind if I send a friend request?','11:30','Today']]},
    {name:'Meera R.',v:true,sub:'Friend · HSR Layout',unread:0,msgs:[['me','Loved your Coorg story, the photos are gorgeous','19:02','Mon'],['Meera R.','Thank you! Come with us next time 😊','19:30','Mon']]}
   ],
-  myPosts:[6046,6047,6074,6058,6064,6071,6056,6045,6073],
+  // Profile grid: a photo number, or [photos] for a carousel post (first photo is the cover)
+  myPosts:[[6046,6054,6084],6047,[6074,6075],6058,[6064,6066,6062],6071,6056,[6045,6044],6073],
   pastTrips:[6068,6058,6071],
   // Sample profile shown for whoever signs in to the demo
   profile:{cover:6074,tripsDone:7,
@@ -40,7 +42,7 @@ const DEMO_SOCIAL={
     langs:'Kannada, English',
     upcoming:{trip:'coorg',img:6046,label:'Coorg · Sat 7 – Sun 8 Nov'},
     reviews:[['Ananya K.','Easy to travel with, always on time and great company on the trek.','Coorg, Aug'],['Sana G.','Kept the group going on the climb. Would travel together again.','Chikkamagaluru, Sep']],
-    tagged:[6054,6062,6084]},
+    tagged:[6054,[6062,6063],6084]},
   // Cover photos offered when creating a trip
   covers:[6046,6048,6045,6047,6056,6075,6068,6071,6074,6085],
   // Sample join requests that arrive on a trip the demo user publishes
