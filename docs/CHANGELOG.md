@@ -123,3 +123,10 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 - 3 columns on bigger screens, 2 on phones. Rounded tiles with a small gap.
 - Photos are still never cut off. Extremely tall or wide photos are limited to between 1:2 and 2:1, with the blurred copy filling the rest.
 - Code: `postGrid` in `views/post.js` adds the `masonry` class; layout code at the end of `components/media.js`; styles in `assets/css/media.css`.
+
+## Home refreshes the feed — 25 November 2026
+- Team change: tapping Home (desktop menu, phone tab bar, or the Payana logo) always gives a fresh feed.
+- From another page: opens the feed at the top.
+- Already on the feed: scrolls back to the top, shows a small "Refreshing" spinner under the top bar, then draws the feed again (like Instagram).
+- Demo: the same sample posts come back. Live: this is where the app will fetch new posts from the server.
+- Code: `refreshFeed` at the end of `core/router.js`; styles at the end of `assets/css/app.css`.

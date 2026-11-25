@@ -53,3 +53,18 @@ function updateBadges(){const n=S.notifs.filter(x=>!x.read).length, b=$('#ntbadg
 addEventListener('hashchange',()=>document.querySelectorAll('.modal:not(#modal)').forEach(m=>m.remove()));
 addEventListener('hashchange',route);
 const bind={};
+/* Team change (25 Nov): tapping Home (menu, phone tab bar or the Payana logo) always refreshes the feed.
+   From another page it opens a fresh feed at the top. Already on the feed: jump to the top, show a
+   short "Refreshing" spinner, then draw the feed again. Live: this is where the app fetches new posts. */
+document.addEventListener('click',e=>{
+  const a=e.target.closest('#app a[href="#feed"]'); if(!a||e.ctrlKey||e.metaKey||e.shiftKey) return;
+  const h=location.hash.slice(1); if(h!=='feed') return;
+  e.preventDefault(); refreshFeed();
+});
+let feedBusy=false;
+function refreshFeed(){if(feedBusy) return; feedBusy=true;
+  scrollTo({top:0,behavior:'smooth'});
+  const sp=document.createElement('div'); sp.className='feed-refresh'; sp.setAttribute('role','status');
+  sp.innerHTML='<span class="fr-spin" aria-hidden="true"></span>Refreshing'; document.body.append(sp);
+  setTimeout(()=>{route(); sp.remove(); feedBusy=false},700);
+}
