@@ -239,8 +239,30 @@ function editPost(p,after){
    The whole photo at its real shape, never cut off: a blurred copy fills the rest of the tile. */
 function tileInner(p){const M=mitems(p), f=M[0];
   if(!f) return `<span class="ptile txt">${esc((p.text||'').slice(0,90))}</span>`;
-  return `<span class="ptile">${f.t==='v'
+  const r=f.w?f.w/f.h:DIM.get(f.s);
+  return `<span class="ptile"${r?` style="aspect-ratio:${masAR(r)}"`:''}>${f.t==='v'
     ?`<video src="${f.s}#t=${f.trim?f.trim[0]+.1:.1}" muted playsinline preload="metadata" style="filter:${vfilter(f.adj)}"></video>`
-    :`<img class="ptile-bg" src="${f.s}" alt="" aria-hidden="true"><img class="ptile-main" src="${f.s}" alt="" loading="lazy">`}
+    :`<img class="ptile-bg" src="${f.s}" alt="" aria-hidden="true"><img class="ptile-main" src="${f.s}" alt="">`}
    ${M.length>1?`<span class="ptile-ic">${I('stack')}</span>`:f.t==='v'?`<span class="ptile-ic">${I('play','class="play"')}</span>`:''}
    <span class="ptile-hv" aria-hidden="true"><span>${I('heart')}${p.likes+(S.liked.has(p.id)?1:0)}</span><span>${I('comment')}${p.com}</span></span></span>`}
+
+/* ---------- PINTEREST-STYLE PROFILE GRID (team change 25 Nov) ----------
+   Profile grids (.pgridimg.masonry) are a CSS grid with tiny rows. Each tile takes its photo's
+   own shape and spans as many rows as it is tall, so tiles of different heights pack into columns
+   like Pinterest, while keeping newest-first order left to right. Very tall or very wide photos
+   are limited to between 1:2 and 2:1; the blurred copy fills the rest, so nothing is cut off. */
+function masAR(r){return Math.min(2,Math.max(.5,r)).toFixed(4)}
+function masTile(a){const t=a.firstElementChild, g=a.parentElement; if(!t||!g) return;
+  const cs=getComputedStyle(g), row=parseFloat(cs.gridAutoRows)||2, gap=parseFloat(cs.columnGap)||0;
+  a.style.gridRowEnd='span '+Math.max(1,Math.ceil((t.getBoundingClientRect().height+gap)/row))}
+function masLayout(g){g.querySelectorAll(':scope > a').forEach(masTile)}
+function masShape(el,r){const t=el.closest('.ptile'), a=t&&t.parentElement; if(!t||!r||!isFinite(r)) return;
+  DIM.set(el.getAttribute('src'),r); t.style.aspectRatio=masAR(r);
+  if(a&&a.parentElement&&a.parentElement.classList.contains('masonry')) masTile(a)}
+document.addEventListener('load',e=>{const el=e.target; if(el.classList&&el.classList.contains('ptile-main')) masShape(el,el.naturalWidth/el.naturalHeight)},true);
+document.addEventListener('loadedmetadata',e=>{const el=e.target; if(el.tagName==='VIDEO'&&el.closest('.ptile')) masShape(el,el.videoWidth/el.videoHeight)},true);
+// Re-pack when the grid is drawn and whenever its width changes (phone rotation, window resize).
+const masRO=typeof ResizeObserver==='function'?new ResizeObserver(es=>es.forEach(e=>{const g=e.target, w=Math.round(e.contentRect.width);
+  if(+g.dataset.masW!==w){g.dataset.masW=w; masLayout(g)}})):null;
+new MutationObserver(()=>document.querySelectorAll('.pgridimg.masonry:not([data-mas])').forEach(g=>{g.dataset.mas=1; masLayout(g); masRO&&masRO.observe(g)}))
+  .observe(document.body,{childList:true,subtree:true});

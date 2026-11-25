@@ -22,7 +22,9 @@ function gridPost(e,who){S.gridPosts=S.gridPosts||[];
 }
 // A grid of posts that each open in full. who: a name, or (i)=>name for mixed grids like Tagged.
 // Team change (24 Nov): tiles show the whole photo at its real shape, never cropped.
-function postGrid(items,who){return `<div class="pgridimg">${items.map((n,i)=>{const p=gridPost(n,typeof who==='function'?who(i):who), M=mitems(p);
+// Team change (25 Nov): Pinterest-style layout: each tile keeps its photo's height, so tall and
+// wide photos sit together in columns instead of an even Instagram grid (see masonry in media.js).
+function postGrid(items,who){return `<div class="pgridimg masonry">${items.map((n,i)=>{const p=gridPost(n,typeof who==='function'?who(i):who), M=mitems(p);
   return `<a href="#post-${p.id}" aria-label="Open post${p.text?': '+esc(p.text.slice(0,50)):''}${M.length>1?`, ${M.length} photos`:''}">${tileInner(p)}</a>`}).join('')}</div>`}
 // Grid post ids look like g6046-asha-rao, so a link still works after a reload.
 function findPost(id){const all=[...S.posts,...(S.gridPosts||[])], hit=all.find(x=>String(x.id)===String(id)); if(hit) return hit;

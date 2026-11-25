@@ -137,6 +137,17 @@ video.car-main{background:#000}
 .pgridimg{gap:4px}
 .pgridimg a{border-radius:6px}
 
+/* Pinterest-style profile grid (team change 25 Nov). media.js sets each tile's row span from its height. */
+.pgridimg.masonry{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-auto-rows:2px; column-gap:8px; row-gap:0; align-items:start}
+.pgridimg.masonry > a{padding-bottom:8px; border-radius:0; overflow:visible; outline:0}
+.pgridimg.masonry > a:focus-visible .ptile{outline:3px solid var(--terra); outline-offset:2px}
+.pgridimg.masonry .ptile{border-radius:14px}
+@media (max-width:600px){
+  .pgridimg.masonry{grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:6px}
+  .pgridimg.masonry > a{padding-bottom:6px}
+  .pgridimg.masonry .ptile{border-radius:12px}
+}
+
 /* full post page (#post-<id>) */
 .ps-media{background:#0d0907; display:grid; place-items:center; min-width:0}
 .ps-media .car-ps{width:min(100%, calc(78vh * var(--arn,1)))}

@@ -117,3 +117,9 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 44. Trip links point to the public preview page (`#t-<trip>`), so friends without an account can open them. Post links (`#post-<id>`) open the post after login. Copy link in the ⋯ menu now really copies.
 45. Pop-up messages ("Link copied", "Demo: …") no longer block taps on buttons underneath them.
 46. Code: `assets/js/components/stories.js`, `assets/js/views/story.js`, `assets/css/stories.css`. Demo: stories stay in this browser only (videos until the page is closed); nothing is uploaded.
+
+## Pinterest-style profile grid — 25 November 2026
+- Team change: photos on profiles (your Posts and Tagged tabs, and someone else's profile) are no longer an even Instagram-style grid. Each photo keeps its own height, so tall and wide photos fit together in columns like Pinterest. Newest posts still come first, left to right.
+- 3 columns on bigger screens, 2 on phones. Rounded tiles with a small gap.
+- Photos are still never cut off. Extremely tall or wide photos are limited to between 1:2 and 2:1, with the blurred copy filling the rest.
+- Code: `postGrid` in `views/post.js` adds the `masonry` class; layout code at the end of `components/media.js`; styles in `assets/css/media.css`.
