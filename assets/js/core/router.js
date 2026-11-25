@@ -4,7 +4,7 @@
 /* ---------- ROUTER ---------- */
 // App screens: need a (demo) session, otherwise the log-in sheet opens.
 const APP=['newtrip','feed','explore','mytrips','messages','communities','profile','create','plan','settings','editprofile','notifications','admin',
-  'consent','welcome','verify','review','manage','community','post','person','notfound','search','support','appeal','tripday'];
+  'consent','welcome','verify','review','manage','community','post','person','notfound','search','support','appeal','tripday','story'];
 // Screens that take an argument after the first "-", e.g. #trip-coorg, #legal-privacy.
 const PREFIXED=['trip','legal','about','review','manage','community','post','u','t','help','tripday'];
 // Short address names → screen names (#u-rohit-s → person, #t-coorg → sharedTrip).
@@ -15,7 +15,7 @@ const PUBLIC=['legal','about','reset','sharedTrip','help','paused'];
 const FOCUS=['admin','consent','welcome'];
 function splitHash(h){const i=h.indexOf('-'); return i>0&&PREFIXED.includes(h.slice(0,i))?[h.slice(0,i),h.slice(i+1)]:[h,'']}
 function screens(){return {newtrip,feed,explore,mytrips,messages,communities,profile,create,plan,settings,editprofile,notifications,admin,trip,legal,about,reset,
-  consent,welcome,verify,review,manage,community,post,person,sharedTrip,help,paused,notfound,search,support,appeal,tripday}}
+  consent,welcome,verify,review,manage,community,post,person,sharedTrip,help,paused,notfound,search,support,appeal,tripday,story:storyNew}}
 function route(){
   const h=location.hash.slice(1)||'top', [raw,arg]=splitHash(h); let base=ALIAS[raw]||raw;
   // Team change (18 Nov): no separate Friends page. Old #friends links open the friends list on the profile.
@@ -28,7 +28,7 @@ function route(){
   $('#landing').hidden=true; $('#public').hidden=true; $('#app').hidden=false; document.body.classList.add('in-app');
   $('#app').classList.toggle('focus',FOCUS.includes(base));
   const u=me(); $('#mename').textContent=u.name; const ma=$('#meav'); if(u.photo) ma.innerHTML=`<img src="${u.photo}" alt="">`; else ma.textContent=u.name.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();
-  $$('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===base||((base==='trip'||base==='communities'||base==='community')&&a.dataset.nav==='explore')||((base==='plan'||base==='newtrip')&&a.dataset.nav==='mytrips')||((base==='settings'||base==='editprofile')&&a.dataset.nav==='profile')));
+  $$('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===base||((base==='trip'||base==='communities'||base==='community')&&a.dataset.nav==='explore')||((base==='plan'||base==='newtrip')&&a.dataset.nav==='mytrips')||((base==='settings'||base==='editprofile')&&a.dataset.nav==='profile')||(base==='story'&&a.dataset.nav==='create')));
   const old=$('#view'), v=old.cloneNode(false); old.replaceWith(v);
   v.innerHTML=`<div class="page">${screens()[base](arg)}</div>`; bind[base]&&bind[base](arg);
   updateBadges();

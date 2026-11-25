@@ -15,10 +15,12 @@ Everything in this build runs only in the visitor's browser. Nothing is sent to 
 | Planner: status, add activity, chat, budget | Works on the page; reset on reload. Budget is estimates only | Shared, real-time data; chat service |
 | Share with trusted contact / Get help | Message only, labelled Demo | SMS/email to a trusted contact; support/incident process |
 | Report trip / post, Block | Message only, labelled Demo | Reports queue, moderation dashboard, response times |
-| Like, save, share, comments | Like/save on the page only; share and comments show a Demo message | Backend + share links |
+| Like, save, comments | Like/save on the page only; comments show a Demo message | Backend + share links |
 | Photo uploads (trip cover, post, album) | Shown from your device on the page only, never uploaded | Storage with size/type checks, moderation |
 | Post photo/video editing (crop, rotate, filters, trim), edit and delete post | Done in the browser on this page only; nothing is uploaded or changed for anyone else | Upload the edited file (and keep the original), video processing on the server, post edit history, deletes removed from storage |
 | Messages, friend requests, communities | Page-only changes, labelled Demo | Backend |
+| Stories (create, edit, view, reply, 24-hour expiry) | Kept in this browser only; photos stored as data, videos only until the page closes; replies go into the sample chats; sample friends' stories are hand-made | Media storage + story records with layers (text, stickers, drawing) on the server; expiry job; viewers list; privacy (friends only) enforced server-side |
+| Share sheet (WhatsApp, Instagram, copy link, phone share) | Works for real, but links point to this demo page and need login (trip links use the public preview) | Real domain links; link previews (Open Graph image/title) need a server; deep links into the app |
 | Verified badges | Decorative sample data | Real verification process |
 | Forgot / reset password | 3 steps that only check the form; any 6 digits work | Provider's OTP reset flow |
 | Safety consent | Version, time and ticked boxes stored in this browser only | Store with the user server-side; show again when terms change |

@@ -51,7 +51,7 @@ function msgsView(){
     <div class="mfil">${[['all','All'],['unread','Unread'],['trip','Trip groups'],['req','Requests']].map(f=>`<button data-mf="${f[0]}" aria-pressed="${S.msgF===f[0]}">${f[1]}</button>`).join('')}</div></div>
     <div class="mrows" id="mrows">${rowsHTML()}</div></section>${paneHTML()}</div>`;
 }
-function messages(){S.msgOpen=false; return msgsView()}
+function messages(){S.msgOpen=!!S.msgJump; S.msgJump=false; return msgsView()}
 bind.messages=()=>{
   const v=$('#view');
   const end=()=>{const b=$('#mbody'); if(b) b.scrollTop=b.scrollHeight};

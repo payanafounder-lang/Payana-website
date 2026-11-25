@@ -1,7 +1,7 @@
 /* ---------- TRIP DETAILS ---------- */
 function trip(id){
   const t=T(id)||TRIPS[0], st=S.joined[t.id];
-  return `<div class="cover"><img src="${src(t.img)}" alt="${t.name}"><a class="btn btn-glass back" href="#explore">← Explore</a><button class="btn btn-glass savetrip" data-savetrip aria-pressed="${S.savedTrips.has(t.id)}">${I('save')}${S.savedTrips.has(t.id)?'Saved':'Save'}</button>
+  return `<div class="cover"><img src="${src(t.img)}" alt="${t.name}"><a class="btn btn-glass back" href="#explore">← Explore</a><div class="cover-acts"><button type="button" class="btn btn-glass tstory" data-trip-story aria-label="Share this trip">${I('share')}Share</button><button class="btn btn-glass savetrip" data-savetrip aria-pressed="${S.savedTrips.has(t.id)}">${I('save')}${S.savedTrips.has(t.id)?'Saved':'Save'}</button></div>
    <div class="cover-in"><div class="btns"><span class="fit ${t.fit}" style="position:static"><b></b>${FITL[t.fit]}</span>${t.who==='women'?'<span class="wo-badge" style="position:static">Women-only</span>':''}</div><h1>${t.name}</h1>
     <div class="facts"><div class="fact"><small>Dates</small><b>${t.dates}</b></div><div class="fact"><small>Budget</small><b>${rupee(t.budget)} / person</b></div><div class="fact"><small>Pace</small><b>${t.pace}</b></div><div class="fact"><small>Group</small><b>${t.seats} seats left</b></div></div></div></div>
   <div class="tdgrid"><div>
@@ -21,7 +21,7 @@ function reqBox(t,st){
     return `<div class="statusbox p-ok"><b>You're hosting this trip</b><span>It's live in Explore. You approve who joins.</span></div>
      <h2 style="font-size:18px">Join requests · ${rq.length}</h2>
      ${rq.length?rq.map((p,i)=>`<div class="person">${av(p[0],i+1)}<div><b>${p[0]}<span class="vf">✓</span></b><small>${p[1]}</small></div><div class="btns"><button class="btn btn-primary btn-sm" data-happ="${i}">Approve</button><button class="btn btn-line btn-sm" data-hdec="${i}" aria-label="Decline">✕</button></div></div>`).join(''):'<p style="color:var(--muted);font-size:14px">No pending requests right now.</p>'}
-     <a class="btn btn-primary" href="#plan" data-plan="${t.id}">Open trip planner</a><a class="btn btn-soft" href="#manage-${t.id}">Manage trip</a><button class="linkbtn" style="font-size:14px" data-share-trip>Share trip link</button><a class="linkbtn muted" style="font-size:13px" href="#t-${t.id}">See what visitors see →</a>`}
+     <a class="btn btn-primary" href="#plan" data-plan="${t.id}">Open trip planner</a><a class="btn btn-soft" href="#manage-${t.id}">Manage trip</a><button class="btn btn-line" data-share-trip>${I('share')}Share this trip</button><a class="linkbtn muted" style="font-size:13px" href="#t-${t.id}">See what visitors see →</a>`}
   if(st==='approved') return `<div class="statusbox p-ok"><b>You're in!</b><span>${t.host} approved your request. The group chat and planner are open.</span></div><a class="btn btn-primary" href="#plan" data-plan="${t.id}">Open trip planner</a><a class="linkbtn" style="font-size:14px" href="#manage-${t.id}">Leave trip</a>`;
   if(st==='requested') return `<div class="statusbox p-warn"><b>Request sent</b><span>${t.host} and the group will review it. Most hosts reply within a day.</span></div><button class="btn btn-soft" data-approve>Demo: host approves</button><button class="linkbtn" style="font-size:14px" data-cancel>Cancel request</button>`;
   if(t.who==='women'&&!(S.profile.gender==='Woman'&&vState().selfie)) return `<h2>Women-only trip</h2><p class="hint">${esc(t.host)} made this trip for women. Only people whose profile says woman, and who have passed the selfie check, can request to join.</p>
@@ -39,9 +39,10 @@ bind.trip=id=>{const t=T(id)||TRIPS[0]; const sec=$('#reqsec');
     const pl=e.target.closest('[data-plan]'); if(pl){S.planTrip=pl.dataset.plan; store.set('planTrip',S.planTrip)}
     const ha=e.target.closest('[data-happ]'), hd=e.target.closest('[data-hdec]');
     if(ha||hd){const p=HOSTREQ[t.id].splice(+(ha||hd).dataset[ha?'happ':'hdec'],1)[0]; if(ha){t.people.push([p[0],p[1].split(' · ')[0],true]); t.seats=Math.max(t.group-t.people.length,0)+' of '+t.group} demoToast(ha?`${p[0]} approved (sample request). In the real app they'd now see the group chat.`:'sample request declined'); route()}
-    if(e.target.closest('[data-share-trip]')){const link=location.href.split('#')[0]+'#t-'+t.id; try{navigator.clipboard.writeText(link)}catch(_){} demoToast('link copied. It opens a preview page for people without an account.')}
+    if(e.target.closest('[data-share-trip]')) shareTo('trip',t);
   });
   $('[data-report]').onclick=()=>openReport({what:'trip',name:t.name});
+  $('[data-trip-story]').onclick=()=>shareTo('trip',t);
   const r2=$('[data-report2]'); r2&&(r2.onclick=()=>openReport({what:'trip',name:t.name}));
   $('[data-savetrip]').onclick=e=>{const b=e.currentTarget, on=!S.savedTrips.has(t.id); on?S.savedTrips.add(t.id):S.savedTrips.delete(t.id); b.setAttribute('aria-pressed',on); b.innerHTML=I('save')+(on?'Saved':'Save'); demoToast(on?'trip saved on this page only. Find it in Saved.':'removed from saved')};
 };

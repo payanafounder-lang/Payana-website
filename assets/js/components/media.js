@@ -199,11 +199,12 @@ const gridEntryId=e=>e&&typeof e==='object'&&!Array.isArray(e)?e.id:`g${Array.is
 function removePost(p){S.posts=S.posts.filter(x=>x.id!==p.id); S.gridPosts=(S.gridPosts||[]).filter(x=>x.id!==p.id); S.myPosts=S.myPosts.filter(e=>gridEntryId(e)!==p.id)}
 function postMenu(p,cb={}){
   const M=mitems(p), ix=Math.min(cb.idx||0,Math.max(0,M.length-1)), cur=M[ix];
-  const opts=isMine(p)?[['edit','edit','Edit post'],...(cur?[['media',cur.t==='v'?'scissors':'crop',cur.t==='v'?'Edit this video':(M.length>1?'Edit this photo':'Edit photo')]]:[]),['link','link','Copy link'],['delete','trash','Delete post','bad']]
-                     :[['report','flag','Report post','bad'],['hide','eyeoff','Not interested'],['link','link','Copy link']];
+  const opts=isMine(p)?[['edit','edit','Edit post'],...(cur?[['media',cur.t==='v'?'scissors':'crop',cur.t==='v'?'Edit this video':(M.length>1?'Edit this photo':'Edit photo')]]:[]),['story','plus','Add to your story'],['link','link','Copy link'],['delete','trash','Delete post','bad']]
+                     :[['story','plus','Add to your story'],['link','link','Copy link'],['hide','eyeoff','Not interested'],['report','flag','Report post','bad']];
   const o=openModal(`<div class="msheet">${opts.map(([k,ic,l,c])=>`<button type="button" data-o="${k}" class="${c||''}">${I(ic)}${l}</button>`).join('')}<button type="button" data-close>Cancel</button></div>`,{cls:'msheet-wrap',label:'Post options'});
   o.m.addEventListener('click',ev=>{const b=ev.target.closest('[data-o]'); if(!b) return; const k=b.dataset.o; o.close();
-    if(k==='link') demoToast('sharing isn\'t connected yet. The real app will copy a link to this post.');
+    if(k==='link'){copyText(location.href.split('#')[0]+'#post-'+p.id); toast('Link copied')}
+    else if(k==='story') storyFrom({post:p});
     else if(k==='report') openReport({what:'post',name:'this post'});
     else if(k==='hide'){S.posts=S.posts.filter(x=>x!==p); cb.onDelete&&cb.onDelete(); demoToast('post hidden on this page only.')}
     else if(k==='edit') editPost(p,()=>cb.onEdit&&cb.onEdit(null));

@@ -18,7 +18,7 @@ function renderResults(){
   const f=S.f, order={strong:0,good:1,partial:2};
   const r=TRIPS.filter(t=>(f.len==='all'||t.len===f.len)&&t.budget<=f.max&&(f.pace==='all'||t.pace===f.pace)&&(!f.ver||t.hv)&&(!f.wo||t.who==='women')&&(!f.ints.size||t.interests.some(i=>f.ints.has(i)))).sort((a,b)=>order[a.fit]-order[b.fit]);
   $('#count').textContent=`${r.length} trip${r.length===1?'':'s'} match your filters`;
-  $('#results').innerHTML=r.length?r.map(t=>tripCard(t,true)).join(''):`<div style="grid-column:1/-1">${emptyState('search','No trips match these filters','Try a higher budget or clear an interest, or create the trip and let people come to you.','<a class="btn btn-primary" href="#newtrip">Create this trip</a>')}</div>`;
+  $('#results').innerHTML=r.length?r.map(t=>`<div class="tripw">${tripCard(t,true)}<button type="button" class="tsh-btn" data-tshare="${t.id}" aria-label="Share the ${esc(t.name)} trip">${I('share')}</button></div>`).join(''):`<div style="grid-column:1/-1">${emptyState('search','No trips match these filters','Try a higher budget or clear an interest, or create the trip and let people come to you.','<a class="btn btn-primary" href="#newtrip">Create this trip</a>')}</div>`;
 }
 bind.explore=()=>{renderResults();
   $('#view').addEventListener('click',e=>{const c=e.target.closest('.chip'); if(!c) return; const f=S.f;

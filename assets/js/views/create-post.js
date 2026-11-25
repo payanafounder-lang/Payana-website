@@ -6,7 +6,7 @@ const CTYPES=[['Photo','photo'],['Trip story','book'],['Travel tip','bulb'],['Lo
 let ctype='Photo', cmedia=[];
 function create(){
   cmedia=[];
-  return `<div class="ph"><div><h1>Create a post</h1><p>Share a moment, a story, a tip, or find people for your next trip</p></div><div class="btns"><a class="btn btn-line btn-sm" href="#feed">Cancel</a><button class="btn btn-primary btn-sm" type="submit" form="cpf">Publish</button></div></div>
+  return `${ctabs('post')}<div class="ph"><div><h1>Create a post</h1><p>Share a moment, a story, a tip, or find people for your next trip</p></div><div class="btns"><a class="btn btn-line btn-sm" href="#feed">Cancel</a><button class="btn btn-primary btn-sm" type="submit" form="cpf">Publish</button></div></div>
    <form class="cgrid" id="cpf" novalidate><div class="card sec">
     <div class="types">${CTYPES.map(([l,ic])=>`<button type="button" data-ct="${l}" aria-pressed="${ctype===l}">${I(ic)}${l}</button>`).join('')}</div>
     <div id="cstage"></div><input type="file" id="cfile" accept="image/*,video/*" multiple hidden>

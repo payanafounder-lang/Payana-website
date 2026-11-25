@@ -15,8 +15,8 @@ function feed(){
   const u=me();
   return `<div class="feed"><div style="min-width:0">
    <div class="ph"><div><h1>Hi ${esc(u.name.split(' ')[0])}</h1><p>Your friends' trips and stories</p></div></div>
-   <div class="stories">${TRIPS.slice(0,6).map((t,i)=>`<a class="story" href="#trip-${t.id}"><span class="ring"><img src="${src(t.img)}" alt=""></span><span><b>${t.host.split(' ')[0]}</b><br><small>${t.name}</small></span></a>`).join('')}</div>
-   <div class="card composer">${av(u.name,0,40)}<a href="#create">Share a trip, photo or tip…</a><a href="#create" class="btn btn-soft btn-sm" style="flex:none;background:var(--chip);color:var(--fg)">${I('photo')}</a></div>
+   ${storiesRow()}
+   <div class="card composer">${av(u.name,0,40)}<a href="#create">Share a trip, photo or tip…</a><a href="#create" class="btn btn-soft btn-sm" style="flex:none;background:var(--chip);color:var(--fg)" aria-label="New post">${I('photo')}</a><a href="#story" class="btn btn-soft btn-sm cstory" style="flex:none" aria-label="Add to your story">${I('plus')}<span>Story</span></a></div>
    <div class="posts" id="posts">${S.posts.map(postHTML).join('')}</div></div>
    <aside class="rail">
     <div class="card box"><h3>Friend requests <a href="#friends">See all</a></h3><div id="reqs">${reqHTML()}</div></div>
@@ -35,7 +35,7 @@ function bindPosts(root){
     if(e.target.closest('[data-pmenu]')){const c=post.querySelector('[data-car]'); postMenu(p,{idx:carIdx(c),onEdit:k=>{const x=el(); if(!x) return; const n=rePost(x,p); if(k!=null) carSet(n.querySelector('[data-car]'),k)},onDelete:()=>{const x=el(); x&&x.remove()}}); return}
     if(e.target.closest('[data-like]')){S.liked.has(p.id)?S.liked.delete(p.id):S.liked.add(p.id); rePost(post,p)}
     else if(e.target.closest('[data-save]')){S.saved.has(p.id)?S.saved.delete(p.id):S.saved.add(p.id); rePost(post,p); demoToast(S.saved.has(p.id)?'saved on this page only':'removed from saved')}
-    else if(e.target.closest('[data-share]')){demoToast('sharing isn\'t connected yet. The real app will copy a link to this post.')}
+    else if(e.target.closest('[data-share]')){shareSheet(p)}
     else if(e.target.closest('[data-cmt]')){demoToast('comments come in the full app.')}
   });
 }

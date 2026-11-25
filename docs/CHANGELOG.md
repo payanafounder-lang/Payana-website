@@ -102,3 +102,18 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 36. **⋯ menu on posts** (feed and post page). Your posts: Edit post (caption, location, photos), Edit this photo / video, Copy link, Delete post (with a confirmation). Other people's posts: Report post (opens the report sheet), Not interested, Copy link. Edited posts show "Edited".
 37. **Edit profile:** the profile photo and banner open in the photo editor so you choose the framing, instead of an automatic centre crop.
 38. Code: `assets/js/components/media.js` and `assets/css/media.css`. Demo: uploads and edits stay on this page only and are never uploaded.
+
+## Stories and sharing — 25 November 2026
+
+39. **Stories.** The row at the top of Home is now real 24-hour stories (your story first, then unseen friends). Tap to watch: progress bars, tap left/right or arrows, hold to pause, reply to a friend's story, delete your own. Stories disappear after 24 hours and never appear in the feed or on profile grids. Profile shows **Add story** / **View story**.
+40. **Story editor before sharing** (`#story`, also the **Story** tab next to **Post** in Create and the **+ Story** button on Home). After choosing photos or videos (up to 10), a full-screen editor opens, like Instagram:
+    - **Text:** 7 fonts, 14 colours plus a colour picker, alignment, background styles (none, solid, see-through, outline), size slider.
+    - **Stickers:** location, mention a friend, hashtag, time, date, "My trip" card, Payana phrases, emoji. Tap a selected sticker to change its style.
+    - **Draw:** pen, marker, neon, eraser, undo. **Background:** photo blur, colours, gradients; fit or fill the photo.
+    - Drag anything to move it (centre guides), pinch or use the ↻ handle to resize and rotate, drag to the bin to delete. **Edit photo / video** opens the existing editor. Everyone / Friends only before sharing.
+41. **Tappable stickers in stories.** Location shows trips to that place and friends' stories from there; mention shows the friend with View profile, Message and View story; hashtag shows other stories with the tag and related trips; the trip card opens the trip; a shared post opens the post.
+42. **Add posts and trips to your story.** From a post's Share button or ⋯ menu, and from any trip's Share button. The editor opens with the post or trip as a card you can design around.
+43. **Share sheet for posts and trips:** Your story, WhatsApp (ready-made message and link), Instagram (on phones the system share sheet with the photo, where Instagram Stories/Feed/Messages appear; on laptops the link is copied and Instagram opens), Copy link, and More (phone share menu). Share buttons added on Explore trip cards, the trip page cover (next to Save), the host's trip box, and every trip in My trips.
+44. Trip links point to the public preview page (`#t-<trip>`), so friends without an account can open them. Post links (`#post-<id>`) open the post after login. Copy link in the ⋯ menu now really copies.
+45. Pop-up messages ("Link copied", "Demo: …") no longer block taps on buttons underneath them.
+46. Code: `assets/js/components/stories.js`, `assets/js/views/story.js`, `assets/css/stories.css`. Demo: stories stay in this browser only (videos until the page is closed); nothing is uploaded.

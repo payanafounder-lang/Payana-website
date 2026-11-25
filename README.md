@@ -28,6 +28,7 @@ assets/
     auth.css               Sign up / log in sheet
     app.css                Member app screens and the toast
     media.css              Post photos/videos: carousel, photo grid, editor
+    stories.css            Stories, story editor, share sheet
     demo.css               "DEMO VERSION" tag
   js/
     config.js              Demo/live mode, storage prefix, feature switches
@@ -37,7 +38,8 @@ assets/
                            payments (stub), api (future backend client)
     state.js               In-page UI state
     components/            Shared UI pieces (trip card, report sheet, invite sheet,
-                           media.js: photo carousel, photo/video editor, post ⋯ menu)
+                           media.js: photo carousel, photo/video editor, post ⋯ menu;
+                           stories.js: stories row, viewer, story editor, share sheet)
     views/                 One file per screen
     app.js                 Starts the app
 img/                       Photos (WebP)

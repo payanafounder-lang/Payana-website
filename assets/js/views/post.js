@@ -58,7 +58,7 @@ bind.post=id=>{const p=findPost(id); if(!p) return; const cm=S.comments[p.id]; S
     const lk=e.target.closest('[data-cmlike]'); if(lk){lk.textContent=lk.textContent==='Like'?'Liked':'Like'; lk.classList.toggle('on'); return}
     if(e.target.closest('[data-like]')){S.liked.has(p.id)?S.liked.delete(p.id):S.liked.add(p.id); redraw(); return}
     if(e.target.closest('[data-save]')){S.saved.has(p.id)?S.saved.delete(p.id):S.saved.add(p.id); redraw(); demoToast(S.saved.has(p.id)?'saved on this page only':'removed from saved'); return}
-    if(e.target.closest('[data-share]')) demoToast('sharing isn\'t connected yet.');
+    if(e.target.closest('[data-share]')) shareSheet(p);
   });
   $('#cmf').addEventListener('submit',e=>{e.preventDefault(); const t=$('#cm-in').value.trim(); if(!t) return;
     if(S.cmReplyTo!=null) cm[S.cmReplyTo][3].push([me().name,t,'now']); else cm.push([me().name,t,'now',[]]);
