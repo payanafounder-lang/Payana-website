@@ -6,6 +6,12 @@
 .side a,.side button.nl{display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:14px; text-decoration:none; font-weight:500; color:var(--muted); border:0; background:none; cursor:pointer; text-align:left; width:100%; font-size:15.5px}
 .side a:hover,.side button.nl:hover{background:var(--chip); color:var(--fg)}
 .side a.on{background:var(--fg); color:var(--bg)}
+/* Search bar at the top of the desktop sidebar (phones use the search icon in the top bar) */
+.side a.sidesearch{margin-bottom:4px; border:1px solid var(--line); background:var(--bg); padding:10px 12px}
+.side a.sidesearch:hover{border-color:var(--terra); background:var(--bg); color:var(--fg)}
+.side a.sidesearch.on{background:var(--chip); color:var(--fg); border-color:var(--terra)}
+.sidesearch span{flex:1}
+.sidesearch kbd{font:500 12px/1 var(--f-mono); padding:4px 7px; border-radius:6px; border:1px solid var(--line); background:var(--surface); color:var(--muted)}
 .side .badge{margin-left:auto; font:700 11px/1 var(--f-body); background:var(--terra); color:#FBF3E6; padding:4px 7px; border-radius:999px}
 .side a.create{margin-block:6px 12px; justify-content:center; background:var(--terra); color:#FBF3E6}
 .side a.create:hover{background:var(--terra); color:#FBF3E6; filter:brightness(1.06)}
@@ -28,6 +34,7 @@
   .topbar nav{display:flex; gap:4px}
   .iconbtn{width:40px; height:40px; display:grid; place-items:center; border-radius:50%; text-decoration:none; color:var(--fg)}
   .iconbtn:hover{background:var(--chip)}
+  .iconbtn.on{background:var(--chip); color:var(--accent)}
   .tabbar{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); position:fixed; left:0; right:0; bottom:0; z-index:30; background:var(--surface); border-top:1px solid var(--line); padding:6px max(8px, env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px, env(safe-area-inset-left,0px))}
   .tabbar a{display:grid; justify-items:center; gap:2px; padding:6px 0; text-decoration:none; font-size:11px; font-weight:600; color:var(--muted)}
   .tabbar a.on{color:var(--accent)}
