@@ -131,6 +131,19 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 - Demo: the same sample posts come back. Live: this is where the app will fetch new posts from the server.
 - Code: `refreshFeed` at the end of `core/router.js`; styles at the end of `assets/css/app.css`.
 
+## Search at the top of the desktop menu — 26 November 2026
+- Team change: Search is easier to find on laptops and desktops. It is now a search bar at the top of the left menu, above "Create post", instead of a plain item in the middle of the list.
+- Phones keep the search icon in the top bar; it now lights up while you're on the Search screen.
+- Keyboard shortcut: press **/** (or Ctrl/Cmd+K) on any app screen to open Search. Shown as a "/" hint on the bar.
+- Search results highlight the matching part of people's names and community names. The search box uses 16px text so iPhones don't zoom in when it's tapped; results are announced to screen readers.
+- Code: `.sidesearch` in `index.html` and `assets/css/app.css`; shortcut and highlighting in `views/search.js`. Asset versions bumped to `?v=20261126a` so browsers pick up the change.
+
+## Fix: search showed "No people" when trips or communities matched — 26 November 2026
+- **Bug:** Search always opened on the People tab and stayed there. Searching "Coorg" (also one of the Recent searches) said *No people for "Coorg"* even though a Coorg trip exists; "trek" hid 3 trips and a community the same way.
+- **Fix:** when you type or tap a recent search, and the open tab has no matches, Search now jumps to the first tab that has results (People → Trips → Communities). If you tap a tab yourself, it stays on that tab.
+- Shorter search box hint ("People, trips or communities") so it isn't cut off on phones.
+- Code: `searchDraw(auto)` in `views/search.js`. Asset versions bumped to `?v=20261126b`.
+
 ## Leave a trip group — 26 November 2026
 - Team change: once a trip is planned, **every person in the group can leave it** from **My trips**. Each trip you're going on or hosting has a red **Leave** button next to **Share** (trips still waiting for approval don't). The **Coorg demo planner** has one too.
 - The trip planner also has **Leave trip group** next to Get help, and a **Leave** button on your own row in the **People** tab.
@@ -138,3 +151,4 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 - **Hosts can't just leave.** Leave opens a "You're the host" step: choose someone in the group to take over hosting (they have to accept), or cancel the trip for everyone with a reason if nobody else has joined.
 - New **Trips you left** list on My trips. Demo: nobody is told, and the Coorg demo trip has **Undo (demo)** to bring it back. Live: the group sees the reason in the trip chat and the person is removed from the chat and planner.
 - Code: `views/my-trips.js`, `views/manage.js` (address `#manage-<trip>-leave`), `views/plan.js`, `state.js` (`S.left`, kept in browser storage); styles at the end of `assets/css/pages.css`.
+- Merged with the search fix; asset versions bumped to `?v=20261126c` so browsers pick up both changes.
