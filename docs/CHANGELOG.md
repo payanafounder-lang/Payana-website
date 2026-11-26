@@ -130,3 +130,11 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 - Already on the feed: scrolls back to the top, shows a small "Refreshing" spinner under the top bar, then draws the feed again (like Instagram).
 - Demo: the same sample posts come back. Live: this is where the app will fetch new posts from the server.
 - Code: `refreshFeed` at the end of `core/router.js`; styles at the end of `assets/css/app.css`.
+
+## Leave a trip group — 26 November 2026
+- Team change: once a trip is planned, **every person in the group can leave it** from **My trips**. Each trip you're going on or hosting has a red **Leave** button next to **Share** (trips still waiting for approval don't). The **Coorg demo planner** has one too.
+- The trip planner also has **Leave trip group** next to Get help, and a **Leave** button on your own row in the **People** tab.
+- **Members** get the existing leave form: a reason is required, with an optional message to the group and a link to report someone privately.
+- **Hosts can't just leave.** Leave opens a "You're the host" step: choose someone in the group to take over hosting (they have to accept), or cancel the trip for everyone with a reason if nobody else has joined.
+- New **Trips you left** list on My trips. Demo: nobody is told, and the Coorg demo trip has **Undo (demo)** to bring it back. Live: the group sees the reason in the trip chat and the person is removed from the chat and planner.
+- Code: `views/my-trips.js`, `views/manage.js` (address `#manage-<trip>-leave`), `views/plan.js`, `state.js` (`S.left`, kept in browser storage); styles at the end of `assets/css/pages.css`.

@@ -3,16 +3,23 @@
    Team change (17 Nov): cancelling first offers to make someone else the host
    (they must accept), then needs a reason and a message the whole group sees.
    Member (not host): leave the trip, also with a reason.
+   Team change (26 Nov): #manage-<trip>-leave is the "Leave" button from My trips and the planner.
+   Members see the leave form. A host can't just leave: they hand hosting to someone first,
+   or cancel the trip if nobody else has joined.
    Demo: changes stay on this page only. */
 const CANCEL_REASONS=['Personal or family emergency','Weather or road conditions','Not enough people','Booking fell through','Safety concern','Other'];
 const WHO_JOIN=[['all','Everyone (I approve each request)'],['women','Women-only (selfie-verified)'],['verified','Verified people only'],['fof','Friends and friends of friends']];
 let mgPanel=null;
+const mgArg=id=>{const m=/^(.+)-leave$/.exec(id||''); return m?[m[1],true]:[id,false]};
 function manage(id){
-  const t=T(id)||T('coorg'), st=S.joined[t.id], host=st!=='approved'&&st!=='requested';
+  const [tid,leaving]=mgArg(id), t=T(tid)||T('coorg'), st=S.joined[t.id], host=leaving?st==='hosting':st!=='approved'&&st!=='requested';
+  if(!leaving&&mgPanel==='leave') mgPanel=null; // came back without -leave in the address
+  if(leaving&&host&&!t.handover&&!mgPanel) mgPanel='leave';
   if(t.cancelled) return `<div class="card sec mg-cancelled"><span class="pill p-bad" style="justify-self:start">Cancelled</span><h1>${esc(t.name)} was cancelled</h1><p class="hint">Reason shared with the group: <b>${esc(t.cancelled.reason)}</b></p><p>"${esc(t.cancelled.msg)}"</p><p class="hint"><b>Demo:</b> nobody was told. In the real app everyone gets a notification and the trip leaves Explore.</p><a class="btn btn-primary" href="#mytrips" style="justify-self:start">Back to My trips</a></div>`;
   if(!host) return memberView(t);
   const others=t.people.filter(p=>p[0]!==me().name&&!/Host/.test(p[1])), rq=HOSTREQ[t.id]||[];
   if(t.handover) mgPanel=null;
+  if(mgPanel==='leave') return `<div class="ph"><div><h1>Leave: ${esc(t.name)}</h1><p>${t.dates} · <span class="pill p-ok">You're the host</span></p></div><a class="btn btn-line btn-sm" href="#mytrips">Back to My trips</a></div><div style="max-width:640px">${cancelPanel(t,others)}</div>`;
   return `<div class="ph"><div><h1>Manage: ${esc(t.name)}</h1><p>${t.dates} · ${t.seats} spots · <span class="pill p-ok">${st==='hosting'?'You\'re the host':'Demo: host view'}</span></p></div><a class="btn btn-line btn-sm" href="#trip-${t.id}">View trip page</a></div>
    <div class="mg-grid"><form class="card sec" id="mgf"><h2>Edit trip details</h2>
      <label class="in" for="mg-name">Trip name<input id="mg-name" value="${esc(t.name)}"></label>
@@ -36,6 +43,7 @@ function manage(id){
 function cancelPanel(t,others){
   const sel=`<label class="in" for="mg-newhost">New host<select id="mg-newhost">${others.map(p=>`<option>${esc(p[0])}</option>`).join('')}</select></label>`;
   const handover=others.length?`<div class="note ok mg-ho"><div style="display:grid;gap:10px;width:100%"><b>Keep the trip going: make someone else the host</b>${sel}<small>They have to accept before you're removed as host.</small><button type="button" class="btn btn-sm forest-btn" data-mgask style="justify-self:start">Ask them to host</button></div></div>`:'<p class="hint">Nobody else has joined yet, so the trip can\'t be handed over.</p>';
+  if(mgPanel==='leave') return `<section class="card sec mg-panel"><span class="eyebrow" style="color:var(--bad-fg)">Leave this trip</span><h2>You're the host</h2><p class="hint">Before you leave, someone else in the group has to take over hosting, so the trip can go ahead without you.</p>${handover}<p class="hint">${others.length?'Once they accept, you can leave from the planner.':''} Can't hand it over? <button type="button" class="linkbtn" data-mgpanel="cancel">Cancel the trip for everyone</button></p><a class="linkbtn muted" href="#mytrips">Close</a></section>`;
   if(mgPanel==='handover') return `<section class="card sec mg-panel"><h2>Hand over hosting</h2>${handover}<button type="button" class="linkbtn muted" data-mgclose>Close</button></section>`;
   return `<form class="card sec mg-panel" id="mgcx" aria-labelledby="mgcx-h"><span class="eyebrow" style="color:var(--bad-fg)">Before you cancel</span><h2 id="mgcx-h">${t.people.length} people are going</h2><p class="hint">The trip can still happen if someone else hosts it.</p>
     ${handover}
@@ -52,7 +60,7 @@ function memberView(t){
     <div class="actions"><a class="btn btn-line" href="#trip-${t.id}">Stay in the trip</a><button class="btn danger-btn">Leave trip</button></div></form>`;
 }
 bind.manage=id=>{
-  const t=T(id)||T('coorg'), v=$('#view'), err=(sel,m)=>{const e=$(sel); e.textContent=m; e.hidden=false};
+  const t=T(mgArg(id)[0])||T('coorg'), v=$('#view'), err=(sel,m)=>{const e=$(sel); e.textContent=m; e.hidden=false};
   v.addEventListener('click',e=>{
     const p=e.target.closest('[data-mgpanel]'); if(p){mgPanel=mgPanel===p.dataset.mgpanel?null:p.dataset.mgpanel; route(); setTimeout(()=>{const x=$('.mg-panel'); x&&x.scrollIntoView({behavior:'smooth',block:'start'})},30); return}
     if(e.target.closest('[data-mgclose]')){mgPanel=null; route(); return}
@@ -68,6 +76,7 @@ bind.manage=id=>{
     if(e.target.id==='mgf'){const n=$('#mg-name').value.trim(); if(!n) return; t.name=n; t.dates=$('#mg-dates').value.trim()||t.dates; t.budget=+$('#mg-bud').value||t.budget; t.group=+$('#mg-grp').value; t.pace=$('#mg-pace').value; t.who=$('#mg-who').value; t.rules=$('#mg-rules').value; route(); demoToast('trip updated on this page only. Nobody was notified.')}
     if(e.target.id==='mgcx'){const r=$('input[name=cxr]:checked'), m=$('#mg-msg').value.trim(); if(!r) return err('#mgerr','Pick a reason. The group sees it.'); if(m.length<5) return err('#mgerr','Write a short message to the group.');
       t.cancelled={reason:CANCEL_REASONS[+r.value],msg:m}; S.joined[t.id]='cancelled'; store.set('joined',S.joined); mgPanel=null; route()}
-    if(e.target.id==='mglv'){if(!$('input[name=lvr]:checked')) return err('#lverr','Pick a reason so the group can plan.'); delete S.joined[t.id]; store.set('joined',S.joined); location.hash='mytrips'; demoToast('you left the trip on this page only. Nobody was told.')}
+    if(e.target.id==='mglv'){if(!$('input[name=lvr]:checked')) return err('#lverr','Pick a reason so the group can plan.'); delete S.joined[t.id]; store.set('joined',S.joined); if(!S.left.includes(t.id)){S.left.push(t.id); store.set('left',S.left)}
+      if(S.planTrip===t.id){S.planTrip='coorg'; store.set('planTrip','coorg')} location.hash='mytrips'; demoToast(`you left the ${t.name} trip on this page only. Nobody was told. Live: the group sees your reason in the trip chat.`)}
   });
 };
