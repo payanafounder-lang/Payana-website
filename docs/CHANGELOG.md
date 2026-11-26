@@ -130,3 +130,10 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 - Already on the feed: scrolls back to the top, shows a small "Refreshing" spinner under the top bar, then draws the feed again (like Instagram).
 - Demo: the same sample posts come back. Live: this is where the app will fetch new posts from the server.
 - Code: `refreshFeed` at the end of `core/router.js`; styles at the end of `assets/css/app.css`.
+
+## Search at the top of the desktop menu — 26 November 2026
+- Team change: Search is easier to find on laptops and desktops. It is now a search bar at the top of the left menu, above "Create post", instead of a plain item in the middle of the list.
+- Phones keep the search icon in the top bar; it now lights up while you're on the Search screen.
+- Keyboard shortcut: press **/** (or Ctrl/Cmd+K) on any app screen to open Search. Shown as a "/" hint on the bar.
+- Search results highlight the matching part of people's names and community names. The search box uses 16px text so iPhones don't zoom in when it's tapped; results are announced to screen readers.
+- Code: `.sidesearch` in `index.html` and `assets/css/app.css`; shortcut and highlighting in `views/search.js`. Asset versions bumped to `?v=20261126a` so browsers pick up the change.
