@@ -137,3 +137,9 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 - Keyboard shortcut: press **/** (or Ctrl/Cmd+K) on any app screen to open Search. Shown as a "/" hint on the bar.
 - Search results highlight the matching part of people's names and community names. The search box uses 16px text so iPhones don't zoom in when it's tapped; results are announced to screen readers.
 - Code: `.sidesearch` in `index.html` and `assets/css/app.css`; shortcut and highlighting in `views/search.js`. Asset versions bumped to `?v=20261126a` so browsers pick up the change.
+
+## Fix: search showed "No people" when trips or communities matched — 26 November 2026
+- **Bug:** Search always opened on the People tab and stayed there. Searching "Coorg" (also one of the Recent searches) said *No people for "Coorg"* even though a Coorg trip exists; "trek" hid 3 trips and a community the same way.
+- **Fix:** when you type or tap a recent search, and the open tab has no matches, Search now jumps to the first tab that has results (People → Trips → Communities). If you tap a tab yourself, it stays on that tab.
+- Shorter search box hint ("People, trips or communities") so it isn't cut off on phones.
+- Code: `searchDraw(auto)` in `views/search.js`. Asset versions bumped to `?v=20261126b`.
