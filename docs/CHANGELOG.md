@@ -143,3 +143,12 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 - **Fix:** when you type or tap a recent search, and the open tab has no matches, Search now jumps to the first tab that has results (People → Trips → Communities). If you tap a tab yourself, it stays on that tab.
 - Shorter search box hint ("People, trips or communities") so it isn't cut off on phones.
 - Code: `searchDraw(auto)` in `views/search.js`. Asset versions bumped to `?v=20261126b`.
+
+## Leave a trip group — 26 November 2026
+- Team change: once a trip is planned, **every person in the group can leave it** from **My trips**. Each trip you're going on or hosting has a red **Leave** button next to **Share** (trips still waiting for approval don't). The **Coorg demo planner** has one too.
+- The trip planner also has **Leave trip group** next to Get help, and a **Leave** button on your own row in the **People** tab.
+- **Members** get the existing leave form: a reason is required, with an optional message to the group and a link to report someone privately.
+- **Hosts can't just leave.** Leave opens a "You're the host" step: choose someone in the group to take over hosting (they have to accept), or cancel the trip for everyone with a reason if nobody else has joined.
+- New **Trips you left** list on My trips. Demo: nobody is told, and the Coorg demo trip has **Undo (demo)** to bring it back. Live: the group sees the reason in the trip chat and the person is removed from the chat and planner.
+- Code: `views/my-trips.js`, `views/manage.js` (address `#manage-<trip>-leave`), `views/plan.js`, `state.js` (`S.left`, kept in browser storage); styles at the end of `assets/css/pages.css`.
+- Merged with the search fix; asset versions bumped to `?v=20261126c` so browsers pick up both changes.
