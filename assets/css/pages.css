@@ -487,3 +487,11 @@
 .leftlist{display:grid; gap:10px}
 .lthumb{width:44px; height:44px; border-radius:12px; object-fit:cover; flex:none}
 @media (max-width:600px){#view .upw{grid-template-columns:1fr} #view .upacts{grid-auto-columns:1fr} #view .upacts .upshare{grid-auto-flow:column; justify-content:center; min-height:44px; padding:8px} .leftlist .person{flex-wrap:wrap} .leftlist .person .btns{margin-left:54px}}
+
+/* Team change (27 Nov): Log out moved into Profile › Settings. Bottom of the section list
+   on bigger screens; its own full-width row under the settings on phones. */
+.set-nav .set-out{display:flex; align-items:center; gap:10px; margin-top:6px; border-top:1px solid var(--line); border-radius:0 0 14px 14px; padding-top:13px; color:var(--bad-fg); font-weight:600}
+.set-nav .set-out .i{width:18px; height:18px}
+.set-out-row{display:none; margin-top:20px; padding:12px}
+.set-out-row .btn{width:100%; color:var(--bad-fg)}
+@media (max-width:860px){.set-nav .set-out{display:none} .set-out-row{display:block}}
