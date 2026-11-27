@@ -41,10 +41,10 @@ function storyOrder(){pruneStories(); const g=new Map();
 const sthumb=x=>x.t==='v'?`<video src="${x.s}#t=0.1" muted playsinline preload="metadata"></video>`:`<img src="${x.s}" alt="">`;
 function storiesRow(){const u=me(), O=storyOrder(), mine=O.find(o=>o.k==='__me');
   const meHTML=mine
-    ?`<div class="story"><span class="sw"><button type="button" class="ring${seenAll(mine.a)?' seen':''}" data-sv="__me" aria-label="View your story">${sthumb(mine.a[mine.a.length-1])}</button><a class="addb" href="#story" aria-label="Add to your story">${I('plus')}</a></span><span><b>Your story</b><br><small>${ago(mine.a[mine.a.length-1].at)}</small></span></div>`
+    ?`<div class="story"><span class="sw"><button type="button" class="ring${seenAll(mine.a)?' seen':''}" data-sv="__me" aria-label="View your story">${sthumb(mine.a[mine.a.length-1])}</button><a class="addb" href="#story" aria-label="Add to your story">${I('plus')}</a></span><span><b>Your story</b></span></div>`
     :`<a class="story" href="#story" aria-label="Add to your story"><span class="sw"><span class="ring none">${u.photo?`<img src="${u.photo}" alt="">`:av(u.name,0)}</span><span class="addb">${I('plus')}</span></span><span><b>Your story</b><br><small>Add</small></span></a>`;
   return `<div class="stories" id="stories">${meHTML}${O.filter(o=>o.k!=='__me').map(o=>{const last=o.a[o.a.length-1];
-    return `<button type="button" class="story" data-sv="${esc(o.k)}" aria-label="View ${esc(o.k)}'s story"><span class="sw"><span class="ring${seenAll(o.a)?' seen':''}">${sthumb(o.a.find(x=>!S.svSeen.has(x.id))||o.a[0])}</span></span><span><b>${esc(o.k.split(' ')[0])}</b><br><small>${ago(last.at)}</small></span></button>`}).join('')}</div>`}
+    return `<button type="button" class="story" data-sv="${esc(o.k)}" aria-label="View ${esc(o.k)}'s story"><span class="sw"><span class="ring${seenAll(o.a)?' seen':''}">${sthumb(o.a.find(x=>!S.svSeen.has(x.id))||o.a[0])}</span></span><span><b>${esc(o.k.split(' ')[0])}</b></span></button>`}).join('')}</div>`}
 let hadMine=myLive().length>0;
 function refreshStories(){const r=$('#stories'); if(r) r.outerHTML=storiesRow();
   const has=myLive().length>0; if(has!==hadMine){hadMine=has; if(location.hash==='#profile'&&!MODALS.length) route()}}
