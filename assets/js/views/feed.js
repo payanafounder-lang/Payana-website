@@ -14,7 +14,7 @@ function postHTML(p){
 function feed(){
   const u=me();
   return `<div class="feed"><div style="min-width:0">
-   <div class="ph"><div><h1>Hi ${esc(u.name.split(' ')[0])}</h1><p>Your friends' trips and stories</p></div></div>
+   <div class="ph"><div><h1>Hi ${esc(u.name.split(' ')[0])}</h1></div></div>
    ${storiesRow()}
    <div class="card composer">${av(u.name,0,40)}<a href="#create">Share a trip, photo or tip…</a><a href="#create" class="btn btn-soft btn-sm" style="flex:none;background:var(--chip);color:var(--fg)" aria-label="New post">${I('photo')}</a><a href="#story" class="btn btn-soft btn-sm cstory" style="flex:none" aria-label="Add to your story">${I('plus')}<span>Story</span></a></div>
    <div class="posts" id="posts">${S.posts.map(postHTML).join('')}</div></div>

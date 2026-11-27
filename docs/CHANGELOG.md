@@ -152,3 +152,8 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 - New **Trips you left** list on My trips. Demo: nobody is told, and the Coorg demo trip has **Undo (demo)** to bring it back. Live: the group sees the reason in the trip chat and the person is removed from the chat and planner.
 - Code: `views/my-trips.js`, `views/manage.js` (address `#manage-<trip>-leave`), `views/plan.js`, `state.js` (`S.left`, kept in browser storage); styles at the end of `assets/css/pages.css`.
 - Merged with the search fix; asset versions bumped to `?v=20261126c` so browsers pick up both changes.
+
+## Home feed: cleaner header and story row — 27 November 2026
+- Team change: the **"Hi [name]"** greeting stays exactly as it was; the line under it, *"Your friends' trips and stories"*, is removed.
+- Team change: the **times under each story circle** (e.g. "2h") are removed from the stories row, including under "Your story". The time still shows inside the story viewer. "Add" still shows under "Your story" when you have no story.
+- Code: `views/feed.js` (`feed()`), `components/stories.js` (`storiesRow()`). Asset versions bumped to `?v=20261127a`.
