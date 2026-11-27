@@ -4,7 +4,8 @@
    Team changes (18 Nov): Settings opens from the profile page (like Instagram), not the menu.
    Edit profile is its own page (#editprofile), not a Settings section, so the two don't mix.
    Gender has no "Prefer not to say" option. Emergency contacts: a main contact plus an
-   alternative number, family or friend. */
+   alternative number, family or friend.
+   Team change (27 Nov): Log out lives here only (bottom of the Settings list), not in the menu or phone top bar. */
 const SET_TABS=[['privacy','Privacy & safety']];
 // Later versions add sections: SET_EXTRA[key]=()=>html and click handlers in SET_CLICK.
 const SET_EXTRA={}, SET_CLICK=[];
@@ -13,7 +14,8 @@ function settings(){
   if(!S.setTab||!SET_TABS.some(t=>t[0]===S.setTab)) S.setTab=SET_TABS[0][0];
   const tabs=SET_TABS.map(([k,l])=>`<button data-stab="${k}" aria-current="${S.setTab===k}" class="${k==='delete'?'danger':''}">${l}</button>`).join('');
   return `<div class="ph"><div><a class="linkbtn" href="#profile" style="font-size:14px">← Back to profile</a><h1>Settings</h1><p>Account, privacy, notifications and blocked people</p></div></div>
-   <div class="set-grid"><nav class="card set-nav" aria-label="Settings sections">${tabs}</nav><div id="setbody" style="display:grid;gap:20px;min-width:0">${setSection()}</div></div>`;
+   <div class="set-grid"><nav class="card set-nav" aria-label="Settings sections">${tabs}<button type="button" class="set-out" data-logout><svg class="i"><use href="#i-out"/></svg>Log out</button></nav><div id="setbody" style="display:grid;gap:20px;min-width:0">${setSection()}</div></div>
+   <div class="card set-out-row"><button type="button" class="btn btn-line" data-logout><svg class="i"><use href="#i-out"/></svg>Log out</button></div>`;
 }
 function setSection(){
   const k=S.setTab;

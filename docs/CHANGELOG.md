@@ -156,4 +156,5 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 ## Home feed: cleaner header and story row — 27 November 2026
 - Team change: the **"Hi [name]"** greeting stays exactly as it was; the line under it, *"Your friends' trips and stories"*, is removed.
 - Team change: the **times under each story circle** (e.g. "2h") are removed from the stories row, including under "Your story". The time still shows inside the story viewer. "Add" still shows under "Your story" when you have no story.
-- Code: `views/feed.js` (`feed()`), `components/stories.js` (`storiesRow()`). Asset versions bumped to `?v=20261127a`.
+- Code: `views/feed.js` (`feed()`), `components/stories.js` (`storiesRow()`). Asset versions bumped to `?v=20261127b`.
+- Team change: **Log out moved into Profile › Settings.** It's no longer in the left menu or the phone top bar. In Settings it sits at the bottom of the section list on bigger screens, and as a full-width button under the settings on phones. Code: `views/settings.js`, `index.html`, end of `assets/css/pages.css`.
