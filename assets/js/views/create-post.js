@@ -8,7 +8,7 @@ function create(){
   cmedia=[]; ctags=[]; if(!CTYPES.some(([l])=>l===ctype)) ctype='Photo';
   return `${ctabs('post')}<div class="ph"><div><h1>Create a post</h1><p>Share a moment, a story, or find people for your next trip</p></div><div class="btns"><a class="btn btn-line btn-sm" href="#feed">Cancel</a><button class="btn btn-primary btn-sm" type="submit" form="cpf">Publish</button></div></div>
    <form class="cgrid" id="cpf" novalidate><div class="card sec">
-    <div class="types">${CTYPES.map(([l,ic])=>`<button type="button" data-ct="${l}" aria-pressed="${ctype===l}">${I(ic)}${l}</button>`).join('')}</div>
+    <div class="types">${CTYPES.map(([l,ic])=>`<button type="button" data-ct="${l}" aria-pressed="${ctype===l}">${I(ic)}<span>${l}</span></button>`).join('')}</div>
     <div id="cstage"></div><input type="file" id="cfile" accept="image/*,video/*" multiple hidden>
     <label class="in" for="ccap">Caption<textarea id="ccap" placeholder="What happened? Where should people go?" maxlength="2200"></textarea></label>
     <div class="row2 ctagrow"><label class="in" for="cloc">Location<input id="cloc" placeholder="e.g. Coorg"></label><div class="in"><label for="ctag">Tag people</label><div class="tagbox" id="ctagbox"><input id="ctag" placeholder="Search anyone on Payana" autocomplete="off" aria-describedby="ctagn"></div><div class="mac" id="ctagl" hidden></div><small id="ctagn" class="tagn">Anyone on Payana can be tagged. Type @ in the caption to mention someone.</small></div></div>

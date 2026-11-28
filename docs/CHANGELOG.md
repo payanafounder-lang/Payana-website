@@ -167,4 +167,5 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
   - **Stories:** the @mention sticker lists everyone on Payana, with a search box, instead of friends only.
   - People you've blocked don't appear in suggestions.
 - Demo: nobody is notified. Live: tagged and mentioned people should get a notification, and the server should check blocks and privacy settings again.
-- Code: new `components/mentions.js`; `views/create-post.js`, `views/feed.js`, `views/post.js`, `components/media.js` (Edit post), `components/stories.js`, `views/story.js`; styles at the end of `assets/css/pages.css`. Asset versions bumped to `?v=20261128a`.
+- Team change: the three post-type tiles (Photo, Trip story, Looking for companions) are now **exactly the same size** on every screen: one row of three equal tiles, same height, icons and labels centred, no stretching. Before, the grid still had four columns (an empty gap on desktop, and the third tile dropped to its own row on phones). Code: `.types` in `assets/css/app.css`.
+- Code: new `components/mentions.js`; `views/create-post.js`, `views/feed.js`, `views/post.js`, `components/media.js` (Edit post), `components/stories.js`, `views/story.js`; styles at the end of `assets/css/pages.css`. Asset versions bumped to `?v=20261128b`.
