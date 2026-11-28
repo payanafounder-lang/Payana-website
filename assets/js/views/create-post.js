@@ -2,16 +2,16 @@
    Team change (24 Nov): photos AND videos (up to 10). Before publishing, swipe through them,
    edit each one (crop, rotate, adjust, filters; trim videos) and preview the finished post.
    Demo: nothing is uploaded; files stay on this page only. */
-const CTYPES=[['Photo','photo'],['Trip story','book'],['Travel tip','bulb'],['Looking for companions','users']];
-let ctype='Photo', cmedia=[];
+const CTYPES=[['Photo','photo'],['Trip story','book'],['Looking for companions','users']]; // 28 Nov: "Travel tip" removed
+let ctype='Photo', cmedia=[], ctags=[];
 function create(){
-  cmedia=[];
-  return `${ctabs('post')}<div class="ph"><div><h1>Create a post</h1><p>Share a moment, a story, a tip, or find people for your next trip</p></div><div class="btns"><a class="btn btn-line btn-sm" href="#feed">Cancel</a><button class="btn btn-primary btn-sm" type="submit" form="cpf">Publish</button></div></div>
+  cmedia=[]; ctags=[]; if(!CTYPES.some(([l])=>l===ctype)) ctype='Photo';
+  return `${ctabs('post')}<div class="ph"><div><h1>Create a post</h1><p>Share a moment, a story, or find people for your next trip</p></div><div class="btns"><a class="btn btn-line btn-sm" href="#feed">Cancel</a><button class="btn btn-primary btn-sm" type="submit" form="cpf">Publish</button></div></div>
    <form class="cgrid" id="cpf" novalidate><div class="card sec">
     <div class="types">${CTYPES.map(([l,ic])=>`<button type="button" data-ct="${l}" aria-pressed="${ctype===l}">${I(ic)}${l}</button>`).join('')}</div>
     <div id="cstage"></div><input type="file" id="cfile" accept="image/*,video/*" multiple hidden>
     <label class="in" for="ccap">Caption<textarea id="ccap" placeholder="What happened? Where should people go?" maxlength="2200"></textarea></label>
-    <div class="row2" style="grid-template-columns:1fr 1fr"><label class="in" for="cloc">Location<input id="cloc" placeholder="e.g. Coorg"></label><label class="in" for="ctag">Tag travel buddies<input id="ctag" placeholder="@ananya.k"></label></div>
+    <div class="row2 ctagrow"><label class="in" for="cloc">Location<input id="cloc" placeholder="e.g. Coorg"></label><div class="in"><label for="ctag">Tag people</label><div class="tagbox" id="ctagbox"><input id="ctag" placeholder="Search anyone on Payana" autocomplete="off" aria-describedby="ctagn"></div><div class="mac" id="ctagl" hidden></div><small id="ctagn" class="tagn">Anyone on Payana can be tagged. Type @ in the caption to mention someone.</small></div></div>
     <label class="in" for="ctrip">Link a trip<select id="ctrip"><option value="">No trip</option>${TRIPS.map(t=>`<option value="${t.id}">${t.name} · ${t.dates}</option>`).join('')}</select></label>
     <p class="err" id="cerr" hidden></p>
    </div>
@@ -31,9 +31,10 @@ function cStage(k){const st=$('#cstage'); if(!st) return; const n=cmedia.length;
 function kindLbl(){const b=$('#cstage [data-cedit=""]'); if(!b) return; const m=cmedia[carIdx($('#cstage [data-car]'))]; b.lastChild.textContent=`Edit this ${m&&m.t==='v'?'video':'photo'}`}
 function draftPost(){const u=me(), tr=$('#ctrip').value;
   const p={id:0,who:u.name,v:true,where:$('#cloc').value.trim()||'Bengaluru',time:'Just now',type:ctype,text:$('#ccap').value.trim(),likes:0,com:0,media:cmedia.slice()};
+  if(ctags.length) p.tags=ctags.slice();
   if(tr){if(ctype==='Looking for companions') p.lfc=tr; else p.trip=tr} return p}
 bind.create=()=>{
-  cStage();
+  cStage(); mentionAC($('#ccap')); tagPicker($('#ctagbox'),$('#ctagl'),ctags);
   const v=$('#view'), st=$('#cstage');
   const add=async files=>{const room=10-cmedia.length; if(!files.length) return; if(room<=0){toast('You can add up to 10 photos or videos'); return}
     if(files.length>room) toast(`Up to 10 per post. Added the first ${room}.`);
@@ -57,6 +58,6 @@ bind.create=()=>{
   });
   $('#cpf').addEventListener('submit',e=>{e.preventDefault(); const p=draftPost();
     if(!p.text&&!p.media.length){$('#cerr').textContent='Add a photo or write a caption first.'; $('#cerr').hidden=false; return}
-    p.id=Date.now(); syncImg(p); S.posts.unshift(p); S.myPosts.unshift(p); cmedia=[]; location.hash='feed'; demoToast('posted on this page only. Nothing was uploaded.');
+    p.id=Date.now(); syncImg(p); S.posts.unshift(p); S.myPosts.unshift(p); cmedia=[]; ctags=[]; location.hash='feed'; demoToast('posted on this page only. Nothing was uploaded.');
   });
 };

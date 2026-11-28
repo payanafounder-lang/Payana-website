@@ -223,7 +223,7 @@ function editPost(p,after){
     <label class="in" for="epcap">Caption<textarea id="epcap" maxlength="2200" placeholder="Write a caption">${esc(p.text||'')}</textarea></label>
     <label class="in" for="eploc">Location<input id="eploc" value="${esc(p.where||'')}" maxlength="60"></label>
     <div style="display:flex;gap:10px;justify-content:flex-end"><button type="button" class="btn btn-line btn-sm" data-close>Cancel</button><button class="btn btn-primary btn-sm">Save changes</button></div></form>`,{label:'Edit post'});
-  const box=o.m.querySelector('#epm');
+  const box=o.m.querySelector('#epm'); mentionAC(o.m.querySelector('#epcap'));
   const drawM=(k=0)=>{box.innerHTML=media.length?`${carousel({media})}<div class="cmp-bar"><span>Tap ✎ on a photo to crop, rotate or adjust it${media.length>1?' · swipe to see all':''}</span></div><div class="cstrip">${media.map((x,j)=>thumbHTML(x,j,media.length>1)).join('')}</div>`:''; const c=box.querySelector('[data-car]'); if(c) carSet(c,k)};
   drawM();
   box.addEventListener('click',ev=>{const ed=ev.target.closest('[data-cedit]'), rm=ev.target.closest('[data-crm]'), th=ev.target.closest('[data-ci]');

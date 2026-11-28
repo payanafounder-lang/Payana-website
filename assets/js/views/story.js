@@ -3,7 +3,7 @@ const ctabs=k=>`<nav class="ctabs" aria-label="What to create"><a href="#create"
 function storyNew(){
   return `${ctabs('story')}<div class="ph"><div><h1>Add to your story</h1><p>Stories show at the top of your friends' feed for 24 hours, then disappear. They never appear in the feed or on your profile grid.</p></div></div>
    <div class="card sec spick" id="sstage"><label class="drop sdrop" for="sfile">${I('photo','style="width:32px;height:32px"')}<b>Choose photos or videos</b><small>Up to 10 · each one becomes its own story</small></label><input type="file" id="sfile" accept="image/*,video/*" multiple hidden><p class="err" id="serr" hidden></p>
-    <div class="snext"><b>Next, design your story before you share it</b><ul><li><span class="se-aa">Aa</span>Text in 7 fonts, any colour, with or without a background</li><li>${SIC.smile}Stickers: location, mention a friend, your trip, time, date, emoji</li><li>${SIC.pen}Draw with pen, marker or neon</li><li>${SIC.palette}Change the background and drag, pinch or rotate anything into place</li></ul></div></div>`}
+    <div class="snext"><b>Next, design your story before you share it</b><ul><li><span class="se-aa">Aa</span>Text in 7 fonts, any colour, with or without a background</li><li>${SIC.smile}Stickers: location, mention anyone on Payana, your trip, time, date, emoji</li><li>${SIC.pen}Draw with pen, marker or neon</li><li>${SIC.palette}Change the background and drag, pinch or rotate anything into place</li></ul></div></div>`}
 bind.story=()=>{
   const st=$('#sstage'), lab=st.querySelector('.drop');
   const share=(A,vis)=>saveNewStories(A,vis,true);
