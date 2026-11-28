@@ -4,7 +4,7 @@ function postHTML(p){
   return `<article class="card post" data-post="${p.id}">
    <div class="post-h">${av(p.who,p.id)}<div><b><a href="#u-${slug(p.who)}">${esc(p.who)}</a>${p.v?'<span class="vf" title="Verified">✓</span>':''}</b><small>${esc(p.where)} · ${esc(p.time)}${p.edited?' · Edited':''}</small></div><span class="pill p-mut ptype">${esc(p.type)}</span><button type="button" class="pmore" data-pmenu aria-label="Post options">${I('dots')}</button></div>
    ${carousel(p,{alt:p.where?`Photo from ${p.where}`:''})}
-   <div class="post-b"><p>${esc(p.text)}</p>
+   <div class="post-b"><p>${mentionText(p.text)}</p>${tagsHTML(p)}
     ${lf?`<div class="lfc"><span class="eyebrow">Looking for companions</span><h4>${lf.name} · ${lf.dates}</h4><div class="meta" style="color:var(--muted)"><span>${rupee(lf.budget)} / person</span><span>${lf.pace} pace</span><span>${lf.seats} seats</span></div><a class="btn btn-primary btn-sm" style="justify-self:start" href="#trip-${lf.id}">View trip and request to join</a></div>`:''}
     ${t?`<div class="linked"><span>${I('pin','style="width:16px;height:16px;vertical-align:-3px"')} Going again · ${t.name}, ${t.dates.split('–')[0].trim()}</span><a class="linkbtn" href="#trip-${t.id}">View trip →</a></div>`:''}
    </div>

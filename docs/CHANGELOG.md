@@ -158,3 +158,14 @@ Every page (126) opened at 320, 360, 412, 768, 1024 and 1440 px, and every butto
 - Team change: the **times under each story circle** (e.g. "2h") are removed from the stories row, including under "Your story". The time still shows inside the story viewer. "Add" still shows under "Your story" when you have no story.
 - Code: `views/feed.js` (`feed()`), `components/stories.js` (`storiesRow()`). Asset versions bumped to `?v=20261127b`.
 - Team change: **Log out moved into Profile › Settings.** It's no longer in the left menu or the phone top bar. In Settings it sits at the bottom of the section list on bigger screens, and as a full-width button under the settings on phones. Code: `views/settings.js`, `index.html`, end of `assets/css/pages.css`.
+
+## Tag anyone, and "Travel tip" removed — 28 November 2026
+- Team change: **"Travel tip" is removed** from the post types on Create a post. The choices are now Photo, Trip story and Looking for companions. Older sample posts marked "Travel tip" still show in the feed.
+- Team change: **anyone on Payana can mention or tag anyone else**, not only friends.
+  - **Posts:** the free-text "Tag travel buddies" box is now **Tag people**: search everyone on Payana and add them as chips (up to 20). The post shows "with Aisha R., Neha P.".
+  - **Captions:** type **@** in a caption (new post or Edit post) to get suggestions; pick with a tap, Enter or Tab. Mentions in a published post link to that person's profile.
+  - **Stories:** the @mention sticker lists everyone on Payana, with a search box, instead of friends only.
+  - People you've blocked don't appear in suggestions.
+- Demo: nobody is notified. Live: tagged and mentioned people should get a notification, and the server should check blocks and privacy settings again.
+- Team change: the three post-type tiles (Photo, Trip story, Looking for companions) are now **exactly the same size** on every screen: one row of three equal tiles, same height, icons and labels centred, no stretching. Before, the grid still had four columns (an empty gap on desktop, and the third tile dropped to its own row on phones). Code: `.types` in `assets/css/app.css`.
+- Code: new `components/mentions.js`; `views/create-post.js`, `views/feed.js`, `views/post.js`, `components/media.js` (Edit post), `components/stories.js`, `views/story.js`; styles at the end of `assets/css/pages.css`. Asset versions bumped to `?v=20261128b`.

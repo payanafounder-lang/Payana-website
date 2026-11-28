@@ -385,7 +385,7 @@ function openStoryEditor(items,{onShare}={}){
   const shHead=(t,back)=>`<div class="se-sh-h">${back?`<button type="button" class="se-tbtn" data-shb aria-label="Back to stickers">‹</button>`:''}<b>${t}</b><button type="button" class="se-tbtn" data-shx aria-label="Close">×</button></div>`;
   const stkHome=()=>`${shHead('Stickers')}<div class="se-sk-grid">
      <button type="button" data-sk="loc" aria-label="Location sticker"><span class="sk-pill sp0">${I('pin')}LOCATION</span></button>
-     <button type="button" data-sk="men" aria-label="Mention a friend"><span class="sk-pill sp1">@MENTION</span></button>
+     <button type="button" data-sk="men" aria-label="Mention someone"><span class="sk-pill sp1">@MENTION</span></button>
      <button type="button" data-sk="trip" aria-label="Share one of your trips"><span class="sk-pill sp1">🧭 MY TRIP</span></button>
      <button type="button" data-sk="tag" aria-label="Hashtag sticker"><span class="sk-pill sp2">#HASHTAG</span></button>
      <button type="button" data-sk="time" aria-label="Time sticker"><span class="sk-big sb1">${tm}</span></button>
@@ -395,7 +395,7 @@ function openStoryEditor(items,{onShare}={}){
     <p class="se-sh-n">Tap a sticker on your story to change its style. Drag it to the bin to remove it.</p>`;
   const sub={
     loc:()=>`${shHead('Location',1)}<form class="se-shf" data-shf="loc"><input class="se-in" maxlength="40" placeholder="Search or type a place" aria-label="Place" autocomplete="off"><button class="btn btn-primary btn-sm">Add</button></form><div class="se-chips">${[...new Set(['Bengaluru',...TRIPS.map(t=>t.name),'Nandi Hills','Hampi'])].map(n=>`<button type="button" class="ed-chip" data-pick="${esc(n)}">${I('pin')}${esc(n)}</button>`).join('')}</div>`,
-    men:()=>`${shHead('Mention a friend',1)}<div class="se-list">${S.friends.map(([n,w])=>`<button type="button" data-pick="${esc(n)}">${av(n,n.length)}<span><b>${esc(n)}</b><small>${esc(w)}</small></span></button>`).join('')}</div><p class="se-sh-n">Only friends can be mentioned.</p>`,
+    men:()=>`${shHead('Mention someone',1)}<form class="se-shf" data-shf="men"><input class="se-in" maxlength="40" placeholder="Search anyone on Payana" aria-label="Search people" autocomplete="off"></form><div class="se-list" data-menl>${menList('')}</div><p class="se-sh-n">You can mention anyone on Payana. They can tap the sticker to see your story.</p>`,
     tag:()=>`${shHead('Hashtag',1)}<form class="se-shf" data-shf="tag"><input class="se-in" maxlength="30" placeholder="weekendtrip" aria-label="Hashtag" autocomplete="off"><button class="btn btn-primary btn-sm">Add</button></form><div class="se-chips">${['payana','weekendtrip','coorgdiaries','travelmates','nammabengaluru','roadtrip'].map(n=>`<button type="button" class="ed-chip" data-pick="${n}">#${n}</button>`).join('')}</div>`,
     trip:()=>`${shHead('Share a trip',1)}<div class="se-list">${TRIPS.map(t=>`<button type="button" data-pick="${t.id}"><img src="${msrc(t.img)}" alt=""><span><b>${esc(t.name)}</b><small>${esc(t.dates)} · ${esc(t.seats)} going</small></span></button>`).join('')}</div><p class="se-sh-n">Friends can tap the sticker to open the trip and ask to join.</p>`};
   let subK=null;
@@ -415,7 +415,10 @@ function openStoryEditor(items,{onShare}={}){
     const pk=t.closest('[data-pick]'); if(pk&&subK) return addStk(subK,pk.dataset.pick);
     const bg=t.closest('[data-bgv]'); if(bg){X().bg=bg.dataset.bgv; render(); sheet.querySelectorAll('[data-bgv]').forEach(b=>b.setAttribute('aria-pressed',b===bg)); return}
     const ft=t.closest('[data-fit]'); if(ft){const p=X().fit, c=smBox(X()).cover; if(ft.dataset.fit==='fit') Object.assign(p,{x:0,y:0,z:1}); else if(ft.dataset.fit==='fill') Object.assign(p,{x:0,y:0,z:+c.toFixed(3)}); else Object.assign(p,{x:0,y:0}); applyP()}});
-  sheet.addEventListener('submit',e=>{e.preventDefault(); const f=e.target.closest('[data-shf]'), v=f.querySelector('input').value.trim().replace(/^#/,'').replace(/\s+/g,f.dataset.shf==='tag'?'':' '); if(!v) return f.querySelector('input').focus(); addStk(f.dataset.shf,v)});
+  sheet.addEventListener('input',e=>{const f=e.target.closest('[data-shf="men"]'); if(f) sheet.querySelector('[data-menl]').innerHTML=menList(e.target.value)});
+  sheet.addEventListener('submit',e=>{e.preventDefault(); const f=e.target.closest('[data-shf]');
+    if(f&&f.dataset.shf==='men'){const L=findPeople(f.querySelector('input').value); return L.length?addStk('men',L[0].name):f.querySelector('input').focus()}
+    const v=f.querySelector('input').value.trim().replace(/^#/,'').replace(/\s+/g,f.dataset.shf==='tag'?'':' '); if(!v) return f.querySelector('input').focus(); addStk(f.dataset.shf,v)});
 
   /* ----- toolbar, items, share ----- */
   m.addEventListener('click',e=>{const t=e.target;
